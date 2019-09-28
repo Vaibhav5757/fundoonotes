@@ -1,42 +1,88 @@
-.log-in-box {
-  position: relative;
-  margin-top: 3em;
-  margin-left: 22em;
-  width: 25em;
-  height: 25em;
-  border: solid;
-  border-color: grey;
-  border-radius: 10px;
-  font-family: "Product Sans";
-  font-style: normal;
-  font-weight: 400;
-  src: local("Open Sans"), local("OpenSans"),
-    url(https://fonts.gstatic.com/s/productsans/v5/HYvgU2fE2nRJvZ5JFAumwegdm0LZdjqr5-oayXSOefg.woff2) format("woff2");
+@mixin flex-modifier($direction) {
+  display: inline-flex;
+  align-items: center;
+  flex-direction: $direction;
 }
 
-.email-input-bar {
-  margin-top: 1em;
-  margin-left: 2em;
-  width: 21.25em;
+@mixin margin-picker($top, $bottom, $left, $right) {
+  margin-top: $top;
+  margin-bottom: $bottom;
+  margin-left: $left;
+  margin-right: $right;
+}
+
+@mixin set-height-width($height, $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin set-border($border, $border-radius) {
+  border: $border;
+  border-radius: $border-radius;
+}
+
+@mixin box($direction, $height, $width, $border, $border-radius) {
+  @include flex-modifier($direction);
+  @include set-height-width($height, $width);
+  @include set-border($border, $border-radius);
+}
+
+.log-in-box {
+  position: absolute;
+  @include box(column, 23em, 30%, 1px solid #ccc, 10px);
+  @include margin-picker(3.5em, none, 34%, 34%);
+}
+
+@mixin color-picker($color) {
+  color: $color;
+  display: inline;
 }
 
 .blue-color {
-  color: blue;
-  display: inline;
+  @include color-picker(blue);
 }
 .red-color {
-  color: red;
-  display: inline;
+  @include color-picker(red);
 }
 .orange-color {
-  color: orange;
-  display: inline;
+  @include color-picker(rgb(211, 112, 55));
 }
 .green-color {
-  color: green;
-  display: inline;
+  @include color-picker(rgb(42, 238, 58));
 }
 
-.logo {
-  margin-top: 2em;
+.email-input {
+  @include margin-picker(2vh, none, none, none);
+  width: 90%;
 }
+
+.forgot-password-button {
+  @include color-picker(cornflowerblue);
+  margin-left: -1.1em;
+}
+
+.not-your-computer {
+  padding-block-start: 2.5em;
+  @include color-picker(grey);
+}
+
+.learn-more {
+  @include color-picker(cornflowerblue);
+  margin-left: -1.1em;
+}
+
+.create-button-view {
+  @include margin-picker(2em,none , 1.2em, -1.2em );
+  @include flex-modifier(row);
+  width:100%;
+  .create-account-button {
+    color: cornflowerblue;
+    width:67%;
+    justify-content: start;
+  }
+  .sign-in{
+    width: 25%;
+    justify-content: end;
+  }
+}
+
