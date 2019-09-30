@@ -1,0 +1,51 @@
+@mixin color-picker($color) {
+  color: $color;
+  display: inline;
+}
+
+.blue-color {
+  @include color-picker(blue);
+}
+.red-color {
+  @include color-picker(red);
+}
+.orange-color {
+  @include color-picker(rgb(211, 112, 55));
+}
+.green-color {
+  @include color-picker(rgb(42, 238, 58));
+}
+
+.first-name-bigger-screen {
+  width: 45%;
+}
+
+.last-name-bigger-screen {
+  width: 50%;
+  margin-left: 5%;
+}
+
+.first-last-name-smaller-screen {
+  width: 100%;
+}
+
+.use-my-email {
+  @include color-picker(cornflowerblue);
+  margin-left: 0.5em;
+}
+
+.password-smaller-screen {
+  width: 80%;
+}
+
+.password-bigger-screen {
+  width: 40%;
+}
+
+.confirm-smaller-screen {
+  width: 100%;
+}
+
+.confirm-bigger-screen {
+  width: 40%;
+}

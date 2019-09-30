@@ -1,36 +1,5 @@
-@mixin flex-modifier($direction) {
-  display: inline-flex;
-  align-items: center;
-  flex-direction: $direction;
-}
-
-@mixin margin-picker($top, $bottom, $left, $right) {
-  margin-top: $top;
-  margin-bottom: $bottom;
-  margin-left: $left;
-  margin-right: $right;
-}
-
-@mixin set-height-width($height, $width) {
-  width: $width;
-  height: $height;
-}
-
-@mixin set-border($border, $border-radius) {
-  border: $border;
-  border-radius: $border-radius;
-}
-
-@mixin box($direction, $height, $width, $border, $border-radius) {
-  @include flex-modifier($direction);
-  @include set-height-width($height, $width);
-  @include set-border($border, $border-radius);
-}
-
-.log-in-box {
-  position: absolute;
-  @include box(column, 23em, 30%, 1px solid #ccc, 10px);
-  @include margin-picker(3.5em, none, 34%, 34%);
+.email-bar{
+  width: 100%;
 }
 
 @mixin color-picker($color) {
@@ -51,38 +20,24 @@
   @include color-picker(rgb(42, 238, 58));
 }
 
-.email-input {
-  @include margin-picker(2vh, none, none, none);
-  width: 90%;
-}
-
-.forgot-password-button {
+.forgot-email-button{
   @include color-picker(cornflowerblue);
-  margin-left: -1.1em;
+  margin-top:-1.25em;
+  margin-left:0.25em;
 }
 
-.not-your-computer {
-  padding-block-start: 2.5em;
-  @include color-picker(grey);
+.complete-box{
+  margin-top: 5%;
 }
 
-.learn-more {
+.not-your-computer{
+  margin-top: 15%;
+}
+
+.learn-more{
   @include color-picker(cornflowerblue);
-  margin-left: -1.1em;
 }
 
-.create-button-view {
-  @include margin-picker(2em,none , 1.2em, -1.2em );
-  @include flex-modifier(row);
-  width:100%;
-  .create-account-button {
-    color: cornflowerblue;
-    width:67%;
-    justify-content: start;
-  }
-  .sign-in{
-    width: 25%;
-    justify-content: end;
-  }
+.create-account-next-div{
+  margin-top:15%;
 }
-

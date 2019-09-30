@@ -1,56 +1,71 @@
-<mat-card class="log-in-box">
-  <mat-card-content align="center">
-    <div class="blue-color">F</div>
-    <div class="red-color">u</div>
-    <div class="orange-color">n</div>
-    <div class="blue-color">d</div>
-    <div class="green-color">o</div>
-    <div class="red-color">o</div>
-    <div class="blue-color"> N</div>
-    <div class="red-color">o</div>
-    <div class="orange-color">t</div>
-    <div class="blue-color">e</div>
-    <div class="green-color">s</div>
+<div fxFlexFill fxLayout="column">
+  <div fxFlex fxLayoutAlign="center start" class="complete-box">
+    <mat-card>
+      <mat-card-subtitle fxLayoutAlign="center">
 
-    <h1>Sign In</h1>
+        <div class="blue-color">F</div>
+        <div class="red-color">u</div>
+        <div class="orange-color">n</div>
+        <div class="blue-color">d</div>
+        <div class="green-color">o</div>
+        <div class="red-color">o</div>
+        <div class="blue-color">N</div>
+        <div class="red-color">o</div>
+        <div class="orange-color">t</div>
+        <div class="blue-color">e</div>
+        <div class="green-color">s</div>
 
-    <p>Sign In to your account</p>
-  </mat-card-content>
+      </mat-card-subtitle>
 
-  <mat-form-field appearance="outline" hideRequiredMarker class="email-input">
-    <mat-label>Email or phone</mat-label>
-    <input matInput required>
-    <mat-hint align="start"><button mat-button class="forgot-password-button">
-        Forgot email?
-      </button></mat-hint>
-  </mat-form-field>
-
-  <mat-card-content class="not-your-computer">
-    Not your computer? Use Guest mode to sign in privately.
-    <p>
-      <button mat-button class="learn-more">
-        Learn More
-      </button>
-    </p>
-  </mat-card-content>
-
-  <mat-card-content class="create-button-view">
-
-    <div class="create-account-button">
-      <button mat-button [matMenuTriggerFor]="menu">
-        Create New Account
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>For Myself</button>
-        <button mat-menu-item>To Manage My Business</button>
-      </mat-menu>
-    </div>
-    <div class="sign-in">
-      <button mat-raised-button color="primary" class="Sign In">
+      <mat-card-title fxLayoutAlign="center">
         Sign In
-      </button>
-    </div>
+      </mat-card-title>
 
-  </mat-card-content>
+      <mat-card-content fxLayoutAlign="center">
+        Use your fundoo account
+      </mat-card-content>
 
-</mat-card>
+      <mat-card-content fxLayout="column">
+        <mat-form-field appearance="outline" hideRequiredMarker>
+          <mat-label>Email or phone</mat-label>
+          <input matInput required [formControl]="emailFormControl" class="email-bar">
+        </mat-form-field>
+        <a fxLayoutAlign="start" class="forgot-email-button">
+          Forgot email?
+        </a>
+      </mat-card-content>
+
+      <div class="not-your-computer">
+        <mat-card-subtitle>
+          Not your computer? Use Guest mode to sign in privately.
+          <a fxLayoutAlign="start" class="learn-more">
+            Learn More
+          </a>
+        </mat-card-subtitle>
+      </div>
+
+      <div class="create-account-next-div" flexLayout="row" fxLayoutAlign="space-between">
+        <mat-card-content fxLayoutAlign="start">
+          <div style="margin-left:-13%">
+            <button mat-button [matMenuTriggerFor]="menu" class="learn-more">
+              <!-- Learn more class has same colour and no specific margin, hence used here -->
+              Create Account
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>For Myself</button>
+              <button mat-menu-item>To Manage My Business</button>
+            </mat-menu>
+          </div>
+        </mat-card-content>
+        <mat-card-content fxLayoutAlign="end">
+          <div>
+            <button mat-raised-button color="primary">
+              Next
+            </button>
+          </div>
+        </mat-card-content>
+      </div>
+
+    </mat-card>
+  </div>
+</div>
