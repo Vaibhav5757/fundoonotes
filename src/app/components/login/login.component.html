@@ -1,7 +1,7 @@
 <div fxFlexFill fxLayout="column">
   <div fxFlex fxLayoutAlign="center start" class="complete-box">
     <mat-card>
-      <mat-card-subtitle fxLayoutAlign="center">
+      <mat-card-title fxLayoutAlign="center">
 
         <div class="blue-color">F</div>
         <div class="red-color">u</div>
@@ -15,7 +15,7 @@
         <div class="blue-color">e</div>
         <div class="green-color">s</div>
 
-      </mat-card-subtitle>
+      </mat-card-title>
 
       <mat-card-title fxLayoutAlign="center">
         Sign In
@@ -30,8 +30,12 @@
           <mat-label>Email or phone</mat-label>
           <input matInput required [formControl]="emailFormControl" class="email-bar">
         </mat-form-field>
+        <mat-form-field appearance="outline" hideRequiredMarker>
+            <mat-label>Password</mat-label>
+            <input type="password" matInput required [formControl]="passwordFormControl" class="email-bar">
+          </mat-form-field>
         <a fxLayoutAlign="start" class="forgot-email-button">
-          Forgot email?
+          Forgot password?
         </a>
       </mat-card-content>
 
@@ -52,14 +56,14 @@
               Create Account
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item>For Myself</button>
+              <button (click)="onClick()" mat-menu-item>For Myself</button>
               <button mat-menu-item>To Manage My Business</button>
             </mat-menu>
           </div>
         </mat-card-content>
         <mat-card-content fxLayoutAlign="end">
           <div>
-            <button mat-raised-button color="primary">
+            <button mat-raised-button class="next-button">
               Next
             </button>
           </div>

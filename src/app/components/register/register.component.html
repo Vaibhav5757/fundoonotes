@@ -1,111 +1,131 @@
 <div fxFlexFill fxLayout="column">
-  <div fxFlex fxLayout="row" fxLayoutAlign="space-evenly center" style="margin: auto">
+    <div fxLayout="column" fxLayoutAlign="space-between center" style="margin: auto">
 
-    <mat-card fxLayout="row">
-
-      <!-- Left Division -->
-      <div>
-        <mat-card-title>
-
-          <div class="blue-color">F</div>
-          <div class="red-color">u</div>
-          <div class="orange-color">n</div>
-          <div class="blue-color">d</div>
-          <div class="green-color">o</div>
-          <div class="red-color">o</div>
-          <div class="blue-color">N</div>
-          <div class="red-color">o</div>
-          <div class="orange-color">t</div>
-          <div class="blue-color">e</div>
-          <div class="green-color">s</div>
-
-        </mat-card-title>
-
-        <mat-card-title>
-          Create your fundoo Account
-        </mat-card-title>
-
-
-        <mat-card-content>
-
-          <!-- First name and Last name -->
-          <div fxLayout.xs="column" fxLayout.gt-xs="row" fxLayoutAlign="space-between">
-
-
-            <mat-form-field ngClass.lt-xs="first-last-name-smaller-screen" ngClass.gt-xs="first-name-bigger-screen"
-              appearance="outline" hideRequiredMarker>
-              <mat-label>First Name</mat-label>
-              <input [formControl]="firstNameFormControl" matInput>
-            </mat-form-field>
-
-            <mat-form-field ngClass.lt-xs="first-last-name-smaller-screen" ngClass.gt-xs="last-name-bigger-screen"
-              appearance="outline" hideRequiredMarker>
-              <mat-label>Last Name</mat-label>
-              <input [formControl]="lastNameFormControl" matInput>
-            </mat-form-field>
-
+        <mat-card fxLayout="row" fxLayoutAlign="space-between center">
+      
+          <!-- Left Division -->
+          <div fxFlex.xs="90">
+            <mat-card-title>
+      
+              <div class="blue-color">F</div>
+              <div class="red-color">u</div>
+              <div class="orange-color">n</div>
+              <div class="blue-color">d</div>
+              <div class="green-color">o</div>
+              <div class="red-color">o</div>
+              <div class="blue-color">N</div>
+              <div class="red-color">o</div>
+              <div class="orange-color">t</div>
+              <div class="blue-color">e</div>
+              <div class="green-color">s</div>
+      
+            </mat-card-title>
+      
+            <mat-card-title>
+              Create your fundoo Account
+            </mat-card-title>
+      
+      
+            <mat-card-content>
+      
+              <!-- First name and Last name -->
+              <div fxLayout.xs="column" fxLayout.gt-xs="row" fxLayoutAlign="space-between">
+      
+      
+                <mat-form-field ngClass.lt-xs="first-last-name-smaller-screen" ngClass.gt-xs="first-name-bigger-screen"
+                  appearance="outline" hideRequiredMarker>
+                  <mat-label>First Name</mat-label>
+                  <input [formControl]="firstNameFormControl" matInput>
+                </mat-form-field>
+      
+                <mat-form-field ngClass.lt-xs="first-last-name-smaller-screen" ngClass.gt-xs="last-name-bigger-screen"
+                  appearance="outline" hideRequiredMarker>
+                  <mat-label>Last Name</mat-label>
+                  <input [formControl]="lastNameFormControl" matInput>
+                </mat-form-field>
+      
+              </div>
+      
+              <!-- Username or email address -->
+              <div>
+                <mat-form-field style="width:100%" appearance="outline" hideRequiredMarker>
+                  <mat-label>Username</mat-label>
+                  <input [formControl]="emailFormControl" matInput>
+                  <span matSuffix>@gmail.com</span>
+                  <mat-hint align="start">You can use letters, numbers & periods</mat-hint>
+                </mat-form-field>
+              </div>
+      
+            </mat-card-content>
+      
+            <mat-card-content>
+              <a class="use-my-email">
+                Use my current email address instead
+              </a>
+            </mat-card-content>
+      
+      
+            <!-- Password and Confirm Password -->
+            <mat-card-content fxLayout.xs="column" fxLayout.gt-xs="Row" fxLayoutAlign="space-between">
+      
+              <div fxLayout.xs="row">
+      
+                <mat-form-field appearance="outline" ngClass.xs="password-smaller-screen"
+                  ngClass.gt-xs="password-bigger-screen">
+                  <mat-label>Password</mat-label>
+                  <input [type]="hide?'password':'text'" matInput [formControl]="passwordFormControl">
+                </mat-form-field>
+      
+                <button fxHide.xs="false" fxHide.gt-xs="true" mat-icon-button (click)='hide = !hide'>
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+      
+              </div>
+      
+              <mat-card-content fxHide.gt-xs="true">
+                <p>
+                  Use 8 or more characters with a mix of letters, numbers & symbols
+                </p>
+              </mat-card-content>
+      
+              <mat-form-field appearance="outline" ngClass.xs="confirm-smaller-screen" ngClass.gt-xs="confirm-bigger-screen">
+                <mat-label>Confirm</mat-label>
+                <input type="password" matInput [formControl]="confirmPasswordFormControl">
+              </mat-form-field>
+      
+      
+              <button fxHide.xs="true" mat-icon-button (click)='hide = !hide' [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+      
+            </mat-card-content>
+      
+            <mat-card-content fxHide.xs="true">
+              <p>
+                Use 8 or more characters with a mix of letters, numbers & symbols
+              </p>
+            </mat-card-content>
+      
+            <mat-card-content fxLayout="row" fxLayoutAlign="space-between center">
+              <div>
+                <a class="use-my-email">Sign In instead</a>
+              </div>
+              <div>
+                <button mat-raised-button class="next-button">
+                  Next
+                </button>
+              </div>
+            </mat-card-content>
+      
           </div>
-
-          <!-- Username or email address -->
-          <div>
-            <mat-form-field style="width:100%" appearance="outline" hideRequiredMarker>
-              <mat-label>Username</mat-label>
-              <input [formControl]="emailFormControl" matInput>
-              <span matSuffix>@gmail.com</span>
-              <mat-hint align="start">You can use letters, numbers & periods</mat-hint>
-            </mat-form-field>
+      
+          <!-- Right Division -->
+          <div fxHide.xs="true">
+            <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" width="250px" alt="logo">
           </div>
-
-        </mat-card-content>
-
-        <mat-card-content>
-          <a class="use-my-email">
-            Use my current email address instead
-          </a>
-        </mat-card-content>
-
-
-        <!-- Password and Confirm Password -->
-        <mat-card-content fxLayout.xs="column" fxLayout.gt-xs="Row" fxLayoutAlign="space-between">
-
-          <mat-form-field appearance="outline" ngClass.xs="password-smaller-screen"
-            ngClass.gt-xs="password-bigger-screen">
-            <mat-label>Password</mat-label>
-            <input [type]="hide?'password':'text'" matInput [formControl]="passwordFormControl">
-            <mat-hint fxHide.gt-xs="true">Use 8 or more characters with a mix of letters, numbers & symbols</mat-hint>
-          </mat-form-field>
-
-          <button fxHide.gt-xs="true" mat-icon-button (click)='hide = !hide'>
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-
-          <mat-form-field appearance="outline" ngClass.xs="confirm-smaller-screen"
-            ngClass.gt-xs="confirm-bigger-screen">
-            <mat-label>Confirm</mat-label>
-            <input type="password" matInput [formControl]="confirmPasswordFormControl">
-          </mat-form-field>
-
-
-          <button fxHide.xs="true" mat-icon-button (click)='hide = !hide'>
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-
-        </mat-card-content>
-
-        <mat-card-content>
-          <p>
-            Use 8 or more characters with a mix of letters, numbers & symbols
-          </p>
-        </mat-card-content>
-
+      
+        </mat-card>
+      
       </div>
-
-      <!-- Right Division -->
-      <div fxHide.xs="true" fxLayout="column" fxLayoutAlign="center center">
-        <img mat-card-image src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="logo">
-      </div>
-
-    </mat-card>
-
-  </div>
 </div>

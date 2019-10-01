@@ -1,23 +1,7 @@
+@import 'src/scss/styles.scss';
+
 .email-bar{
   width: 100%;
-}
-
-@mixin color-picker($color) {
-  color: $color;
-  display: inline;
-}
-
-.blue-color {
-  @include color-picker(blue);
-}
-.red-color {
-  @include color-picker(red);
-}
-.orange-color {
-  @include color-picker(rgb(211, 112, 55));
-}
-.green-color {
-  @include color-picker(rgb(42, 238, 58));
 }
 
 .forgot-email-button{
