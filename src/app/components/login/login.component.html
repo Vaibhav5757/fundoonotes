@@ -25,19 +25,21 @@
         Use your fundoo account
       </mat-card-content>
 
+      <form [formGroup]="loginForm">
       <mat-card-content fxLayout="column">
-        <mat-form-field appearance="outline" hideRequiredMarker>
-          <mat-label>Email or phone</mat-label>
-          <input matInput required [formControl]="emailFormControl" class="email-bar">
-        </mat-form-field>
-        <mat-form-field appearance="outline" hideRequiredMarker>
+          <mat-form-field appearance="outline" hideRequiredMarker>
+            <mat-label>Email or phone</mat-label>
+            <input matInput required formControlName="emailFormControl" class="email-bar">
+          </mat-form-field>
+          <mat-form-field appearance="outline" hideRequiredMarker>
             <mat-label>Password</mat-label>
-            <input type="password" matInput required [formControl]="passwordFormControl" class="email-bar">
+            <input type="password" matInput required formControlName="passwordFormControl" class="email-bar">
           </mat-form-field>
         <a fxLayoutAlign="start" class="forgot-email-button">
           Forgot password?
         </a>
       </mat-card-content>
+    </form>
 
       <div class="not-your-computer">
         <mat-card-subtitle>
@@ -63,7 +65,7 @@
         </mat-card-content>
         <mat-card-content fxLayoutAlign="end">
           <div>
-            <button mat-raised-button class="next-button">
+            <button (click)="logIn()" mat-raised-button class="next-button">
               Next
             </button>
           </div>

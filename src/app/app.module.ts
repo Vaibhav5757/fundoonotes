@@ -9,6 +9,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatButtonModule, MatInputModule, MatListModule, MatCardModule, MatFormFieldModule, MatMenuModule, MatSelectModule, MatOptionModule, MatIconModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RegisterComponent } from './components/register/register.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpServiceService } from '../app/services/http-service.service';
+import { UserServiceService } from '../app/services/user-service.service';
+
 
 @NgModule({
   declarations: [
@@ -31,9 +35,13 @@ import { RegisterComponent } from './components/register/register.component';
     MatMenuModule,
     MatSelectModule,
     MatOptionModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    HttpServiceService,
+    UserServiceService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
