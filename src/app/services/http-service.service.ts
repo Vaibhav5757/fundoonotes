@@ -7,12 +7,6 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class HttpServiceService {
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'reset': 'my-auth-token'
-    })
-  };
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -37,8 +31,13 @@ export class HttpServiceService {
   }
 
   resetPassword(data, token): void {
-    this.httpOptions.headers.set('reset', token);
-    let obs = this.http.post('http://fundoonotes.incubation.bridgelabz.com/api/user/reset-password', data, this.httpOptions);
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'access_token': token
+      })
+    };
+    let obs = this.http.post('http://fundoonotes.incubation.bridgelabz.com/api/user/reset-password', data, httpOptions);
     obs.subscribe((response) => console.log(response));
   }
 }

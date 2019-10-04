@@ -39,10 +39,8 @@ export class ResetPasswordComponent implements OnInit {
 
   resetPassword() {
     this.http.resetPassword({
-      password: this.resetPasswordFormGroup.get('passwordFormController').value
-    },{
-      token: this.token,
-    })
+      newPassword: this.resetPasswordFormGroup.get('passwordFormController').value
+    }, this.token)
   }
 }
 
