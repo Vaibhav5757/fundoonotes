@@ -116,7 +116,7 @@
 
         <mat-card-content fxLayout="row" fxLayoutAlign="space-between center">
           <div>
-            <a class="use-my-email">Sign In instead</a>
+            <a class="use-my-email" (click)="onClick()">Sign In instead</a>
           </div>
           <div>
             <button (click)="signUp()" mat-raised-button class="next-button">

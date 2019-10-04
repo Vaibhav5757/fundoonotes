@@ -1,4 +1,4 @@
-@import "src/scss/styles.scss";
+@import "src/app/scss/styles.scss";
 
 .first-name-bigger-screen {
   width: 45%;
@@ -16,6 +16,7 @@
 .use-my-email {
   @include color-picker(cornflowerblue);
   // margin-left: 0.5em;
+  cursor: pointer;
 }
 
 .password-smaller-screen {

@@ -27,7 +27,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/scss/styles.scss",
+              "src/app/scss/styles.scss",
               {
                 "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
               }

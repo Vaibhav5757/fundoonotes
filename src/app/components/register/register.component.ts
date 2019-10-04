@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { HttpServiceService } from 'src/app/services/http-service.service';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class RegisterComponent implements OnInit {
 
   registrationForm: FormGroup;
 
-  constructor(private http: HttpServiceService, private titleService: Title) {
+  constructor(private http: HttpServiceService, private titleService: Title, private router: Router) {
     this.setTitle("Sign Up");
 
     this.registrationForm = new FormGroup({
@@ -53,6 +54,10 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  onClick(): void {
+    this.router.navigateByUrl('/login');
   }
 
 
