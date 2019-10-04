@@ -44,6 +44,12 @@ export class LoginComponent {
     this.loginForm.reset();
   }
 
+  forgotPassword(): void {
+    this.http.forgotPassword({
+      email: this.loginForm.get('emailFormControl').value
+    })
+  }
+
 }
 
 

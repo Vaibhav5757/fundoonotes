@@ -6,8 +6,9 @@
 
 .forgot-email-button{
   @include color-picker(cornflowerblue);
-  margin-top:-1.25em;
   margin-left:0.25em;
+  cursor: pointer;
+  // pointer-events: all;
 }
 
 .complete-box{
@@ -20,6 +21,7 @@
 
 .learn-more{
   @include color-picker(cornflowerblue);
+  cursor: pointer;
 }
 
 .create-account-next-div{

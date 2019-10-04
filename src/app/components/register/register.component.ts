@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { HttpServiceService } from 'src/app/services/http-service.service';
 import { Title } from '@angular/platform-browser';
 
@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private http: HttpServiceService, private titleService: Title) {
     this.setTitle("Sign Up");
+
     this.registrationForm = new FormGroup({
       firstNameFormControl: new FormControl('', [
         Validators.required,
