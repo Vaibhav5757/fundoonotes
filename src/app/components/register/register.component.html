@@ -67,10 +67,9 @@
           </a>
         </mat-card-content>
 
-
         <form [formGroup]="registrationForm">
           <!-- Password and Confirm Password -->
-          <mat-card-content fxLayout.xs="column" fxLayout.gt-xs="Row" fxLayoutAlign="space-between">
+          <mat-card-content fxLayout.xs="column" fxLayout.gt-xs="Row" fxLayoutAlign="space-between" formGroupName="passwordGroup">
 
             <div fxLayout.xs="row">
 
