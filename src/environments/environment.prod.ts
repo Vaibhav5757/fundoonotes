@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  domainURL: 'http://fundoonotes.incubation.bridgelabz.com/api/'
 };

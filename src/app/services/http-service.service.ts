@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { HttpHeaders } from '@angular/common/http';
+import { environment } from "src/environments/environment.prod";
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +12,12 @@ export class HttpServiceService {
   }
 
   logIn(data): void {
-    let obs = this.http.post('http://fundoonotes.incubation.bridgelabz.com/api/user/login', data);
+    let obs = this.http.post(environment.domainURL + 'user/login', data);
     obs.subscribe((response) => console.log(response));
   }
 
   signUp(data): void {
-    let obs = this.http.post('http://fundoonotes.incubation.bridgelabz.com/api/user/userSignUp', data);
+    let obs = this.http.post(environment.domainURL + 'user/userSignUp', data);
     obs.subscribe((response) => {
       if (response["data"].success) {
         this.router.navigateByUrl("/login");
@@ -26,18 +26,12 @@ export class HttpServiceService {
   }
 
   forgotPassword(data): void {
-    let obs = this.http.post('http://fundoonotes.incubation.bridgelabz.com/api/user/reset', data);
+    let obs = this.http.post(environment.domainURL + 'user/reset', data);
     obs.subscribe((response) => console.log(response));
   }
 
   resetPassword(data, token): void {
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'access_token': token
-      })
-    };
-    let obs = this.http.post('http://fundoonotes.incubation.bridgelabz.com/api/user/reset-password', data, httpOptions);
+    let obs = this.http.post(environment.domainURL + 'user/reset-password?access_token='+token, data);
     obs.subscribe((response) => console.log(response));
   }
 }
