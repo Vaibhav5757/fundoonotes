@@ -1,0 +1,42 @@
+<div fxLayout="column" fxLayoutAlign="space-between">
+
+  <div class="header" fxLayout="row" fxLayoutAlign="start center">
+    <mat-icon (click)="hide != hide" style="margin-left: 1%" class="material-icons">menu</mat-icon>
+
+    <div class="logo" style="margin-left: 4%">
+      <div class="blue-color">F</div>
+      <div class="red-color">u</div>
+      <div class="orange-color">n</div>
+      <div class="blue-color">d</div>
+      <div class="green-color">o</div>
+      <div class="red-color">o</div>
+      <div class="blue-color">N</div>
+      <div class="red-color">o</div>
+      <div class="orange-color">t</div>
+      <div class="blue-color">e</div>
+      <div class="green-color">s</div>
+    </div>
+
+    <div fxHide.xs="true" class="search-box-in-header" fxLayout="row" fxLayoutAlign="start center">
+      <mat-icon style="margin-left:1%;color: grey" class="material-icons">search</mat-icon>
+      <div style="margin-left:5%">
+        <mat-form-field appearance="fill legacy" style="width:335%; margin-top: 8%">
+          <input matInput placeholder="Search">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Four Icons -->
+    <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-left: 1%">
+      <mat-icon fxHide.gt-xs="true" class="material-icons" style="color: grey; margin-left:20%">search</mat-icon>
+      <div fxLayoutAlign="row" ngClass.gt-xs='three-icons-bigger-screen' ngClass.xs="three-icons-smaller-screen">
+        <mat-icon class="material-icons" style="color: grey">refresh</mat-icon>
+        <mat-icon class="material-icons" style="color: grey; margin-left:20%" fxHide.xs="true">view_stream</mat-icon>
+        <mat-icon class="material-icons" style="color: grey; margin-left:20%">settings</mat-icon>
+        <mat-icon class="material-icons" style="color: grey; margin-left:20%">mood_bad</mat-icon>
+      </div>
+    </div>
+
+
+
+  </div>
