@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpServiceService } from 'src/app/services/http-service.service';
 import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-reset-password',
@@ -13,7 +14,9 @@ export class ResetPasswordComponent implements OnInit {
   resetPasswordFormGroup: FormGroup;
   token: String
 
-  constructor(private http: HttpServiceService, private route: ActivatedRoute) {
+  constructor(private http: HttpServiceService, private titleService: Title, private route: ActivatedRoute) {
+    this.setTitle("Reset Password");
+    
     this.resetPasswordFormGroup = new FormGroup({
 
       passwordFormController: new FormControl('', [
@@ -29,6 +32,10 @@ export class ResetPasswordComponent implements OnInit {
     }, {
       validators: matchPassword
     })
+  }
+
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
   }
 
   ngOnInit() {
