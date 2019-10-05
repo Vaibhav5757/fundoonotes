@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from "src/app/environments/environment.prod";
 
@@ -31,7 +31,12 @@ export class HttpServiceService {
   }
 
   resetPassword(data, token): void {
-    let obs = this.http.post(environment.domainURL + 'user/reset-password?access_token='+token, data);
+    let httpOptions = new HttpHeaders({
+      'Authorization': token
+    });
+    let obs = this.http.post(environment.domainURL + 'user/reset-password', data, {
+      headers: httpOptions
+    });
     obs.subscribe((response) => console.log(response));
   }
 }

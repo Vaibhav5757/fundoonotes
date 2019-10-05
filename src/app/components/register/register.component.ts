@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
-import { HttpServiceService } from 'src/app/services/http-service.service';
+import { UserServiceService } from 'src/app/services/user-service.service';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit {
 
   registrationForm: FormGroup;
 
-  constructor(private http: HttpServiceService, private titleService: Title, private router: Router) {
+  constructor(private http: UserServiceService, private titleService: Title, private snackBar: MatSnackBar, private router: Router) {
     this.setTitle("Sign Up");
 
     this.registrationForm = new FormGroup({
@@ -71,6 +72,31 @@ export class RegisterComponent implements OnInit {
         service: "basic"
       });
       this.registrationForm.reset();
+    } else {
+
+      if (this.registrationForm.get('firstNameFormControl').invalid) {
+        this.snackBar.open("First Name Required and should have at least 5 alphabets", '', {
+          duration: 1500
+        });
+      }
+
+      if (this.registrationForm.get('lastNameFormControl').invalid) {
+        this.snackBar.open("Last Name Required and should have at least 5 alphabets", '', {
+          duration: 1500
+        });
+      }
+
+      if (this.registrationForm.get('passwordGroup').invalid) {
+        this.snackBar.open("Errors in Password", '', {
+          duration: 1500
+        });
+      }
+
+      if (this.registrationForm.get('emailFormControl').invalid) {
+        this.snackBar.open("Invalid Email Address", '', {
+          duration: 1500
+        });
+      }
     }
   }
 }
