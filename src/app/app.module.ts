@@ -18,6 +18,7 @@ import { HttpServiceService } from '../app/services/http-service.service';
 import { UserServiceService } from '../app/services/user-service.service';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     MatSelectModule,
     MatOptionModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    LayoutModule
   ],
   providers: [
     HttpServiceService,

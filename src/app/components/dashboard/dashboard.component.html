@@ -1,5 +1,5 @@
 <mat-toolbar>
-  <mat-icon (click)="sidenav.toggle()" style="margin-left: 1%" class="material-icons">menu</mat-icon>
+  <mat-icon (click)="drawer.toggle()" style="margin-left: 1%" class="material-icons">menu</mat-icon>
 
   <div class="logo" style="margin-left: 4%">
     <div class="blue-color">F</div>
@@ -15,6 +15,7 @@
     <div class="green-color">s</div>
   </div>
 
+  <!-- Search bar in header -->
   <div fxHide.xs="true" class="search-box-in-header" fxLayout="row" fxLayoutAlign="start center">
     <mat-icon style="margin-left:1%;color: grey" class="material-icons">search</mat-icon>
     <div style="margin-left:5%">
@@ -29,7 +30,7 @@
 
 
   <!-- Three Icons -->
-  <div fxLayout="row" fxLayoutAlign="space-around center">
+  <div fxLayout="row" fxLayoutAlign="space-around" style="margin-top: 1%">
 
     <div>
       <mat-icon class="material-icons" style="color: grey">refresh</mat-icon>
@@ -47,96 +48,73 @@
   <span class="example-fill-remaining-space"></span>
 
   <!-- Log Out Icon -->
-  <div>
-    <mat-icon class="material-icons" style="color: grey">mood_bad</mat-icon>
+  <div fxLayout="row" fxLayoutAlign="space-around">
+    <!-- <mat-icon class="material-icons" style="color: grey">mood_bad</mat-icon> -->
+    <button mat-mini-fab color="warn">
+      <mat-icon>mood_bad</mat-icon>
+    </button>
   </div>
-
 </mat-toolbar>
 
-<!-- Both main content and side content -->
-<mat-sidenav-container class="container">
+<mat-sidenav-container class="sidenav-container">
 
-  <!-- side content -->
-  <mat-sidenav #sidenav mode='side' ngClass.gt-xs="sidenav-bigger-screen" ngClass.xs="sidenav-smaller-screen"
-    fxLayout="column">
+  <mat-sidenav #drawer ngClass.gt-xs="sidenav-bigger-screen" ngClass.xs="sidenav-smaller-screen"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async)">
 
+    <mat-nav-list style="margin-left:4%">
 
-
-    <!-- Notes and reminder Option -->
-    <div style="margin-top:10%;margin-left:4%">
-
-      <!-- Notes Option -->
-      <div fxLayout="row" class="sidenav-contents">
+      <mat-list-item>
         <i class="material-icons">whatshot</i>
-        <div style="margin-left:18%">
+        <h3 style="margin-left:18%">
           Notes
-        </div>
-      </div>
+        </h3>
+      </mat-list-item>
 
-      <!-- Reminders Option -->
-      <div fxLayout="row" style="margin-top:5%" class="sidenav-contents">
+      <mat-list-item>
         <i class="material-icons">notifications_none</i>
-        <div style="margin-left:18%">
+        <h3 style="margin-left:18%">
           Reminders
-        </div>
-      </div>
+        </h3>
+      </mat-list-item>
 
-    </div>
+      <mat-divider></mat-divider>
 
+      <mat-list-item>
+        <p>LABELS</p>
+      </mat-list-item>
 
-    <div>
-      <!-- Grey Line -->
-      <hr>
-    </div>
-
-    <!-- Edit Labels Option -->
-    <div fxLayout="column">
-      <div style="margin-left:4%">
-        <p style="color: grey">LABELS</p>
-      </div>
-      <div fxLayout="row" style="margin-left:4%" class="sidenav-contents">
+      <mat-list-item>
         <i class="material-icons">colorize</i>
-        <div style="margin-left:18%">
-          Edit Labels
-        </div>
-      </div>
-    </div>
+        <h3 style="margin-left:18%">
+          Edit labels
+        </h3>
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
 
 
-    <div>
-      <!-- Grey Line -->
-      <hr>
-    </div>
-
-    <!-- Archive and Bin Options -->
-    <div style="margin-top:10%;margin-left:4%">
-
-      <!-- Archive Option -->
-      <div fxLayout="row" class="sidenav-contents">
+      <mat-list-item>
         <i class="material-icons">archive</i>
-        <div style="margin-left:18%">
+        <h3 style="margin-left:18%">
           Archive
-        </div>
-      </div>
+        </h3>
+      </mat-list-item>
 
 
-      <!-- Bin Option -->
-      <div fxLayout="row" style="margin-top:5%" class="sidenav-contents">
+      <mat-list-item>
         <i class="material-icons">delete_outline</i>
-        <div style="margin-left:18%">
+        <h3 style="margin-left:18%">
           Bin
-        </div>
-      </div>
+        </h3>
+      </mat-list-item>
 
-    </div>
+    </mat-nav-list>
 
   </mat-sidenav>
 
-
-  <!-- Main Content -->
   <mat-sidenav-content>
 
   </mat-sidenav-content>
-
 
 </mat-sidenav-container>

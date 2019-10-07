@@ -1,24 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Component } from '@angular/core';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-components/dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
-  hide = true;
-
-  constructor(private titleService: Title) {
-    this.setTitle("DashBoard");
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches)
+    );
+    
+  constructor(private breakpointObserver: BreakpointObserver) {}
+  
   }
-
-  public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
-  }
-
-  ngOnInit() {
-  }
-
-}
