@@ -2,6 +2,7 @@
   <mat-icon (click)="drawer.toggle()" style="margin-left: 1%" class="material-icons">menu</mat-icon>
 
   <div class="logo" style="margin-left: 4%">
+
     <div class="blue-color">F</div>
     <div class="red-color">u</div>
     <div class="orange-color">n</div>
@@ -32,13 +33,16 @@
   <!-- Three Icons -->
   <div fxLayout="row" fxLayoutAlign="space-around" style="margin-top: 1%">
 
-    <div>
+    <div fxHide.gt-xs="true">
+      <mat-icon class="material-icons" style="color: grey">search</mat-icon>
+    </div>
+    <div ngClass.xs=three-icons-in-header-smaller-screen>
       <mat-icon class="material-icons" style="color: grey">refresh</mat-icon>
     </div>
-    <div style="margin-left:20%">
-      <mat-icon class="material-icons" style="color: grey">view_stream</mat-icon>
+    <div ngClass.gt-xs=three-icons-in-header-bigger-screen fxHide.xs="true">
+      <mat-icon class="material-icons" style="color: grey">view_agenda</mat-icon>
     </div>
-    <div style="margin-left:20%">
+    <div ngClass.gt-xs=three-icons-in-header-bigger-screen ngClass.xs=three-icons-in-header-smaller-screen>
       <mat-icon class="material-icons" style="color: grey">settings</mat-icon>
     </div>
 
@@ -51,13 +55,15 @@
   <div fxLayout="row" fxLayoutAlign="space-around">
     <!-- <mat-icon class="material-icons" style="color: grey">mood_bad</mat-icon> -->
     <button mat-mini-fab color="warn">
-      <mat-icon>mood_bad</mat-icon>
+      <mat-icon>thumb_down_alt</mat-icon>
     </button>
   </div>
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
 
+
+  <!-- Side nav bar contents -->
   <mat-sidenav #drawer ngClass.gt-xs="sidenav-bigger-screen" ngClass.xs="sidenav-smaller-screen"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="!(isHandset$ | async)">
@@ -65,7 +71,7 @@
     <mat-nav-list style="margin-left:4%">
 
       <mat-list-item>
-        <i class="material-icons">whatshot</i>
+        <mat-icon class="material-icons">emoji_objects</mat-icon>
         <h3 style="margin-left:18%">
           Notes
         </h3>
@@ -94,8 +100,8 @@
       <mat-divider></mat-divider>
 
 
-      <mat-list-item>
-        <i class="material-icons">archive</i>
+      <mat-list-item style="margin-top: 4%">
+        <mat-icon class="material-icons">archive</mat-icon>
         <h3 style="margin-left:18%">
           Archive
         </h3>
@@ -113,6 +119,8 @@
 
   </mat-sidenav>
 
+
+  <!-- Main Contents -->
   <mat-sidenav-content>
 
   </mat-sidenav-content>
