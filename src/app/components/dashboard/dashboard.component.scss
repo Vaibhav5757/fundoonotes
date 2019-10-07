@@ -8,7 +8,7 @@
 
 .sidenav-smaller-screen {
   width: 80%;
-  height:90%;
+  height: 90%;
 }
 
 .mat-toolbar.mat-primary {
@@ -25,16 +25,20 @@
   background-color: white;
 }
 
-.three-icons-in-header-bigger-screen{
-  margin-left:30%
+.three-icons-in-header-bigger-screen {
+  margin-left: 30%;
 }
 
-.three-icons-in-header-smaller-screen{
-  margin-left:5%
+.three-icons-in-header-smaller-screen {
+  margin-left: 5%;
 }
 
 .example-fill-remaining-space {
   /* This fills the remaining space, by using flexbox. 
      Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
+}
+
+.log-out-icon {
+  margin-left:5% ;
 }
