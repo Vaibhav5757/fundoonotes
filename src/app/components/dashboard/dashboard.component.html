@@ -1,42 +1,142 @@
-<div fxLayout="column" fxLayoutAlign="space-between">
+<mat-toolbar>
+  <mat-icon (click)="sidenav.toggle()" style="margin-left: 1%" class="material-icons">menu</mat-icon>
 
-  <div class="header" fxLayout="row" fxLayoutAlign="start center">
-    <mat-icon (click)="hide != hide" style="margin-left: 1%" class="material-icons">menu</mat-icon>
+  <div class="logo" style="margin-left: 4%">
+    <div class="blue-color">F</div>
+    <div class="red-color">u</div>
+    <div class="orange-color">n</div>
+    <div class="blue-color">d</div>
+    <div class="green-color">o</div>
+    <div class="red-color">o</div>
+    <div class="blue-color">N</div>
+    <div class="red-color">o</div>
+    <div class="orange-color">t</div>
+    <div class="blue-color">e</div>
+    <div class="green-color">s</div>
+  </div>
 
-    <div class="logo" style="margin-left: 4%">
-      <div class="blue-color">F</div>
-      <div class="red-color">u</div>
-      <div class="orange-color">n</div>
-      <div class="blue-color">d</div>
-      <div class="green-color">o</div>
-      <div class="red-color">o</div>
-      <div class="blue-color">N</div>
-      <div class="red-color">o</div>
-      <div class="orange-color">t</div>
-      <div class="blue-color">e</div>
-      <div class="green-color">s</div>
+  <div fxHide.xs="true" class="search-box-in-header" fxLayout="row" fxLayoutAlign="start center">
+    <mat-icon style="margin-left:1%;color: grey" class="material-icons">search</mat-icon>
+    <div style="margin-left:5%">
+      <mat-form-field appearance="fill legacy" style="width:335%; margin-top: 8%">
+        <input matInput placeholder="Search">
+      </mat-form-field>
     </div>
+  </div>
 
-    <div fxHide.xs="true" class="search-box-in-header" fxLayout="row" fxLayoutAlign="start center">
-      <mat-icon style="margin-left:1%;color: grey" class="material-icons">search</mat-icon>
-      <div style="margin-left:5%">
-        <mat-form-field appearance="fill legacy" style="width:335%; margin-top: 8%">
-          <input matInput placeholder="Search">
-        </mat-form-field>
-      </div>
+  <!-- This fills the remaining space of the current row -->
+  <span class="example-fill-remaining-space"></span>
+
+
+  <!-- Three Icons -->
+  <div fxLayout="row" fxLayoutAlign="space-around center">
+
+    <div>
+      <mat-icon class="material-icons" style="color: grey">refresh</mat-icon>
     </div>
-
-    <!-- Four Icons -->
-    <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-left: 1%">
-      <mat-icon fxHide.gt-xs="true" class="material-icons" style="color: grey; margin-left:20%">search</mat-icon>
-      <div fxLayoutAlign="row" ngClass.gt-xs='three-icons-bigger-screen' ngClass.xs="three-icons-smaller-screen">
-        <mat-icon class="material-icons" style="color: grey">refresh</mat-icon>
-        <mat-icon class="material-icons" style="color: grey; margin-left:20%" fxHide.xs="true">view_stream</mat-icon>
-        <mat-icon class="material-icons" style="color: grey; margin-left:20%">settings</mat-icon>
-        <mat-icon class="material-icons" style="color: grey; margin-left:20%">mood_bad</mat-icon>
-      </div>
+    <div style="margin-left:20%">
+      <mat-icon class="material-icons" style="color: grey">view_stream</mat-icon>
     </div>
-
-
+    <div style="margin-left:20%">
+      <mat-icon class="material-icons" style="color: grey">settings</mat-icon>
+    </div>
 
   </div>
+
+  <!-- This fills the remaining space of the current row -->
+  <span class="example-fill-remaining-space"></span>
+
+  <!-- Log Out Icon -->
+  <div>
+    <mat-icon class="material-icons" style="color: grey">mood_bad</mat-icon>
+  </div>
+
+</mat-toolbar>
+
+<!-- Both main content and side content -->
+<mat-sidenav-container class="container">
+
+  <!-- side content -->
+  <mat-sidenav #sidenav mode='side' ngClass.gt-xs="sidenav-bigger-screen" ngClass.xs="sidenav-smaller-screen"
+    fxLayout="column">
+
+
+
+    <!-- Notes and reminder Option -->
+    <div style="margin-top:10%;margin-left:4%">
+
+      <!-- Notes Option -->
+      <div fxLayout="row" class="sidenav-contents">
+        <i class="material-icons">whatshot</i>
+        <div style="margin-left:18%">
+          Notes
+        </div>
+      </div>
+
+      <!-- Reminders Option -->
+      <div fxLayout="row" style="margin-top:5%" class="sidenav-contents">
+        <i class="material-icons">notifications_none</i>
+        <div style="margin-left:18%">
+          Reminders
+        </div>
+      </div>
+
+    </div>
+
+
+    <div>
+      <!-- Grey Line -->
+      <hr>
+    </div>
+
+    <!-- Edit Labels Option -->
+    <div fxLayout="column">
+      <div style="margin-left:4%">
+        <p style="color: grey">LABELS</p>
+      </div>
+      <div fxLayout="row" style="margin-left:4%" class="sidenav-contents">
+        <i class="material-icons">colorize</i>
+        <div style="margin-left:18%">
+          Edit Labels
+        </div>
+      </div>
+    </div>
+
+
+    <div>
+      <!-- Grey Line -->
+      <hr>
+    </div>
+
+    <!-- Archive and Bin Options -->
+    <div style="margin-top:10%;margin-left:4%">
+
+      <!-- Archive Option -->
+      <div fxLayout="row" class="sidenav-contents">
+        <i class="material-icons">archive</i>
+        <div style="margin-left:18%">
+          Archive
+        </div>
+      </div>
+
+
+      <!-- Bin Option -->
+      <div fxLayout="row" style="margin-top:5%" class="sidenav-contents">
+        <i class="material-icons">delete_outline</i>
+        <div style="margin-left:18%">
+          Bin
+        </div>
+      </div>
+
+    </div>
+
+  </mat-sidenav>
+
+
+  <!-- Main Content -->
+  <mat-sidenav-content>
+
+  </mat-sidenav-content>
+
+
+</mat-sidenav-container>

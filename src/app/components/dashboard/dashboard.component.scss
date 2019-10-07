@@ -1,6 +1,5 @@
 .header {
   height: 56px;
-  //   background: grey;
 }
 
 .search-box-in-header {
@@ -9,13 +8,47 @@
   border: 1px solid rgb(251, 251, 251);
   height: 35px;
   width: 50%;
-  background-color: rgb(241, 240, 240); 
+  background-color: rgb(241, 240, 240);
 }
 
-.three-icons-bigger-screen{
-    margin-left: 200%
+.three-icons-bigger-screen {
+  margin-left: 200%;
 }
 
-.three-icons-smaller-screen{
-    margin-left: 15%;
+.three-icons-smaller-screen {
+  margin-left: 15%;
+}
+
+.sidenav-bigger-screen {
+  height: 92%;
+  width: 23.5%;
+  align-items: left;
+  justify-content: left;
+}
+
+.sidenav-smaller-screen {
+  height: 68%;
+  width: 80%;
+  align-items: left;
+  justify-content: left;
+}
+
+.sidenav-contents:hover {
+  background-color: rgb(254, 239, 195);
+}
+
+.line {
+  stroke: grey;
+  stroke-width: 2;
+}
+
+.container {
+  height: 80%;
+  width: 100%;
+}
+
+.example-fill-remaining-space {
+  /* This fills the remaining space, by using flexbox. 
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
 }

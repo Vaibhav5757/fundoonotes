@@ -7,9 +7,9 @@ import { LoginComponent } from './components/login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
-  MatButtonModule, MatInputModule, MatListModule, MatSnackBar,
+  MatButtonModule, MatInputModule, MatListModule,
   MatCardModule, MatFormFieldModule, MatMenuModule, MatSelectModule,
-  MatOptionModule, MatIconModule, MatSnackBarModule
+  MatOptionModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatToolbarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RegisterComponent } from './components/register/register.component';
@@ -41,6 +41,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     MatFormFieldModule,
     MatMenuModule,
     MatSnackBarModule,
+    MatSidenavModule,
+    MatToolbarModule,
     MatSelectModule,
     MatOptionModule,
     FlexLayoutModule,
