@@ -7,17 +7,17 @@
       <div fxFlex.xs="90">
         <mat-card-title>
 
-            <div class="blue-color">F</div>
-            <div class="red-color">u</div>
-            <div class="orange-color">n</div>
-            <div class="blue-color">d</div>
-            <div class="green-color">o</div>
-            <div class="red-color">o</div>
-            <div class="blue-color">N</div>
-            <div class="red-color">o</div>
-            <div class="orange-color">t</div>
-            <div class="blue-color">e</div>
-            <div class="green-color">s</div>
+          <div class="blue-color">F</div>
+          <div class="red-color">u</div>
+          <div class="orange-color">n</div>
+          <div class="blue-color">d</div>
+          <div class="green-color">o</div>
+          <div class="red-color">o</div>
+          <div class="blue-color">N</div>
+          <div class="red-color">o</div>
+          <div class="orange-color">t</div>
+          <div class="blue-color">e</div>
+          <div class="green-color">s</div>
 
         </mat-card-title>
 
@@ -69,7 +69,8 @@
 
         <form [formGroup]="registrationForm">
           <!-- Password and Confirm Password -->
-          <mat-card-content fxLayout.xs="column" fxLayout.gt-xs="Row" fxLayoutAlign="space-between" formGroupName="passwordGroup">
+          <mat-card-content fxLayout.xs="column" fxLayout.gt-xs="Row" fxLayoutAlign="space-between"
+            formGroupName="passwordGroup">
 
             <div fxLayout.xs="row">
 
@@ -119,9 +120,13 @@
             <a class="use-my-email" (click)="onClick()">Sign In instead</a>
           </div>
           <div>
-            <button (click)="signUp()" mat-raised-button class="next-button">
+            <button [matMenuTriggerFor]="menu" mat-raised-button class="next-button">
               Next
             </button>
+            <mat-menu #menu="matMenu">
+              <button (click)="signUp('basic')" mat-menu-item>Basic</button>
+              <button (click)="signUp('advanced')" mat-menu-item>Advanced</button>
+            </mat-menu>
           </div>
         </mat-card-content>
 

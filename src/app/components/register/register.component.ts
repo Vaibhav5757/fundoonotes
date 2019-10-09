@@ -62,14 +62,14 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  signUp(): any {
+  signUp(serviceType): any {
     if (this.registrationForm.valid) {
       this.http.signUp({
         firstName: this.registrationForm.get('firstNameFormControl').value,
         lastName: this.registrationForm.get('lastNameFormControl').value,
         email: this.registrationForm.get('emailFormControl').value + '@gmail.com',
         password: this.registrationForm.get('passwordGroup').get('passwordFormControl').value,
-        service: "basic"
+        service: serviceType
       });
       this.registrationForm.reset();
     } else {

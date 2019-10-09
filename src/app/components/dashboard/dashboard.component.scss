@@ -33,12 +33,23 @@
   margin-left: 5%;
 }
 
-.example-fill-remaining-space {
+.fill-remaining-space {
   /* This fills the remaining space, by using flexbox. 
      Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
 }
 
 .log-out-icon {
-  margin-left:5% ;
+  margin-left: 5%;
+}
+
+.sidenav-content {
+  &:hover {
+    background-color: rgb(254, 239, 195);
+  }
+}
+
+.search-bar-minimized{
+  height: 5px;
+  border-radius : 10px;
 }

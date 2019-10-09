@@ -9,7 +9,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   MatButtonModule, MatInputModule, MatListModule,
   MatCardModule, MatFormFieldModule, MatMenuModule, MatSelectModule,
-  MatOptionModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatToolbarModule
+  MatOptionModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatToolbarModule, MatTooltipModule, MatCheckboxModule, MatExpansionModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RegisterComponent } from './components/register/register.component';
@@ -38,12 +38,15 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatIconModule,
     MatListModule,
     MatButtonModule,
+    MatCheckboxModule,
+    MatExpansionModule,
     MatCardModule,
     MatFormFieldModule,
     MatMenuModule,
     MatSnackBarModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatTooltipModule,
     MatSelectModule,
     MatOptionModule,
     FlexLayoutModule,
