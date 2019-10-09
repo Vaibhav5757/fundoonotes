@@ -1,5 +1,5 @@
 <mat-toolbar>
-  <mat-icon (click)="drawer.toggle()" style="margin-left: 1%" class="material-icons">menu</mat-icon>
+  <mat-icon (click)="drawer.toggle()" style="margin-left: 1%" class="material-icons" matTooltip="Main Menu">menu</mat-icon>
 
   <div class="logo" style="margin-left: 4%">
 
@@ -124,10 +124,10 @@
   <mat-sidenav-content fxLayout="column" fxLayoutAlign="space-between center">
 
     <!-- Search bar-->
-    <div style="margin-top:2.5%; width:40%">
+    <div ngClass.xs="complete-search-bar-minimized" ngClass.gt-xs="complete-search-bar-maximized">
 
       <!-- Minimized -->
-      <mat-card class="search-bar-minimized" [fxHide]='hide' (click)='hide = !hide' fxLayout="row"
+      <mat-card class="search-bar-minimized" [fxHide]='hide' (click)='changeHide()' fxLayout="row"
         FxLayoutAlign="space-between center">
         <mat-card-subtitle style="width:70%; margin-top:-2em">
           <mat-form-field appearance="fill legacy">
@@ -137,17 +137,18 @@
         <mat-card-content style="width:30%">
           <div fxLayout="row" fxLayoutAlign="space-around center">
             <div>
-              <mat-icon class="material-icons">
+              <mat-icon class="material-icons" matTooltip="New List">
                 check_box
               </mat-icon>
+              
             </div>
             <div>
-              <mat-icon class="material-icons">
+              <mat-icon class="material-icons" matTooltip="New Note with drawing">
                 brush
               </mat-icon>
             </div>
             <div>
-              <mat-icon class="material-icons">
+              <mat-icon class="material-icons" matTooltip="New Note with image">
                 wallpaper
               </mat-icon>
             </div>
@@ -158,72 +159,80 @@
       </mat-card>
 
       <!-- Maximized -->
-      <mat-card style="border-radius : 10px;" [fxHide]='!hide'>
-        <mat-card-title>
+      <mat-card style="border-radius : 10px;" ngClass.xs="mat-card-maximized-small-screen" [fxHide]='!hide'>
+        <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
           <input matInput placeholder="Title">
+          <mat-icon class="material-icons">
+            where_to_vote
+          </mat-icon>
         </mat-card-title>
         <mat-card-subtitle>
-          <input matInput placeholder="Take a note...">
+          <textarea style="color:black" matTextareaAutosize matInput placeholder="Take a note..."></textarea>
         </mat-card-subtitle>
         <mat-card-actions>
 
-          <div style="color: grey" fxLayout="row" fxLayoutAlign="space-around center">
+          <div style="color: grey" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
 
             <div>
-              <mat-icon class="material-icons">
+              <mat-icon class="material-icons" matTooltip="Remind Me">
                 notifications
               </mat-icon>
             </div>
 
             <div>
-              <mat-icon class="material-icons">
+              <mat-icon class="material-icons" matTooltip="Collaborator">
                 person_add
               </mat-icon>
             </div>
 
             <div>
-              <mat-icon class="material-icons">
+              <mat-icon class="material-icons" matTooltip="Change color">
                 color_lens
               </mat-icon>
             </div>
 
             <div>
-              <mat-icon class="material-icons">
+              <mat-icon class="material-icons" matTooltip="Add Image">
                 image
               </mat-icon>
             </div>
 
             <div>
-              <mat-icon class="material-icons">
+              <mat-icon class="material-icons" matTooltip="Archive">
                 archive
               </mat-icon>
             </div>
 
             <div>
-              <mat-icon class="material-icons">
+              <mat-icon class="material-icons" matTooltip="More">
                 more_vert
               </mat-icon>
             </div>
 
             <div>
-              <mat-icon class="material-icons">
+              <mat-icon class="material-icons" matTooltip="Undo">
                 undo
               </mat-icon>
             </div>
 
             <div>
-              <mat-icon class="material-icons">
+              <mat-icon class="material-icons" matTooltip="Redo">
                 redo
               </mat-icon>
             </div>
 
-            <div style="color: black">
+            <div style="color: black" fxHide.xs="true">
               <button mat-button (click)="hide = !hide">
                 Close
               </button>
             </div>
           </div>
 
+          <div align="right" style="color: black" fxHide.gt-xs="true">
+            <button mat-button (click)="hide = !hide">
+              Close
+            </button>
+          </div>
         </mat-card-actions>
       </mat-card>
 

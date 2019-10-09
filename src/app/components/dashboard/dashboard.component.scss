@@ -46,10 +46,26 @@
 .sidenav-content {
   &:hover {
     background-color: rgb(254, 239, 195);
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px; 
   }
 }
 
-.search-bar-minimized{
+.search-bar-minimized {
   height: 5px;
-  border-radius : 10px;
+  border-radius: 10px;
+}
+
+.complete-search-bar-minimized {
+  margin-top: 2.5%;
+  width: 280px;
+}
+
+.complete-search-bar-maximized {
+  margin-top: 2.5%;
+  width: 50%;
+}
+
+.occupy-full {
+  width: 100%;
 }
