@@ -1,0 +1,12 @@
+<mat-card style="border-radius: 10px; margin-top:5%;white-space: pre-line" ngClass.lt-md="note-smaller-screen"
+  ngClass.gt-md="note-bigger-screen">
+
+  <mat-card-title [fxHide]="!titlePresent">
+    {{title}}
+  </mat-card-title>
+
+  <mat-card-content [fxHide]="!contentPresent">
+    {{content}}
+  </mat-card-content>
+
+</mat-card>

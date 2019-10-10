@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from "src/app/environments/environment.prod";
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,9 +12,10 @@ export class HttpServiceService {
   constructor(private http: HttpClient, private router: Router) {
   }
 
-  logIn(data): void {
+  logIn(data): any {
     let obs = this.http.post(environment.domainURL + 'user/login', data);
-    obs.subscribe((response) => console.log(response));
+    return obs;
+
   }
 
   signUp(data): void {
@@ -38,5 +40,15 @@ export class HttpServiceService {
       headers: httpOptions
     });
     obs.subscribe((response) => console.log(response));
+  }
+
+  fetchAllNotes(token): any {
+    let httpOptions = new HttpHeaders({
+      'Authorization': token
+    });
+    let obs = this.http.get(environment.domainURL + 'notes/getNotesList', {
+      headers: httpOptions
+    });
+    return obs;
   }
 }

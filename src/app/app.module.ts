@@ -19,6 +19,7 @@ import { UserServiceService } from '../app/services/user-service.service';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { NoteComponent } from './components/note/note.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     LoginComponent,
     RegisterComponent,
     ResetPasswordComponent,
-    DashboardComponent
+    DashboardComponent,
+    NoteComponent
   ],
   imports: [
     BrowserModule,
