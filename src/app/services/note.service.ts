@@ -9,13 +9,9 @@ export class NoteService {
 
   constructor(private http: HttpServiceService) { }
 
-  fetchAllNotes(token): any {
-    let obs = this.http.fetchAllNotes(token);
-    obs.subscribe((response) => {
-      return response
-    }, (error) => {
-      console.log(error);
-    })
+  fetchAllNotes(): any {
+    let obs = this.http.fetchAllNotes();
+    return obs;
   }
 
 }

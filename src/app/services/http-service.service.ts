@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from "src/app/environments/environment.prod";
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
@@ -12,10 +13,19 @@ export class HttpServiceService {
   constructor(private http: HttpClient, private router: Router) {
   }
 
+  private tokenSource = new BehaviorSubject('');
+  currentToken = this.tokenSource.asObservable();
+
+  changeToken(newToken: string) {
+    this.tokenSource.next(newToken);
+  }
+
   logIn(data): any {
     let obs = this.http.post(environment.domainURL + 'user/login', data);
+    obs.subscribe((response: any) => {
+      this.changeToken(response.id);
+    });
     return obs;
-
   }
 
   signUp(data): void {
@@ -42,9 +52,9 @@ export class HttpServiceService {
     obs.subscribe((response) => console.log(response));
   }
 
-  fetchAllNotes(token): any {
+  fetchAllNotes(): any {
     let httpOptions = new HttpHeaders({
-      'Authorization': token
+      'Authorization': this.tokenSource.value
     });
     let obs = this.http.get(environment.domainURL + 'notes/getNotesList', {
       headers: httpOptions

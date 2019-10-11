@@ -1,0 +1,15 @@
+<div fxLayout.gt-md="row wrap" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="space-around center">
+    <div *ngFor="let note of notesList.reverse()">
+        <mat-card ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen">
+
+            <mat-card-title>
+                {{note.title}}
+            </mat-card-title>
+
+            <mat-card-content>
+                {{note.description}}
+            </mat-card-content>
+
+        </mat-card>
+    </div>
+</div>
