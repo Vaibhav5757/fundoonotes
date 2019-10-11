@@ -17,11 +17,10 @@ export class DashboardComponent {
   hideLogo: Boolean = false;
 
   title = new FormControl('', [
-
+    Validators.required
   ])
 
   content = new FormControl('', [
-    Validators.required
   ])
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -47,5 +46,7 @@ export class DashboardComponent {
       description: this.content.value
     }
     this.noteSvc.saveNote(data);
+    this.title.reset;
+    this.content.reset;
   }
 }

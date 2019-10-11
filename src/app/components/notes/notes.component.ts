@@ -11,13 +11,17 @@ export class NotesComponent implements OnInit {
   notesList: Array<any> = [];
   token: String;
 
-  constructor(private noteSvc: NoteService) { }
+  constructor(private noteSvc: NoteService) {
+    this.noteSvc.events.addListener('note-saved-in-database', () => {
+      //Fetch all notes from database
+      this.fetchAllNotes();
+    })
+  }
 
-  ngOnInit() {
-
-    //Fetch all notes
+  //Fetch all notes
+  fetchAllNotes() {
     let obs = this.noteSvc.fetchAllNotes();
-    
+
     obs.subscribe((response) => {
       this.notesList = response.data.data;
     }, (error) => {
@@ -25,4 +29,8 @@ export class NotesComponent implements OnInit {
     })
   }
 
+  //Fetch all the existing notes from database
+  ngOnInit() {
+    this.fetchAllNotes();
+  }
 }
