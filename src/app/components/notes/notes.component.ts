@@ -15,7 +15,7 @@ export class NotesComponent implements OnInit {
 
   ngOnInit() {
 
-    //Retrieve the token(unique id)
+    //Fetch all notes
     let obs = this.noteSvc.fetchAllNotes();
     
     obs.subscribe((response) => {

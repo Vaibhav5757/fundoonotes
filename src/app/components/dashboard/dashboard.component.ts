@@ -3,7 +3,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
-
+import { FormControl, Validators } from '@angular/forms';
+import { NoteService } from 'src/app/services/note.service'
 
 @Component({
   selector: 'app-components/dashboard',
@@ -15,12 +16,20 @@ export class DashboardComponent {
   hide: Boolean = false;
   hideLogo: Boolean = false;
 
+  title = new FormControl('', [
+
+  ])
+
+  content = new FormControl('', [
+    Validators.required
+  ])
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
 
-  constructor(private titleService: Title, private breakpointObserver: BreakpointObserver) {
+  constructor(private titleService: Title, private breakpointObserver: BreakpointObserver, private noteSvc: NoteService) {
     this.setTitle('Dashboard');
   }
 
@@ -28,8 +37,15 @@ export class DashboardComponent {
     this.hide = !this.hide;
   }
 
-  public setTitle(newTitle: string) {
+  setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
   }
 
+  saveNote() {
+    let data = {
+      title: this.title.value,
+      description: this.content.value
+    }
+    this.noteSvc.saveNote(data);
+  }
 }

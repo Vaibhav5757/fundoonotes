@@ -170,13 +170,13 @@
           <!-- Maximized -->
           <mat-card style="border-radius : 10px;" ngClass.xs="mat-card-maximized-small-screen" [fxHide]='!hide'>
             <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
-              <input matInput placeholder="Title">
+              <input [formControl]='title' matInput placeholder="Title">
               <mat-icon class="material-icons">
                 where_to_vote
               </mat-icon>
             </mat-card-title>
             <mat-card-subtitle>
-              <textarea style="color:black" matTextareaAutosize matInput placeholder="Take a note..."></textarea>
+              <textarea [formControl]='content' style="color:black" matTextareaAutosize matInput placeholder="Take a note..."></textarea>
             </mat-card-subtitle>
             <mat-card-actions>
 
@@ -231,7 +231,7 @@
                 </div>
 
                 <div style="color: black" fxHide.xs="true">
-                  <button mat-button (click)="hide = !hide">
+                  <button mat-button (click)="changeHide();saveNote()">
                     Close
                   </button>
                 </div>

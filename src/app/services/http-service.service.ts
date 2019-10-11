@@ -52,11 +52,21 @@ export class HttpServiceService {
     obs.subscribe((response) => console.log(response));
   }
 
-  fetchAllNotes(): any {
+  fetchAllNotes() {
     let httpOptions = new HttpHeaders({
       'Authorization': this.tokenSource.value
     });
     let obs = this.http.get(environment.domainURL + 'notes/getNotesList', {
+      headers: httpOptions
+    });
+    return obs;
+  }
+
+  saveNote(data) {
+    let httpOptions = new HttpHeaders({
+      'Authorization': this.tokenSource.value
+    });
+    let obs = this.http.post(environment.domainURL + "notes/addNotes",data,{
       headers: httpOptions
     });
     return obs;

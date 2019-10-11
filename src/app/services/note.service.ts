@@ -14,4 +14,14 @@ export class NoteService {
     return obs;
   }
 
+  saveNote(data){
+    let obs = this.http.saveNote(data);
+    obs.subscribe(response => {
+      // Note was saved successfully
+    }, error => {
+      // Some error came in saving notes
+    })
+  }
+
+  
 }
