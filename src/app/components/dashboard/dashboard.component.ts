@@ -15,6 +15,7 @@ export class DashboardComponent {
 
   hide: Boolean = false;
   hideLogo: Boolean = false;
+  advancedUser: Boolean = true;
 
   title = new FormControl('', [
     Validators.required

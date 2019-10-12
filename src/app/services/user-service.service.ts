@@ -14,8 +14,12 @@ export class UserServiceService {
   logIn(data): any {
     let obs = this.http.post('user/login', data);
     obs.subscribe((response: any) => {
+      //Save the token (user id which is unique)
       this.http.changeToken(response.id);
+      
       this.router.navigateByUrl("/dashboard");
+    }, (error) => {
+      this.snackBar.open("Invalid LogIn Credentials");
     });
   }
 

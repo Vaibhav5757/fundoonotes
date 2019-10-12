@@ -17,7 +17,11 @@ export class NotesComponent implements OnInit {
       //Fetch all notes from database
       this.fetchAllNotes();
     })
-    
+
+    this.noteSvc.events.addListener('note-deleted-in-database', () => {
+      //Fetch all notes from database
+      this.fetchAllNotes();
+    })
   }
 
   //Fetch all notes
@@ -34,5 +38,14 @@ export class NotesComponent implements OnInit {
   //Fetch all the existing notes from database
   ngOnInit() {
     this.fetchAllNotes();
+  }
+
+  //Delete a Note
+  deleteNote(note){
+    let data = {
+      noteIdList: [note.id],
+      isDeleted:true
+    }
+    this.noteSvc.deleteNote(data);
   }
 }

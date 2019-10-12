@@ -1,6 +1,7 @@
 <div fxLayout.gt-md="row wrap" fxLayout.lt-md="column" fxLayoutGap="2px" fxLayoutAlign="space-around start">
     <div *ngFor="let note of notesList.reverse()">
-        <mat-card ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen" class="extra-actions">
+        <mat-card *ngIf="!note.isDeleted" ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen"
+            class="extra-actions">
 
             <mat-card-title>
                 {{note.title}}
@@ -49,7 +50,7 @@
                             more_vert
                         </mat-icon>
                         <mat-menu #menu="matMenu">
-                            <button mat-menu-item>Delete Note</button>
+                            <button (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
                             <button mat-menu-item>Add Label</button>
                         </mat-menu>
                     </div>

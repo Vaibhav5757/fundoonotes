@@ -17,13 +17,24 @@ export class NoteService {
   }
 
   saveNote(data) {
-    let obs = this.http.post("notes/addNotes",data);
+    let obs = this.http.post("notes/addNotes", data);
     obs.subscribe(response => {
-      // console.log(response);
       // Note was saved successfully
       this.events.emit('note-saved-in-database');
     }, error => {
       // Some error came in saving notes
+    })
+  }
+
+
+  deleteNote(data) {
+    console.log(data);
+    let obs = this.http.post("notes/trashNotes", data);
+    obs.subscribe(response => {
+      //Note Deleted Successfully
+      this.events.emit('note-deleted-in-database');
+    }, error => {
+      //Some error in deleting Note
     })
   }
 
