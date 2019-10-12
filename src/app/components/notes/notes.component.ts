@@ -12,10 +12,12 @@ export class NotesComponent implements OnInit {
   token: String;
 
   constructor(private noteSvc: NoteService) {
+    
     this.noteSvc.events.addListener('note-saved-in-database', () => {
       //Fetch all notes from database
       this.fetchAllNotes();
     })
+    
   }
 
   //Fetch all notes

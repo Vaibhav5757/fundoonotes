@@ -20,54 +20,29 @@ export class HttpServiceService {
     this.tokenSource.next(newToken);
   }
 
-  logIn(data): any {
-    let obs = this.http.post(environment.domainURL + 'user/login', data);
-    obs.subscribe((response: any) => {
-      this.changeToken(response.id);
+  get(url) {
+    let obs = this.http.get(environment.domainURL + url, {
+      headers: new HttpHeaders({
+        'Authorization': this.tokenSource.value
+      })
     });
     return obs;
   }
 
-  signUp(data): void {
-    let obs = this.http.post(environment.domainURL + 'user/userSignUp', data);
-    obs.subscribe((response) => {
-      if (response["data"].success) {
-        this.router.navigateByUrl("/login");
-      }
-    });
-  }
-
-  forgotPassword(data): void {
-    let obs = this.http.post(environment.domainURL + 'user/reset', data);
-    obs.subscribe((response) => console.log(response));
-  }
-
-  resetPassword(data, token): void {
-    let httpOptions = new HttpHeaders({
-      'Authorization': token
-    });
-    let obs = this.http.post(environment.domainURL + 'user/reset-password', data, {
-      headers: httpOptions
-    });
-    obs.subscribe((response) => console.log(response));
-  }
-
-  fetchAllNotes() {
-    let httpOptions = new HttpHeaders({
-      'Authorization': this.tokenSource.value
-    });
-    let obs = this.http.get(environment.domainURL + 'notes/getNotesList', {
-      headers: httpOptions
+  post(url, data) {
+    let obs = this.http.post(environment.domainURL + url, data, {
+      headers: new HttpHeaders({
+        'Authorization': this.tokenSource.value
+      })
     });
     return obs;
   }
 
-  saveNote(data) {
-    let httpOptions = new HttpHeaders({
-      'Authorization': this.tokenSource.value
-    });
-    let obs = this.http.post(environment.domainURL + "notes/addNotes",data,{
-      headers: httpOptions
+  postWithToken(url, data, token) {
+    let obs = this.http.post(environment.domainURL + url, data, {
+      headers: new HttpHeaders({
+        'Authorization': token
+      })
     });
     return obs;
   }

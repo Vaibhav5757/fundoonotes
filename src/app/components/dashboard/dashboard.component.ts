@@ -46,7 +46,7 @@ export class DashboardComponent {
       description: this.content.value
     }
     this.noteSvc.saveNote(data);
-    this.title.reset;
-    this.content.reset;
+    this.title.setValue("");
+    this.content.setValue("");
   }
 }

@@ -13,14 +13,13 @@ export class NoteService {
   constructor(private http: HttpServiceService) { }
 
   fetchAllNotes(): any {
-    let obs = this.http.fetchAllNotes();
-    return obs;
+    return this.http.get('notes/getNotesList');
   }
 
-  saveNote(data){
-    let obs = this.http.saveNote(data);
+  saveNote(data) {
+    let obs = this.http.post("notes/addNotes",data);
     obs.subscribe(response => {
-      console.log(response);
+      // console.log(response);
       // Note was saved successfully
       this.events.emit('note-saved-in-database');
     }, error => {
@@ -28,5 +27,5 @@ export class NoteService {
     })
   }
 
-  
+
 }

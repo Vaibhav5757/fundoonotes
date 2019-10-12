@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpServiceService } from 'src/app/services/http-service.service';
+import { UserServiceService } from 'src/app/services/user-service.service';
 import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -14,7 +14,7 @@ export class ResetPasswordComponent implements OnInit {
   resetPasswordFormGroup: FormGroup;
   token: String
 
-  constructor(private http: HttpServiceService, private titleService: Title, private route: ActivatedRoute) {
+  constructor(private http: UserServiceService, private titleService: Title, private route: ActivatedRoute) {
     this.setTitle("Reset Password");
     
     this.resetPasswordFormGroup = new FormGroup({

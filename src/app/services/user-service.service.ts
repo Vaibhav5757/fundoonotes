@@ -12,27 +12,29 @@ export class UserServiceService {
   constructor(private http: HttpServiceService, private snackBar: MatSnackBar, private router: Router) { }
 
   logIn(data): any {
-    let obs = this.http.logIn(data);
-
+    let obs = this.http.post('user/login', data);
     obs.subscribe((response: any) => {
+      this.http.changeToken(response.id);
       this.router.navigateByUrl("/dashboard");
-    }, (error) => {
-      this.snackBar.open("Invalid Credentials", '', {
-        duration: 1500
-      });
-    }
-    );
+    });
   }
 
   signUp(data): void {
-    this.http.signUp(data);
+    let obs = this.http.post('user/userSignUp', data);
+    obs.subscribe((response) => {
+      if (response["data"].success) {
+        this.router.navigateByUrl("/login");
+      }
+    });
   }
 
   forgotPassword(data): void {
-    this.http.forgotPassword(data);
+    let obs = this.http.post('user/reset', data);
+    obs.subscribe((response) => this.snackBar.open("Check Mail Inbox"));
   }
 
   resetPassword(data, token): void {
-    this.http.resetPassword(data, token);
+    let obs = this.http.postWithToken('user/reset-password', data, token);
+    obs.subscribe((response) => this.snackBar.open("Password Changed"));
   }
 }
