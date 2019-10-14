@@ -11,7 +11,6 @@ export class NotesComponent implements OnInit {
 
   noteColor = new FormControl('#FFFFFF');
   notesList: Array<any> = [];
-  token: String;
 
   constructor(private noteSvc: NoteService) {
 
@@ -21,6 +20,11 @@ export class NotesComponent implements OnInit {
     })
 
     this.noteSvc.events.addListener('note-deleted-in-database', () => {
+      //Fetch all notes from database
+      this.fetchAllNotes();
+    })
+
+    this.noteSvc.events.addListener('note-archived-in-database', () => {
       //Fetch all notes from database
       this.fetchAllNotes();
     })
@@ -53,7 +57,16 @@ export class NotesComponent implements OnInit {
       noteIdList: [note.id],
       isDeleted: true
     }
-    this.noteSvc.deleteNote(data);
+    this.noteSvc.deleteNote(data);  
+  }
+
+  //archive a note
+  archiveNote(note) {
+    let data = {
+      noteIdList: [note.id],
+      isArchived: true
+    }
+    this.noteSvc.archiveNote(data);  
   }
 
   getBackgroundColor(arg) {

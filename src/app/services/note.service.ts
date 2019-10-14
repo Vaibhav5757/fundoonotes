@@ -38,7 +38,6 @@ export class NoteService {
   }
 
   changeNoteColor(data) {
-    console.log(data);
     let obs = this.http.post("notes/changesColorNotes", data);
     obs.subscribe(response => {
       //Color of note changed
@@ -48,4 +47,13 @@ export class NoteService {
     })
   }
 
+  archiveNote(data) {
+    let obs = this.http.post("notes/archiveNotes", data);
+    obs.subscribe(response => {
+      //Note Archived
+      this.events.emit('note-archived-in-database');
+    }, error => {
+      //Some error in archiving note
+    })
+  }
 }

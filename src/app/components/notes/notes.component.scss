@@ -32,6 +32,7 @@
   }
   &:hover {
     input {
+      opacity: 0;
       color: white;
       display: inline-block;
       border: none;
@@ -47,3 +48,4 @@
     }
   }
 }
+
