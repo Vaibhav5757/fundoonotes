@@ -4,7 +4,7 @@
   border-radius: 10px;
   margin-top: 5%;
   white-space: pre-line;
-  overflow-wrap: break-word
+  overflow-wrap: break-word;
 }
 
 .note-bigger-screen {
@@ -12,16 +12,38 @@
   border-radius: 10px;
   margin-top: 5%;
   white-space: pre-line;
-  overflow-wrap: break-word
+  overflow-wrap: break-word;
 }
 
-.extra-actions{
-  mat-icon{
+.extra-actions {
+  mat-card-actions {
     display: none;
   }
-  &:hover{
-    mat-icon{
+  &:hover {
+    mat-card-actions {
       display: block;
+    }
+  }
+}
+
+.color-palette {
+  input {
+    display: none;
+  }
+  &:hover {
+    input {
+      color: white;
+      display: inline-block;
+      border: none;
+      border-radius: 100%;
+      width: 25px;
+      height: 25px;
+      background-color: white;
+      box-shadow: none;
+      padding: 0;
+    }
+    mat-icon {
+      display: none;
     }
   }
 }

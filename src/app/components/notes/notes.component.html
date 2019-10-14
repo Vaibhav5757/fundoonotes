@@ -1,7 +1,7 @@
 <div fxLayout.gt-md="row wrap" fxLayout.lt-md="column" fxLayoutGap="2px" fxLayoutAlign="space-around start">
     <div *ngFor="let note of notesList.reverse()">
-        <mat-card *ngIf="!note.isDeleted" ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen"
-            class="extra-actions">
+        <mat-card [style.background-color]="getBackgroundColor(note.color)" *ngIf="!note.isDeleted" ngClass.lt-md="note-smaller-screen"
+            ngClass.gt-md="note-bigger-screen" class="extra-actions">
 
             <mat-card-title>
                 {{note.title}}
@@ -27,10 +27,11 @@
                         </mat-icon>
                     </div>
 
-                    <div>
-                        <mat-icon class="material-icons" matTooltip="Change color">
+                    <div class="color-palette" matTooltip="Change color">
+                        <mat-icon class="material-icons">
                             color_lens
                         </mat-icon>
+                        <input (change)="changeColor(note)" [formControl]="noteColor" type="color" />
                     </div>
 
                     <div>

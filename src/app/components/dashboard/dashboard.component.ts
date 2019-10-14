@@ -17,6 +17,8 @@ export class DashboardComponent {
   hideLogo: Boolean = false;
   advancedUser: Boolean = true;
 
+  noteColor = new FormControl('#FFFFFF');
+
   title = new FormControl('', [
     Validators.required
   ])
@@ -44,10 +46,12 @@ export class DashboardComponent {
   saveNote() {
     let data = {
       title: this.title.value,
-      description: this.content.value
+      description: this.content.value,
+      color: this.noteColor.value
     }
     this.noteSvc.saveNote(data);
     this.title.setValue("");
     this.content.setValue("");
+    this.noteColor.setValue("#FFFFFF");
   }
 }

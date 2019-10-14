@@ -15,6 +15,7 @@ export class UserServiceService {
     let obs = this.http.post('user/login', data);
     obs.subscribe((response: any) => {
       //Save the token (user id which is unique)
+      console.log(response.id);
       this.http.changeToken(response.id);
       
       this.router.navigateByUrl("/dashboard");

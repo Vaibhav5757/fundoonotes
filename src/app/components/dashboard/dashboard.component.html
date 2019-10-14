@@ -194,10 +194,11 @@
                   </mat-icon>
                 </div>
 
-                <div [fxHide]="!advancedUser">
+                <div [fxHide]="!advancedUser" class="color-palette">
                   <mat-icon class="material-icons" matTooltip="Change color">
                     color_lens
                   </mat-icon>
+                  <input [formControl]="noteColor" type="color" />
                 </div>
 
                 <div [fxHide]="!advancedUser">

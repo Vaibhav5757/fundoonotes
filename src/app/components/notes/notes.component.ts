@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NoteService } from 'src/app/services/note.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-notes',
@@ -8,17 +9,23 @@ import { NoteService } from 'src/app/services/note.service';
 })
 export class NotesComponent implements OnInit {
 
+  noteColor = new FormControl('#FFFFFF');
   notesList: Array<any> = [];
   token: String;
 
   constructor(private noteSvc: NoteService) {
-    
+
     this.noteSvc.events.addListener('note-saved-in-database', () => {
       //Fetch all notes from database
       this.fetchAllNotes();
     })
 
     this.noteSvc.events.addListener('note-deleted-in-database', () => {
+      //Fetch all notes from database
+      this.fetchAllNotes();
+    })
+
+    this.noteSvc.events.addListener('note-color-changed-in-database', () => {
       //Fetch all notes from database
       this.fetchAllNotes();
     })
@@ -41,11 +48,23 @@ export class NotesComponent implements OnInit {
   }
 
   //Delete a Note
-  deleteNote(note){
+  deleteNote(note) {
     let data = {
       noteIdList: [note.id],
-      isDeleted:true
+      isDeleted: true
     }
     this.noteSvc.deleteNote(data);
+  }
+
+  getBackgroundColor(arg) {
+    return !arg ? '	#FFFFFF' : arg;
+  }
+
+  changeColor(card) {
+    let data = {
+      noteIdList: [card.id],
+      color: this.noteColor.value
+    };
+    this.noteSvc.changeNoteColor(data);
   }
 }

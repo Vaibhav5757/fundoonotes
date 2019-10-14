@@ -28,7 +28,6 @@ export class NoteService {
 
 
   deleteNote(data) {
-    console.log(data);
     let obs = this.http.post("notes/trashNotes", data);
     obs.subscribe(response => {
       //Note Deleted Successfully
@@ -38,5 +37,15 @@ export class NoteService {
     })
   }
 
+  changeNoteColor(data) {
+    console.log(data);
+    let obs = this.http.post("notes/changesColorNotes", data);
+    obs.subscribe(response => {
+      //Color of note changed
+      this.events.emit('note-color-changed-in-database');
+    }, error => {
+      //Some error in changing color of note
+    })
+  }
 
 }
