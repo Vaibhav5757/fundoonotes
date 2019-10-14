@@ -3,6 +3,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-reset-password',
@@ -14,9 +15,9 @@ export class ResetPasswordComponent implements OnInit {
   resetPasswordFormGroup: FormGroup;
   token: String
 
-  constructor(private http: UserServiceService, private titleService: Title, private route: ActivatedRoute) {
+  constructor(private http: UserServiceService, private snackBar: MatSnackBar, private titleService: Title, private route: ActivatedRoute) {
     this.setTitle("Reset Password");
-    
+
     this.resetPasswordFormGroup = new FormGroup({
 
       passwordFormController: new FormControl('', [
@@ -45,9 +46,11 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   resetPassword() {
-    this.http.resetPassword({
+    let obs = this.http.resetPassword({
       newPassword: this.resetPasswordFormGroup.get('passwordFormController').value
     }, this.token)
+
+    obs.subscribe((response) => this.snackBar.open("Password Changed"));
   }
 }
 

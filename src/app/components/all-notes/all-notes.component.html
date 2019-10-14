@@ -1,0 +1,63 @@
+<div fxLayout.gt-md="row wrap" fxLayout.lt-md="column" fxLayoutGap="2px" fxLayoutAlign="space-around center">
+  <div *ngFor="let note of notesList.reverse()">
+      <mat-card [style.background-color]="getBackgroundColor(note.color)" *ngIf="!note.isDeleted && !note.isArchived"
+          ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen" class="extra-actions">
+
+          <mat-card-title>
+              {{note.title}}
+          </mat-card-title>
+
+          <mat-card-content>
+              {{note.description}}
+          </mat-card-content>
+
+          <mat-card-actions>
+
+              <div style="color: black" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
+
+                  <div>
+                      <mat-icon  matTooltip="Remind Me">
+                          notifications_none
+                      </mat-icon>
+                  </div>
+
+                  <div>
+                      <mat-icon  matTooltip="Collaborator">
+                          person_add
+                      </mat-icon>
+                  </div>
+
+                  <div class="color-palette" matTooltip="Change color">
+                      <mat-icon >
+                          color_lens
+                      </mat-icon>
+                      <input (change)="changeColor(note)" [formControl]="noteColor" type="color" />
+                  </div>
+
+                  <div>
+                      <mat-icon  matTooltip="Add Image">
+                          image
+                      </mat-icon>
+                  </div>
+
+                  <div>
+                      <mat-icon (click)="archiveNote(note)"  matTooltip="Archive">
+                          archive
+                      </mat-icon>
+                  </div>
+
+                  <div>
+                      <mat-icon [matMenuTriggerFor]="menu"  matTooltip="More">
+                          more_vert
+                      </mat-icon>
+                      <mat-menu #menu="matMenu">
+                          <button (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
+                      </mat-menu>
+                  </div>
+              </div>
+
+          </mat-card-actions>
+
+      </mat-card>
+  </div>
+</div>

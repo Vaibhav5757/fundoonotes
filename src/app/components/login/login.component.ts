@@ -14,7 +14,7 @@ export class LoginComponent {
 
   loginForm: FormGroup;
 
-  constructor(private router: Router, private http: UserServiceService, private snackBar: MatSnackBar, private titleService: Title) {
+  constructor(private router: Router, private userSvc: UserServiceService, private snackBar: MatSnackBar, private titleService: Title) {
     this.setTitle("Log In");
     this.loginForm = new FormGroup({
 
@@ -50,19 +50,33 @@ export class LoginComponent {
         });
       }
     } else {
-      this.http.logIn({
+
+      let obs = this.userSvc.logIn({
         email: this.loginForm.get('emailFormControl').value,
         password: this.loginForm.get('passwordFormControl').value
       })
+
+      obs.subscribe((response: any) => {
+        
+        //Save the response
+        this.userSvc.changeUser(response);
+        this.router.navigateByUrl("/dashboard");
+
+      }, (error) => {
+        console.log(error);
+        this.snackBar.open("Invalid LogIn Credentials");
+      });
+
       this.loginForm.reset();
     }
 
   }
 
   forgotPassword(): void {
-    this.http.forgotPassword({
+    let obs = this.userSvc.forgotPassword({
       email: this.loginForm.get('emailFormControl').value
     })
+    obs.subscribe((response) => this.snackBar.open("Check Mail Inbox"));
   }
 
 }

@@ -18,7 +18,9 @@ import { UserServiceService } from '../app/services/user-service.service';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { NotesComponent } from './components/notes/notes.component';
+import { AllNotesComponent } from './components/all-notes/all-notes.component';
+import { ArchivedNotesComponent } from './components/archived-notes/archived-notes.component';
+import { DeletedNotesComponent } from './components/deleted-notes/deleted-notes.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { NotesComponent } from './components/notes/notes.component';
     RegisterComponent,
     ResetPasswordComponent,
     DashboardComponent,
-    NotesComponent
+    AllNotesComponent,
+    ArchivedNotesComponent,
+    DeletedNotesComponent
   ],
   imports: [
     BrowserModule,

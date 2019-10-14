@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
 
   registrationForm: FormGroup;
 
-  constructor(private http: UserServiceService, private titleService: Title, private snackBar: MatSnackBar, private router: Router) {
+  constructor(private userSvc: UserServiceService, private titleService: Title, private snackBar: MatSnackBar, private router: Router) {
     this.setTitle("Sign Up");
 
     this.registrationForm = new FormGroup({
@@ -64,13 +64,21 @@ export class RegisterComponent implements OnInit {
 
   signUp(serviceType): any {
     if (this.registrationForm.valid) {
-      this.http.signUp({
+      
+      let obs = this.userSvc.signUp({
         firstName: this.registrationForm.get('firstNameFormControl').value,
         lastName: this.registrationForm.get('lastNameFormControl').value,
         email: this.registrationForm.get('emailFormControl').value + '@gmail.com',
         password: this.registrationForm.get('passwordGroup').get('passwordFormControl').value,
         service: serviceType
       });
+
+      obs.subscribe((response) => {
+        if (response["data"].success) {
+          this.router.navigateByUrl("/login");
+        }
+      });
+
       this.registrationForm.reset();
     } else {
 

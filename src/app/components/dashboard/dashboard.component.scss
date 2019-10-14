@@ -37,13 +37,24 @@
 
 .log-out-icon {
   margin-left: 5%;
+  mat-card{
+    display: none
+  };
+  &:hover {
+    mat-icon{
+      display: none
+    }
+    mat-card{
+      display: inline-block;
+    }
+  }
 }
 
 .sidenav-content {
   &:hover {
     background-color: rgb(254, 239, 195);
     border-bottom-right-radius: 25px;
-    border-top-right-radius: 25px; 
+    border-top-right-radius: 25px;
   }
 }
 
@@ -54,19 +65,19 @@
 
 .complete-search-bar-minimized {
   margin-top: 2.5%;
-  width: 280px;
+  width: 550px;
 }
 
 .complete-search-bar-maximized {
   margin-top: 2.5%;
-  width: 50%;
+  width: 550px;
 }
 
 .occupy-full {
   width: 100%;
 }
 
-.demo{
+.demo {
   position: absolute;
   margin-top: 10px;
 }

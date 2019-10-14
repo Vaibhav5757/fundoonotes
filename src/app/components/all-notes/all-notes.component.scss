@@ -17,11 +17,13 @@
 
 .extra-actions {
   mat-card-actions {
-    display: none;
+    // display: none;
+    visibility: hidden
   }
   &:hover {
     mat-card-actions {
-      display: block;
+      // display: block;
+      visibility:visible
     }
   }
 }
@@ -48,4 +50,3 @@
     }
   }
 }
-
