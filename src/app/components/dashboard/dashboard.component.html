@@ -42,61 +42,48 @@
       <div ngClass.xs=three-icons-in-header-smaller-screen>
         <mat-icon matTooltip="refresh" style="color: grey">refresh</mat-icon>
       </div>
-      <div ngClass.gt-xs=three-icons-in-header-bigger-screen fxHide.xs="true">
-        <mat-icon matTooltip="List View" style="color: grey">view_agenda</mat-icon>
+      <div [fxHide]="layout" ngClass.gt-xs="three-icons-in-header-bigger-screen" fxHide.xs="true">
+        <mat-icon (click)="changeLayout()" matTooltip="List View" style="color: grey">view_agenda</mat-icon>
       </div>
-      <div ngClass.gt-xs=three-icons-in-header-bigger-screen ngClass.xs=three-icons-in-header-smaller-screen>
+      <div [fxHide]="!layout" ngClass.gt-xs="three-icons-in-header-bigger-screen" fxHide.xs="true">
+        <mat-icon (click)="changeLayout()" matTooltip="Grid View" style="color: grey">dashboard</mat-icon>
+      </div>
+      <div ngClass.gt-xs="three-icons-in-header-bigger-screen" ngClass.xs=three-icons-in-header-smaller-screen>
         <mat-icon matTooltip="Settings" style="color: grey">settings</mat-icon>
       </div>
-
+      <div style="margin-left:80%;color: grey" fxHide.xs="true">
+        <mat-icon matTooltip="Apps">apps</mat-icon>
+      </div>
     </div>
 
     <!-- This fills the remaining space of the current row -->
     <span class="example-fill-remaining-space"></span>
 
+
     <!-- Log Out Icon -->
     <div fxLayout="row" fxLayoutAlign="space-around" ngClass="log-out-icon">
+
       <button mat-mini-fab color="warn" matTooltip="Log Out">
-        <mat-icon>thumb_down_alt</mat-icon>
-        <mat-card>
-          <mat-card-title>
-            {{user.firstName}} {{user.lastName}}
-          </mat-card-title>
-          <mat-card-subtitle>
-            {{user.email}}
-          </mat-card-subtitle>
-          <mat-card-actions>
-            <button mat-button>
-              Add Account
-            </button>
-            <button mat-button>
-              Log Out
-            </button>
-          </mat-card-actions>
-        </mat-card>
+        <mat-icon [matMenuTriggerFor]="logOutMenu">thumb_down_alt</mat-icon>
       </button>
+      <mat-menu #logOutMenu="matMenu">
+        <button disabled mat-menu-item>
+          <strong>
+            {{user.firstName}} {{user.lastName}}
+          </strong>
+        </button>
+        <button disabled mat-menu-item>
+          {{user.email}}
+        </button>
+        <button mat-menu-item>
+          <button (click)="addAccount()" mat-raised-button>Add account</button>
+          <button (click)="logOut()" mat-raised-button>Log Out</button>
+        </button>
+      </mat-menu>
+
     </div>
   </mat-toolbar>
 </div>
-
-<!-- Log Out Card -->
-
-<!-- <mat-card align="right">
-  <mat-card-title>
-    {{user.firstName}} {{user.lastName}}
-  </mat-card-title>
-  <mat-card-subtitle>
-    {{user.email}}
-  </mat-card-subtitle>
-  <mat-card-actions>
-    <button mat-button>
-      Add Account
-    </button>
-    <button mat-button>
-      Log Out
-    </button>
-  </mat-card-actions>
-</mat-card> -->
 
 
 <!-- Rest of Page -->
@@ -163,15 +150,16 @@
 
 
     <!-- Main Contents -->
-    <mat-sidenav-content style="min-height: 500px">
+    <mat-sidenav-content style="min-height: 560px">
 
       <div fxLayout="column" fxLayoutAlign="space-around center">
 
         <!-- Search bar-->
-        <div ngClass.xs="complete-search-bar-minimized" ngClass.gt-xs="complete-search-bar-maximized">
+        <div [fxHide]="hideSearchSection" ngClass.xs="complete-search-bar-minimized"
+          ngClass.gt-xs="complete-search-bar-maximized">
 
           <!-- Minimized -->
-          <mat-card class="search-bar-minimized" [fxHide]='hide' (click)='changeHide()' fxLayout="row"
+          <mat-card class="search-bar-minimized" ngClass.xs="search-bar-minimized-smaller-screen" [fxHide]='hide' (click)='changeHide()' fxLayout="row"
             FxLayoutAlign="space-between center">
 
             <mat-card-subtitle style="width:70%; margin-top:-2em">
@@ -231,11 +219,31 @@
                   </mat-icon>
                 </div>
 
-                <div [fxHide]="!advancedUser" class="color-palette">
-                  <mat-icon matTooltip="Change color">
+                <div [fxHide]="!advancedUser">
+                  <mat-icon [matMenuTriggerFor]="colorMenu">
                     color_lens
                   </mat-icon>
-                  <input [formControl]="noteColor" type="color" />
+                  <mat-menu #colorMenu="matMenu">
+
+                    <div class="color-picker">
+
+                      <div class="opened">
+                        <div class="colors">
+                          <div *ngFor="let paint of defaultColors1" (click)="changeColor(paint)" class="circle"
+                            [ngStyle]="{'background': paint}"></div>
+                        </div>
+                        <div class="colors">
+                          <div *ngFor="let paint of defaultColors2" (click)="changeColor(paint)" class="circle"
+                            [ngStyle]="{'background': paint}"></div>
+                        </div>
+                        <div class="colors">
+                          <div *ngFor="let paint of defaultColors3" (click)="changeColor(paint)" class="circle"
+                            [ngStyle]="{'background': paint}"></div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </mat-menu>
                 </div>
 
                 <div [fxHide]="!advancedUser">
@@ -276,7 +284,7 @@
               </div>
 
               <div [fxHide]="!advancedUser" align="right" style="color: black" fxHide.gt-xs="true">
-                <button mat-button (click)="hide = !hide">
+                <button mat-button (click)="changeHide();saveNote()">
                   Close
                 </button>
               </div>
@@ -286,7 +294,7 @@
         </div>
 
         <!-- Notes -->
-        <div style="width:60%">
+        <div style="width:60%" ngClass.xs="notes-smaller-screen">
 
           <!-- Notes Starting Point -->
 

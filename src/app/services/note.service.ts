@@ -28,4 +28,8 @@ export class NoteService {
   archiveNote(data) {
     return this.http.post("notes/archiveNotes", data);
   }
+
+  deleteForever(data){
+    return this.http.post("notes/deleteForeverNotes", data);
+  }
 }

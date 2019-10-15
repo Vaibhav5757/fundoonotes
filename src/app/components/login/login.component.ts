@@ -63,7 +63,6 @@ export class LoginComponent {
         this.router.navigateByUrl("/dashboard");
 
       }, (error) => {
-        console.log(error);
         this.snackBar.open("Invalid LogIn Credentials");
       });
 

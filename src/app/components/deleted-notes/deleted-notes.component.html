@@ -1,4 +1,4 @@
-<div fxLayout.gt-md="row wrap" fxLayout.lt-md="column" fxLayoutGap="2px" fxLayoutAlign="space-around center">
+<div fxLayout.gt-md="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.lt-md="column" fxLayoutGap="4px">
   <div *ngFor="let note of notesList.reverse()">
       <mat-card [style.background-color]="getBackgroundColor(note.color)" *ngIf="note.isDeleted"
           ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen" class="extra-actions">
@@ -26,13 +26,32 @@
                           person_add
                       </mat-icon>
                   </div>
-
                   <div class="color-palette" matTooltip="Change color">
-                      <mat-icon >
-                          color_lens
-                      </mat-icon>
-                      <input (change)="changeColor(note)" [formControl]="noteColor" type="color" />
-                  </div>
+                        <mat-icon [matMenuTriggerFor]="colorMenu">
+                            color_lens
+                        </mat-icon>
+                        <mat-menu #colorMenu="matMenu">
+
+                            <div class="color-picker">
+
+                                <div class="opened">
+                                    <div class="colors">
+                                        <div *ngFor="let paint of defaultColors1" (click)="changeColor(paint,note)"
+                                            class="circle" [ngStyle]="{'background': paint}"></div>
+                                    </div>
+                                    <div class="colors">
+                                        <div *ngFor="let paint of defaultColors2" (click)="changeColor(paint,note)"
+                                            class="circle" [ngStyle]="{'background': paint}"></div>
+                                    </div>
+                                    <div class="colors">
+                                        <div *ngFor="let paint of defaultColors3" (click)="changeColor(paint,note)"
+                                            class="circle" [ngStyle]="{'background': paint}"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </mat-menu>
+                    </div>
 
                   <div>
                       <mat-icon  matTooltip="Add Image">
@@ -52,6 +71,7 @@
                       </mat-icon>
                       <mat-menu #menu="matMenu">
                           <button (click)="restoreNote(note)" mat-menu-item>Restore</button>
+                          <button (click)="deleteForever(note)" mat-menu-item>Delete Permanent</button>
                       </mat-menu>
                   </div>
               </div>

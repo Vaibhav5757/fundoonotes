@@ -15,22 +15,43 @@ import { EventEmitter } from 'events';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  
+
+  public defaultColors1: string[] = [
+    '#ffffff',
+    '#BDD561',
+    '#3e6158'
+  ];
+
+  public defaultColors2: string[] = [
+    '#3f7a89',
+    '#96c582',
+    '#b7d5c4'
+  ];
+
+  public defaultColors3: string[] = [
+    '#bcd6e7',
+    '#7c90c1',
+    '#9d8594'
+  ];
 
   ngOnInit(): void {
     this.user = this.userSvc.getUser();
-    console.log(this.user);
   }
-
 
   user: any;
   hide: Boolean = false;
+  hideSearchSection: Boolean = false;
   hideLogo: Boolean = false;
   advancedUser: Boolean = true;
+  layout: Boolean = false;// false for row view, true for column view
 
   events = new EventEmitter();
 
   noteColor = new FormControl('#FFFFFF');
+  
+  changeColor(paint){
+    this.noteColor.setValue(paint);
+  }
 
   title = new FormControl('', [
     Validators.required
@@ -45,7 +66,7 @@ export class DashboardComponent implements OnInit {
     );
 
   constructor(private titleService: Title, private breakpointObserver: BreakpointObserver,
-    private noteSvc: NoteService, private router: Router, private userSvc : UserServiceService,
+    private noteSvc: NoteService, private router: Router, private userSvc: UserServiceService,
     private route: ActivatedRoute) {
     this.setTitle('Dashboard');
   }
@@ -77,16 +98,35 @@ export class DashboardComponent implements OnInit {
   }
 
   openNotes() {
+    this.hideSearchSection = false;
     this.router.navigate(["notes"], { relativeTo: this.route });
   }
 
   openArchive() {
-    this.router.navigate(["archived"], { relativeTo: this.route });
+    this.hideSearchSection = true;
+    this.router.navigate(["archived"], {
+      relativeTo: this.route
+    });
   }
 
   openBin() {
+    this.hideSearchSection = true;
     this.router.navigate(["deleted"], {
       relativeTo: this.route
     });
+  }
+
+  changeLayout(){
+    this.layout = !this.layout;
+    this.events.emit('change-layout');
+  }
+
+  logOut(){
+    this.userSvc.changeUser("");
+    this.router.navigateByUrl("/login");
+  }
+
+  addAccount(){
+    this.router.navigateByUrl("/register");
   }
 }
