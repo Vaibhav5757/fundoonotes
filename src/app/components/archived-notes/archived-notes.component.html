@@ -1,13 +1,13 @@
-<div fxLayout.gt-md="{{ notesLayout ? 'row wrap' : 'column' }}" [style.margin-left]="getMargin()" fxLayout.lt-md="column" fxLayoutGap="4px">
+<div fxLayout.gt-md="{{ notesLayout ? 'row wrap' : 'column' }}" [style.margin-left]="getMargin()" fxLayout.lt-md="column" fxLayoutAlign="center" gdGridAlign>
     <div *ngFor="let note of notesList.reverse()">
-        <mat-card [style.background-color]="getBackgroundColor(note.color)" *ngIf="note.isArchived && !note.isDeleted"
+        <mat-card style="margin-left: 7px" [style.background-color]="getBackgroundColor(note.color)" *ngIf="note.isArchived && !note.isDeleted"
             ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen" class="extra-actions">
 
-            <mat-card-title>
+            <mat-card-title (click)="openEditor(note)">
                 {{note.title}}
             </mat-card-title>
 
-            <mat-card-content>
+            <mat-card-content (click)="openEditor(note)">
                 {{note.description}}
             </mat-card-content>
 

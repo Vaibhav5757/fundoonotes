@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NoteService } from 'src/app/services/note.service';
 import { FormControl } from '@angular/forms';
 import { DashboardComponent } from 'src/app/components/dashboard/dashboard.component';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { EditNoteComponent } from '../edit-note/edit-note.component';
 
 @Component({
   selector: 'app-archived-notes',
@@ -34,7 +35,8 @@ export class ArchivedNotesComponent implements OnInit {
   notesLayout: boolean = true;
   
 
-  constructor(private noteSvc: NoteService, private dash: DashboardComponent, private snackBar: MatSnackBar) {
+  constructor(private noteSvc: NoteService, private dash: DashboardComponent,
+    private snackBar: MatSnackBar, private dialog: MatDialog) {
 
     this.dash.events.addListener('note-saved-in-database', () => {
       //Fetch all notes from database
@@ -112,6 +114,30 @@ export class ArchivedNotesComponent implements OnInit {
 
   getMargin() {
     return this.notesLayout ? 0 : "45%";
+  }
+
+  openEditor(note) {
+    let obs = this.dialog.open(EditNoteComponent, {
+      data: note
+    });
+    obs.afterClosed().subscribe(result => {
+      if (result) {
+        // Update the note
+        let data = {
+          noteId: result.id,
+          title: result.title,
+          description: result.description,
+          color: result.color
+        }
+
+        let obs = this.noteSvc.updateNote(data);
+
+        obs.subscribe((response) => {
+          //fetch All Notes after updating
+          this.fetchAllNotes();
+        })
+      }
+    })
   }
 
 }

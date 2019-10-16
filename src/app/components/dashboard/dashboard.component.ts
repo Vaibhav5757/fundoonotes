@@ -86,6 +86,10 @@ export class DashboardComponent implements OnInit {
     this.hide = !this.hide;
   }
 
+  getBackgroundColor(){
+    return this.noteColor.value;
+  }
+
   setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
   }

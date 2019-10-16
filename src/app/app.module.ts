@@ -10,7 +10,7 @@ import {
   MatCardModule, MatFormFieldModule, MatMenuModule, MatSelectModule, MatDialogModule,
   MatOptionModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatToolbarModule, MatTooltipModule, MatCheckboxModule, MatExpansionModule
 } from '@angular/material';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule, GridModule } from '@angular/flex-layout';
 import { RegisterComponent } from './components/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpServiceService } from '../app/services/http-service.service';
@@ -22,6 +22,7 @@ import { AllNotesComponent } from './components/all-notes/all-notes.component';
 import { ArchivedNotesComponent } from './components/archived-notes/archived-notes.component';
 import { DeletedNotesComponent } from './components/deleted-notes/deleted-notes.component';
 import { EditNoteComponent } from './components/edit-note/edit-note.component';
+import { AuthGuard } from "./auth.guard";
 
 @NgModule({
   declarations: [
@@ -60,12 +61,14 @@ import { EditNoteComponent } from './components/edit-note/edit-note.component';
     MatSelectModule,
     MatOptionModule,
     FlexLayoutModule,
+    GridModule,
     HttpClientModule,
     LayoutModule
   ],
   providers: [
     HttpServiceService,
-    UserServiceService
+    UserServiceService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -7,11 +7,13 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AllNotesComponent } from './components/all-notes/all-notes.component';
 import { DeletedNotesComponent } from './components/deleted-notes/deleted-notes.component';
 import { ArchivedNotesComponent } from './components/archived-notes/archived-notes.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {
+    canActivate: [AuthGuard],
     path: 'dashboard', component: DashboardComponent,
     children: [
       { path: '', component: AllNotesComponent },

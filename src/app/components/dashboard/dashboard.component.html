@@ -23,7 +23,7 @@
     <div fxHide.lt-md="true" class="search-box-in-header" fxLayout="row" fxLayoutAlign="start center">
       <mat-icon style="margin-left:1%;color: grey">search</mat-icon>
       <div style="margin-left:5%">
-        <mat-form-field appearance="fill legacy" style="width:335%; margin-top: 8%">
+        <mat-form-field appearance="fill legacy" style="width:300%; margin-top: 8%">
           <input matInput placeholder="Search">
         </mat-form-field>
       </div>
@@ -192,7 +192,7 @@
           </mat-card>
 
           <!-- Maximized -->
-          <mat-card style="border-radius : 10px;" ngClass.xs="mat-card-maximized-small-screen" [fxHide]='!hide'>
+          <mat-card [style.background]="getBackgroundColor()" style="border-radius : 10px;" ngClass.xs="mat-card-maximized-small-screen" [fxHide]='!hide'>
             <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
               <input [formControl]='title' matInput placeholder="Title">
               <mat-icon [fxHide]="!advancedUser">
@@ -294,7 +294,7 @@
         </div>
 
         <!-- Notes -->
-        <div style="width:60%" ngClass.xs="notes-smaller-screen">
+        <div ngClass.gt-xs="notes-bigger-screen" ngClass.xs="notes-smaller-screen">
 
           <!-- Notes Starting Point -->
 
