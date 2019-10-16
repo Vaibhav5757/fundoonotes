@@ -29,7 +29,11 @@ export class UserServiceService {
     this.http.changeUser(data);
   }
 
-  getUser(){
+  getUser() {
     return this.http.getUser();
+  }
+
+  getUserDetails(id) {
+    return this.http.getWithData("user/" + id, id);
   }
 }

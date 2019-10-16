@@ -106,30 +106,30 @@
           </h3>
         </mat-list-item>
 
-        <mat-list-item class="sidenav-content">
+        <mat-list-item [fxHide]="!advancedUser" class="sidenav-content">
           <mat-icon>notifications_none</mat-icon>
           <h3 style="margin-left:18%">
             Reminders
           </h3>
         </mat-list-item>
 
-        <mat-divider></mat-divider>
+        <mat-divider [fxHide]="!advancedUser"></mat-divider>
 
-        <mat-list-item>
+        <mat-list-item [fxHide]="!advancedUser">
           <p>LABELS</p>
         </mat-list-item>
 
-        <mat-list-item class="sidenav-content">
+        <mat-list-item [fxHide]="!advancedUser" class="sidenav-content">
           <mat-icon>colorize</mat-icon>
           <h3 style="margin-left:18%">
             Edit labels
           </h3>
         </mat-list-item>
 
-        <mat-divider></mat-divider>
+        <mat-divider [fxHide]="!advancedUser"></mat-divider>
 
 
-        <mat-list-item (click)="openArchive()" class="sidenav-content" style="margin-top: 4%">
+        <mat-list-item [fxHide]="!advancedUser" (click)="openArchive()" class="sidenav-content" style="margin-top: 4%">
           <mat-icon>archive</mat-icon>
           <h3 style="margin-left:18%">
             Archive
@@ -137,7 +137,7 @@
         </mat-list-item>
 
 
-        <mat-list-item (click)="openBin()" class="sidenav-content">
+        <mat-list-item [fxHide]="!advancedUser" (click)="openBin()" class="sidenav-content">
           <mat-icon>delete_outline</mat-icon>
           <h3 style="margin-left:18%">
             Bin

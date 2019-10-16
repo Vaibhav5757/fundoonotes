@@ -33,6 +33,7 @@ export class AllNotesComponent implements OnInit {
 
   noteColor = new FormControl('#FFFFFF');
   notesList: Array<any> = [];
+  basicUser: Boolean;
 
   notesLayout:Boolean = true;//true for row layout, false for column Layout
 
@@ -47,6 +48,11 @@ export class AllNotesComponent implements OnInit {
     this.dash.events.addListener('change-layout', () => {
       //Change Layout of Notes
       this.notesLayout = !this.notesLayout;
+    })
+
+    this.dash.events.addListener('user-is-basic',() => {
+      //Change type of User
+      this.basicUser = true;
     })
   }
 

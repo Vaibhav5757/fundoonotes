@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from "src/app/environments/environment.prod";
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -31,6 +31,18 @@ export class HttpServiceService {
       headers: new HttpHeaders({
         'Authorization': this.userSource.value["id"]
       })
+    });
+    return obs;
+  }
+
+  getWithData(url,data){
+    let obs = this.http.get(environment.domainURL + url, {
+      headers: new HttpHeaders({
+        'Authorization': this.userSource.value["id"]
+      }),
+      params: {
+        id: data
+      }
     });
     return obs;
   }

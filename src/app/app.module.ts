@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   MatButtonModule, MatInputModule, MatListModule,
-  MatCardModule, MatFormFieldModule, MatMenuModule, MatSelectModule, 
+  MatCardModule, MatFormFieldModule, MatMenuModule, MatSelectModule, MatDialogModule,
   MatOptionModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatToolbarModule, MatTooltipModule, MatCheckboxModule, MatExpansionModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -44,6 +44,7 @@ import { DeletedNotesComponent } from './components/deleted-notes/deleted-notes.
     MatListModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatDialogModule,
     MatExpansionModule,
     MatCardModule,
     MatFormFieldModule,

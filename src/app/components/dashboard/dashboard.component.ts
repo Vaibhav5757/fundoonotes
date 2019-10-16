@@ -34,22 +34,18 @@ export class DashboardComponent implements OnInit {
     '#9d8594'
   ];
 
-  ngOnInit(): void {
-    this.user = this.userSvc.getUser();
-  }
-
   user: any;
   hide: Boolean = false;
   hideSearchSection: Boolean = false;
   hideLogo: Boolean = false;
-  advancedUser: Boolean = true;
+  advancedUser: Boolean;//true for advanced user, false for basic user
   layout: Boolean = false;// false for row view, true for column view
 
   events = new EventEmitter();
 
   noteColor = new FormControl('#FFFFFF');
-  
-  changeColor(paint){
+
+  changeColor(paint) {
     this.noteColor.setValue(paint);
   }
 
@@ -71,6 +67,21 @@ export class DashboardComponent implements OnInit {
     this.setTitle('Dashboard');
   }
 
+  ngOnInit(): void {
+    //Get User Details from login api
+    this.user = this.userSvc.getUser();
+    
+    //Identify the type of user - basic or advanced - from details in database
+    let obs = this.userSvc.getUserDetails(this.user.userId);
+    obs.subscribe((response: any) => {
+      if (response.service === 'basic') this.advancedUser = false;
+      else this.advancedUser = true;
+    })
+
+    //Notify the components whether user is basic or advanced
+    if(!this.advancedUser)this.events.emit('user-is-basic');
+  }
+
   changeHide() {
     this.hide = !this.hide;
   }
@@ -85,8 +96,8 @@ export class DashboardComponent implements OnInit {
       description: this.content.value,
       color: this.noteColor.value
     }
-    let obs = this.noteSvc.saveNote(data);
 
+    let obs = this.noteSvc.saveNote(data);
     obs.subscribe(response => {
       // Note Saved in database
       this.events.emit("note-saved-in-database");
@@ -116,17 +127,17 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  changeLayout(){
+  changeLayout() {
     this.layout = !this.layout;
     this.events.emit('change-layout');
   }
 
-  logOut(){
+  logOut() {
     this.userSvc.changeUser("");
     this.router.navigateByUrl("/login");
   }
 
-  addAccount(){
+  addAccount() {
     this.router.navigateByUrl("/register");
   }
 }
