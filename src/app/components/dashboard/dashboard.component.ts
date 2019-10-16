@@ -70,16 +70,16 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     //Get User Details from login api
     this.user = this.userSvc.getUser();
-    
+
     //Identify the type of user - basic or advanced - from details in database
     let obs = this.userSvc.getUserDetails(this.user.userId);
     obs.subscribe((response: any) => {
       if (response.service === 'basic') this.advancedUser = false;
       else this.advancedUser = true;
-    })
 
-    //Notify the components whether user is basic or advanced
-    if(!this.advancedUser)this.events.emit('user-is-basic');
+      //Notify the components whether user is basic or advanced
+      if (!this.advancedUser) this.events.emit('user-is-basic');
+    })
   }
 
   changeHide() {
@@ -133,7 +133,7 @@ export class DashboardComponent implements OnInit {
   }
 
   logOut() {
-    this.userSvc.changeUser("");
+    this.userSvc.logOut();
     this.router.navigateByUrl("/login");
   }
 

@@ -36,4 +36,10 @@ export class UserServiceService {
   getUserDetails(id) {
     return this.http.getWithData("user/" + id, id);
   }
+
+  logOut(){
+    this.http.changeUser({
+      id:""
+    });
+  }
 }

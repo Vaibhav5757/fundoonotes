@@ -21,6 +21,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { AllNotesComponent } from './components/all-notes/all-notes.component';
 import { ArchivedNotesComponent } from './components/archived-notes/archived-notes.component';
 import { DeletedNotesComponent } from './components/deleted-notes/deleted-notes.component';
+import { EditNoteComponent } from './components/edit-note/edit-note.component';
 
 @NgModule({
   declarations: [
@@ -31,14 +32,17 @@ import { DeletedNotesComponent } from './components/deleted-notes/deleted-notes.
     DashboardComponent,
     AllNotesComponent,
     ArchivedNotesComponent,
-    DeletedNotesComponent
+    DeletedNotesComponent,
+    EditNoteComponent
   ],
+  entryComponents: [EditNoteComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    MatDialogModule,
     MatInputModule,
     MatIconModule,
     MatListModule,

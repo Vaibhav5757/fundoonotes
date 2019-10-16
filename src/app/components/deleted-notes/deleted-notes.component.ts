@@ -124,4 +124,8 @@ export class DeletedNotesComponent implements OnInit {
     return !arg ? '	#FFFFFF' : arg;
   }
 
+  getMargin() {
+    return this.notesLayout ? 0 : "45%";
+  }
+
 }

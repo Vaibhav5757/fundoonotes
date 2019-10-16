@@ -110,4 +110,8 @@ export class ArchivedNotesComponent implements OnInit {
     return !arg ? '	#FFFFFF' : arg;
   }
 
+  getMargin() {
+    return this.notesLayout ? 0 : "45%";
+  }
+
 }

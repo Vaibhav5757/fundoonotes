@@ -32,4 +32,8 @@ export class NoteService {
   deleteForever(data){
     return this.http.post("notes/deleteForeverNotes", data);
   }
+
+  updateNote(data){
+    return this.http.post("notes/updateNotes",data);
+  }
 }

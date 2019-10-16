@@ -1,0 +1,79 @@
+<h1 mat-dialog-title>
+  <input [formControl]="title" matInput [value]="note.title">
+</h1>
+
+<mat-dialog-content style="white-space: pre-wrap;overflow-wrap: break-word; overflow: hidden;">
+  <textarea [formControl]="content" matInput matTextareaAutosize [value]="note.description"></textarea>
+</mat-dialog-content>
+
+<mat-dialog-actions style="color: grey" fxLayout="row" fxLayoutAlign="space-between center" ngClass.xs="occupy-full">
+
+  <div>
+    <mat-icon matTooltip="Remind Me">
+      notifications_none
+    </mat-icon>
+  </div>
+
+  <div>
+    <mat-icon matTooltip="Collaborator">
+      person_add
+    </mat-icon>
+  </div>
+
+
+  <div class="color-palette" matTooltip="Change color">
+
+    <mat-icon [matMenuTriggerFor]="colorMenu">
+      color_lens
+    </mat-icon>
+
+    <mat-menu #colorMenu="matMenu">
+
+      <div class="color-picker">
+
+        <div class="opened">
+          <div class="colors">
+            <div *ngFor="let paint of defaultColors1" (click)="changeColor(paint)" class="circle"
+              [ngStyle]="{'background': paint}"></div>
+          </div>
+          <div class="colors">
+            <div *ngFor="let paint of defaultColors2" (click)="changeColor(paint)" class="circle"
+              [ngStyle]="{'background': paint}"></div>
+          </div>
+          <div class="colors">
+            <div *ngFor="let paint of defaultColors3" (click)="changeColor(paint)" class="circle"
+              [ngStyle]="{'background': paint}"></div>
+          </div>
+        </div>
+
+      </div>
+    </mat-menu>
+  </div>
+
+
+  <div>
+    <mat-icon matTooltip="Add Image">
+      image
+    </mat-icon>
+  </div>
+
+  <div>
+    <mat-icon (click)="archiveNote(note)" matTooltip="Archive">
+      archive
+    </mat-icon>
+  </div>
+
+  <div>
+    <mat-icon [matMenuTriggerFor]="menu" matTooltip="More">
+      more_vert
+    </mat-icon>
+    <mat-menu #menu="matMenu">
+      <button (click)="deleteNote(note)" mat-menu-item>Delete</button>
+    </mat-menu>
+  </div>
+
+  <div>
+    <button (click)="returnData()"  mat-raised-button>Save</button>
+  </div>
+
+</mat-dialog-actions>
