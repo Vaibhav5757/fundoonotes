@@ -37,6 +37,12 @@ export class UserServiceService {
     return this.http.getWithData("user/" + id, id);
   }
 
+  loggedIn():Boolean{
+    let user = this.getUser();
+    if(user['id'] != '')return true;
+    else return false;
+  }
+
   logOut(){
     this.http.changeUser({
       id:""
