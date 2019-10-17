@@ -32,7 +32,10 @@ export class AllNotesComponent implements OnInit {
 
   noteColor = new FormControl('#FFFFFF');
   notesList: Array<any> = [];
+  pinnedNotesList: Array<any> = [];
+  unPinnedNotesList: Array<any> = [];
   basicUser: Boolean;
+  pinUnpinExists: Boolean;
 
   notesLayout: Boolean = true;//true for row layout, false for column Layout
 
@@ -65,7 +68,16 @@ export class AllNotesComponent implements OnInit {
     let obs = this.noteSvc.fetchAllNotes();
 
     obs.subscribe((response) => {
-      this.notesList = response.data.data;
+      this.pinnedNotesList = this.getPinnedNotes(response.data.data);
+      this.unPinnedNotesList = this.getUnpinnedNotes(response.data.data);
+
+      if (this.pinnedNotesList.length === 0) {
+        this.pinUnpinExists = false;
+      }//No Pinned Notes
+      else {
+        console.log(this.pinnedNotesList);
+        this.pinUnpinExists = true;
+      }
     }, (error) => {
       console.log(error);
     })
@@ -113,18 +125,31 @@ export class AllNotesComponent implements OnInit {
     })
   }
 
+  //Pin Notes
+  pinUnpin(card) {
+    let data = {
+      noteIdList: [card.id],
+      isPined: !card.isPined
+    };
+    let obs = this.noteSvc.pinUnpinNotes(data);
+    obs.subscribe(response => {
+      this.fetchAllNotes();
+    })
+  }
+
   getBackgroundColor(arg) {
     return !arg ? '	#FFFFFF' : arg;
   }
 
   getMargin() {
-    console.log(this.notesLayout);
-    return this.notesLayout ? "0" : "0";
+    return this.pinUnpinExists ? '10%': '0';
   }
 
   openEditor(note) {
     let obs = this.dialog.open(EditNoteComponent, {
-      data: note
+      data: note,
+      width: "550px",
+      panelClass: 'dialog-box'
     });
     obs.afterClosed().subscribe(result => {
       if (result) {
@@ -144,5 +169,29 @@ export class AllNotesComponent implements OnInit {
         })
       }
     })
+  }
+
+  getPinnedNotes(array) {
+    let result = [];
+    array.forEach(element => {
+      if (element.isPined && !element.isDeleted) {
+        result.push(element);
+      }
+    });
+
+    //Notes are reversed because they need to be shown on basis of time created - the newer one comes first
+    return result.reverse();
+  }
+
+  getUnpinnedNotes(array) {
+    let result = [];
+    array.forEach(element => {
+      if (!element.isPined) {
+        result.push(element);
+      }
+    });
+
+    //Notes are reversed because they need to be shown on basis of time created - the newer one comes first
+    return result.reverse();
   }
 }

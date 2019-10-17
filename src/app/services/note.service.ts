@@ -36,4 +36,8 @@ export class NoteService {
   updateNote(data){
     return this.http.post("notes/updateNotes",data);
   }
+
+  pinUnpinNotes(data){
+    return this.http.post("notes/pinUnpinNotes",data);
+  }
 }

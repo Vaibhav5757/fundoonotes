@@ -1,7 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
 import { FormControl, Validators } from '@angular/forms';
 import { NoteService } from 'src/app/services/note.service';
@@ -46,6 +43,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   events = new EventEmitter();
 
   noteColor = new FormControl('#FFFFFF');
+
+  isPinned: Boolean = false;
 
   changeColor(paint) {
     this.noteColor.setValue(paint);
@@ -95,6 +94,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.hide = !this.hide;
   }
 
+  pinUnpinNote(){
+    this.isPinned = !this.isPinned;
+  }
+
   getBackgroundColor() {
     return this.noteColor.value;
   }
@@ -107,7 +110,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     let data = {
       title: this.title.value,
       description: this.content.value,
-      color: this.noteColor.value
+      color: this.noteColor.value,
+      isPined: this.isPinned
     }
 
     let obs = this.noteSvc.saveNote(data);
@@ -119,6 +123,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.title.setValue("");
     this.content.setValue("");
     this.noteColor.setValue("#FFFFFF");
+    this.isPinned = false;
   }
 
   openNotes() {

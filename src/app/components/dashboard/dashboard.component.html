@@ -148,7 +148,8 @@
 
 
     <!-- Main Contents -->
-    <mat-sidenav-content style="min-height: 560px" ngClass.gt-xs="main-content-bigger-screen" ngClass.xs="main-content-smaller-screen">
+    <mat-sidenav-content style="min-height: 560px" ngClass.gt-xs="main-content-bigger-screen"
+      ngClass.xs="main-content-smaller-screen">
 
       <div fxLayout="column" fxLayoutAlign="space-around center">
 
@@ -194,9 +195,14 @@
             ngClass.xs="mat-card-maximized-small-screen" [fxHide]='!hide'>
             <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
               <input [formControl]='title' matInput placeholder="Title">
-              <mat-icon [fxHide]="!advancedUser">
-                where_to_vote
-              </mat-icon>
+              <div (click)="pinUnpinNote()" [fxHide]="!advancedUser">
+                <mat-icon [fxHide]="isPinned">
+                  work
+                </mat-icon>
+                <mat-icon [fxHide]="!isPinned">
+                  work_off
+                </mat-icon>
+              </div>
             </mat-card-title>
             <mat-card-subtitle>
               <textarea [formControl]='content' style="color:black" matTextareaAutosize matInput
