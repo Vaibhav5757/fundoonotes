@@ -2,8 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from "src/app/environments/environment.prod";
-import { BehaviorSubject, Observable } from 'rxjs';
-import { SESSION_STORAGE, WebStorageService } from 'angular-webstorage-service';
+import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 
 
 @Injectable({
@@ -11,11 +10,7 @@ import { SESSION_STORAGE, WebStorageService } from 'angular-webstorage-service';
 })
 export class HttpServiceService {
 
-  constructor(@Inject(SESSION_STORAGE) private storage: WebStorageService, private http: HttpClient, private router: Router) {
-    let dummyUser = {
-      id:''
-    }
-    this.storage.set('user',dummyUser)
+  constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService, private http: HttpClient, private router: Router) {
   }
 
   changeUser(data: any) {
