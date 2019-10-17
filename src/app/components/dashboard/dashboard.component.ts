@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,13 +8,15 @@ import { NoteService } from 'src/app/services/note.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EventEmitter } from 'events';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-components/dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   public defaultColors1: string[] = [
     '#ffffff',
@@ -56,15 +58,18 @@ export class DashboardComponent implements OnInit {
   content = new FormControl('', [
   ])
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches)
-    );
+  mobileQuery: MediaQueryList;
+  fillerNav = Array.from({ length: 50 }, (_, i) => `Nav Item ${i + 1}`);
 
-  constructor(private titleService: Title, private breakpointObserver: BreakpointObserver,
+  private _mobileQueryListener: () => void;
+
+  constructor(private titleService: Title,
     private noteSvc: NoteService, private router: Router, private userSvc: UserServiceService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.setTitle('Dashboard');
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
   ngOnInit(): void {
@@ -82,11 +87,15 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
   changeHide() {
     this.hide = !this.hide;
   }
 
-  getBackgroundColor(){
+  getBackgroundColor() {
     return this.noteColor.value;
   }
 

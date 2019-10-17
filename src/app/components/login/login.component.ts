@@ -57,9 +57,6 @@ export class LoginComponent {
       })
 
       obs.subscribe((response: any) => {
-
-        console.log(response);
-
         //Save the response
         this.userSvc.changeUser(response);
         this.router.navigateByUrl("/dashboard");

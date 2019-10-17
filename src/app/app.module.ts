@@ -23,6 +23,7 @@ import { ArchivedNotesComponent } from './components/archived-notes/archived-not
 import { DeletedNotesComponent } from './components/deleted-notes/deleted-notes.component';
 import { EditNoteComponent } from './components/edit-note/edit-note.component';
 import { AuthGuard } from "./auth.guard";
+import { SESSION_STORAGE,StorageServiceModule} from 'angular-webstorage-service';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { AuthGuard } from "./auth.guard";
     FlexLayoutModule,
     GridModule,
     HttpClientModule,
-    LayoutModule
+    LayoutModule,
+    StorageServiceModule
   ],
   providers: [
     HttpServiceService,

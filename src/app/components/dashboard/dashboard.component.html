@@ -1,7 +1,8 @@
-<!-- Header -->
-<div>
-  <mat-toolbar style="min-width: 320px">
-    <mat-icon (click)="drawer.toggle()" style="margin-left: 1%" matTooltip="Main Menu">menu
+<div class="container" [class.example-is-mobile]="mobileQuery.matches">
+
+  <!-- Header -->
+  <mat-toolbar class="toolbar">
+    <mat-icon (click)="snav.toggle()" style="margin-left: 1%" matTooltip="Main Menu">menu
     </mat-icon>
 
     <div class="logo" style="margin-left: 4%">
@@ -83,19 +84,16 @@
 
     </div>
   </mat-toolbar>
-</div>
 
 
-<!-- Rest of Page -->
-<div style="display: flex; flex-flow: column">
 
-  <mat-sidenav-container style="min-height: 500px">
+  <!-- Rest of Page -->
+  <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
 
 
     <!-- Side nav bar contents -->
-    <mat-sidenav #drawer ngClass.gt-xs="sidenav-bigger-screen" ngClass.xs="sidenav-smaller-screen"
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="!(isHandset$ | async)">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56" ngClass.gt-xs="sidenav-bigger-screen" ngClass.xs="sidenav-smaller-screen">
 
       <mat-nav-list style="margin-left:4%">
 
@@ -150,7 +148,7 @@
 
 
     <!-- Main Contents -->
-    <mat-sidenav-content style="min-height: 560px">
+    <mat-sidenav-content style="min-height: 560px" ngClass.gt-xs="main-content-bigger-screen" ngClass.xs="main-content-smaller-screen">
 
       <div fxLayout="column" fxLayoutAlign="space-around center">
 
@@ -159,8 +157,8 @@
           ngClass.gt-xs="complete-search-bar-maximized">
 
           <!-- Minimized -->
-          <mat-card class="search-bar-minimized" ngClass.xs="search-bar-minimized-smaller-screen" [fxHide]='hide' (click)='changeHide()' fxLayout="row"
-            FxLayoutAlign="space-between center">
+          <mat-card class="search-bar-minimized" ngClass.xs="search-bar-minimized-smaller-screen" [fxHide]='hide'
+            (click)='changeHide()' fxLayout="row" FxLayoutAlign="space-between center">
 
             <mat-card-subtitle style="width:70%; margin-top:-2em">
               <mat-form-field appearance="fill legacy">
@@ -192,7 +190,8 @@
           </mat-card>
 
           <!-- Maximized -->
-          <mat-card [style.background]="getBackgroundColor()" style="border-radius : 10px;" ngClass.xs="mat-card-maximized-small-screen" [fxHide]='!hide'>
+          <mat-card [style.background]="getBackgroundColor()" style="border-radius : 10px;"
+            ngClass.xs="mat-card-maximized-small-screen" [fxHide]='!hide'>
             <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
               <input [formControl]='title' matInput placeholder="Title">
               <mat-icon [fxHide]="!advancedUser">
@@ -309,5 +308,4 @@
     </mat-sidenav-content>
 
   </mat-sidenav-container>
-
 </div>

@@ -40,31 +40,30 @@ body {
   color: white;
 }
 
-
 .note-smaller-screen {
   width: 80%;
   margin: auto;
-  border-radius: 10px;
-  margin-top: 5%;
   white-space: pre-line;
   overflow-wrap: break-word;
+  margin-bottom: 10px;
 }
 
 .note-bigger-screen {
   width: 150px;
-  border-radius: 10px;
-  margin-top: 5%;
   white-space: pre-line;
   overflow-wrap: break-word;
+  margin-bottom: 10px;
 }
 
 .extra-actions {
   mat-card-actions {
-    visibility: hidden
+    visibility: hidden;
+    cursor: pointer;
   }
   &:hover {
     mat-card-actions {
-      visibility:visible
+      visibility:visible;
+      cursor: pointer;
     }
   }
 }

@@ -113,7 +113,7 @@ export class ArchivedNotesComponent implements OnInit {
   }
 
   getMargin() {
-    return this.notesLayout ? 0 : "45%";
+    return this.notesLayout ? "0" : "25%";
   }
 
   openEditor(note) {

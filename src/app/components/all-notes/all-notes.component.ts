@@ -118,7 +118,8 @@ export class AllNotesComponent implements OnInit {
   }
 
   getMargin() {
-    return this.notesLayout ? 0 : "45%";
+    console.log(this.notesLayout);
+    return this.notesLayout ? "0" : "0";
   }
 
   openEditor(note) {

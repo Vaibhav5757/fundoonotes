@@ -1,5 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.toolbar {
+  min-width: 320px;
+  position: fixed;
+  z-index: 2;
+}
+
+.sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+     flex: 1 0 auto;
+}
+
+.main-content-bigger-screen{
+  margin-top: 5em;
+}
+
+.main-content-smaller-screen{
+  margin-top: 1em;
+}
+
 .sidenav-bigger-screen {
-  width: 23%;
+  min-width:200px;
+  width: 25%;
+  margin-top: 3em;
+  position: fixed;
 }
 
 .sidenav-smaller-screen {
@@ -58,19 +91,16 @@
 }
 
 .complete-search-bar-minimized {
-  margin-top: 2.5%;
   width: 550px;
 }
 
 .complete-search-bar-maximized {
-  margin-top: 2.5%;
   width: 550px;
   margin-left: 5em;
   margin-right: 5em;
 }
 
 .mat-card-maximized-small-screen {
-  margin-top: 2.5%;
   width: 250px;
   margin-left: 10em;
 }
