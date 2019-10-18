@@ -15,6 +15,7 @@ body {
 }
 .mat-icon {
   font-family: "Material Icons" !important;
+  cursor: pointer;
 }
 
 @mixin color-picker($color) {
@@ -187,6 +188,13 @@ p.style-value {
   box-sizing: border-box;
 }
 
-.dialog-box {
-  // background-color: blue;
+.dialogBox {
+  mat-dialog-container{
+    padding: 0;
+    overflow: hidden;
+    border-radius: 15px;
+    mat-icon{
+      font-size: 20px;
+    }
+  }
 }

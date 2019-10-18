@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormControl, Validators } from '@angular/forms';
+import { NoteService } from 'src/app/services/note.service';
 
 export interface DialogData {
   title: String,
@@ -41,10 +42,12 @@ export class EditNoteComponent implements OnInit {
   content = new FormControl('', [
   ])
 
-  color:String = "#FFFFF";
+  color: String = "#FFFFF";
 
   constructor(@Inject(MAT_DIALOG_DATA) private note: DialogData,
-    private dialogRef: MatDialogRef<EditNoteComponent>) { }
+    private dialogRef: MatDialogRef<EditNoteComponent>,
+    private noteSvc: NoteService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.title.setValue(this.note.title);
@@ -65,8 +68,47 @@ export class EditNoteComponent implements OnInit {
     }
   }
 
-  changeColor(paint){
+  changeColor(note, paint) {
+    note.color = paint;
     this.color = paint;
+    this.snackBar.open('Color Change is not supported in our API while editing notes', '', {
+      duration: 1500
+    })
   }
+
+  //Delete a Note
+  deleteNote(note) {
+    let data = {
+      noteIdList: [note.id],
+      isDeleted: true
+    }
+    let obs = this.noteSvc.deleteNote(data);
+    obs.subscribe(response => {
+      this.dialogRef.close({
+        message: 'update-notes'
+      });
+      this.snackBar.open("Note Deleted", '', {
+        duration: 1500
+      })
+    })
+  }
+
+  //archive a note
+  archiveNote(note) {
+    let data = {
+      noteIdList: [note.id],
+      isArchived: true
+    }
+    let obs = this.noteSvc.archiveNote(data);
+    obs.subscribe(response => {
+      this.dialogRef.close({
+        message: 'update-notes'
+      });
+      this.snackBar.open("Note Archived", '', {
+        duration: 1500
+      })
+    })
+  }
+
 
 }

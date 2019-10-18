@@ -5,10 +5,11 @@
 <div fxLayout.md="row wrap" fxLayout.gt-md="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.lt-md="column"
     fxLayoutAlign="{{ pinUnpinExists ? 'start center' : 'center center' }}" [style.margin-left]="getMargin()"
     gdGridAlign>
+    
     <div *ngFor="let note of pinnedNotesList">
-        <mat-card style="border-radius: 15px;"
-            [style.background-color]="getBackgroundColor(note.color)" *ngIf="!note.isDeleted && !note.isArchived"
-            ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen" class="extra-actions">
+        <mat-card style="margin-left: 10px; margin-top: 10px; border-radius: 15px;"
+        [style.background-color]="getBackgroundColor(note.color)" *ngIf="!note.isDeleted && !note.isArchived"
+        ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen" class="extra-actions">
 
             <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
                 <div (click)="openEditor(note)">

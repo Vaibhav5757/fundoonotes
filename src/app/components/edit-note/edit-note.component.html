@@ -1,13 +1,13 @@
-<div>
+<div style="padding:5%" [style.background-color]="note.color">
   <h1 mat-dialog-title>
-    <input [formControl]="title" matInput [value]="note.title">
+    <input [formControl]="title" placeholder="title" matInput [value]="note.title">
   </h1>
   
   <mat-dialog-content style="white-space: pre-wrap;overflow-wrap: break-word; overflow: hidden;">
-    <textarea [formControl]="content" matInput matTextareaAutosize [value]="note.description"></textarea>
+    <textarea placeholder="Enter your note here" [formControl]="content" matInput matTextareaAutosize [value]="note.description"></textarea>
   </mat-dialog-content>
   
-  <mat-dialog-actions style="color: grey" fxLayout="row" fxLayoutAlign="space-between center" ngClass.xs="occupy-full">
+  <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center" ngClass.xs="occupy-full">
   
     <div>
       <mat-icon matTooltip="Remind Me">
@@ -34,15 +34,15 @@
   
           <div class="opened">
             <div class="colors">
-              <div *ngFor="let paint of defaultColors1" (click)="changeColor(paint)" class="circle"
+              <div *ngFor="let paint of defaultColors1" (click)="changeColor(note,paint)" class="circle"
                 [ngStyle]="{'background': paint}"></div>
             </div>
             <div class="colors">
-              <div *ngFor="let paint of defaultColors2" (click)="changeColor(paint)" class="circle"
+              <div *ngFor="let paint of defaultColors2" (click)="changeColor(note,paint)" class="circle"
                 [ngStyle]="{'background': paint}"></div>
             </div>
             <div class="colors">
-              <div *ngFor="let paint of defaultColors3" (click)="changeColor(paint)" class="circle"
+              <div *ngFor="let paint of defaultColors3" (click)="changeColor(note,paint)" class="circle"
                 [ngStyle]="{'background': paint}"></div>
             </div>
           </div>
@@ -74,7 +74,7 @@
     </div>
   
     <div>
-      <button (click)="returnData()"  mat-raised-button>Save</button>
+      <button (click)="returnData()" [style.background-color]="note.color"  mat-raised-button>Save</button>
     </div>
   
   </mat-dialog-actions>

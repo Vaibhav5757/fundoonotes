@@ -142,31 +142,36 @@ export class AllNotesComponent implements OnInit {
   }
 
   getMargin() {
-    return this.pinUnpinExists ? '10%': '0';
+    return this.pinUnpinExists ? '10%' : '0';
   }
 
   openEditor(note) {
     let obs = this.dialog.open(EditNoteComponent, {
       data: note,
       width: "550px",
-      panelClass: 'dialog-box'
+      panelClass: 'dialogBox'
     });
     obs.afterClosed().subscribe(result => {
       if (result) {
-        // Update the note
-        let data = {
-          noteId: result.id,
-          title: result.title,
-          description: result.description,
-          color: result.color
-        }
 
-        let obs = this.noteSvc.updateNote(data);
-
-        obs.subscribe((response) => {
-          //fetch All Notes after updating
+        if (result.message == 'update-notes') {
           this.fetchAllNotes();
-        })
+        } else {
+          // Update the note
+          let data = {
+            noteId: result.id,
+            title: result.title,
+            description: result.description,
+            color: result.color
+          }
+
+          let obs = this.noteSvc.updateNote(data);
+
+          obs.subscribe((response) => {
+            //fetch All Notes after updating
+            this.fetchAllNotes();
+          })
+        }
       }
     })
   }
