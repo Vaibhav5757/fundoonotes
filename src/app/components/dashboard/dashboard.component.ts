@@ -94,7 +94,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.hide = !this.hide;
   }
 
-  pinUnpinNote(){
+  pinUnpinNote() {
     this.isPinned = !this.isPinned;
   }
 
@@ -148,6 +148,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   changeLayout() {
     this.layout = !this.layout;
     this.events.emit('change-layout');
+  }
+
+  getLayout(){
+    return this.layout;
   }
 
   logOut() {

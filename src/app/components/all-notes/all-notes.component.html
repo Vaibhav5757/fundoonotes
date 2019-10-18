@@ -1,9 +1,9 @@
-<h4 *ngIf="pinUnpinExists" style="margin-left: 10%">
+<h5 *ngIf="pinUnpinExists">
     PINNED
-</h4>
+</h5>
 
 <div fxLayout.md="row wrap" fxLayout.gt-md="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.lt-md="column"
-    fxLayoutAlign="{{ pinUnpinExists ? 'start center' : 'center center' }}" [style.margin-left]="getMargin()"
+    fxLayoutAlign="{{ notesLayout ? 'start start' : 'center center' }}"
     gdGridAlign>
     
     <div *ngFor="let note of pinnedNotesList">
@@ -100,12 +100,12 @@
     </div>
 </div>
 
-<h4 *ngIf="pinUnpinExists" style="margin-left: 10%">
-    UNPINNED
-</h4>
+<h5 *ngIf="pinUnpinExists">
+    OTHERS
+</h5>
 
 <div fxLayout.md="row wrap" fxLayout.gt-md="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.lt-md="column"
-    fxLayoutAlign="{{ pinUnpinExists ? 'start center' : 'center center' }}" [style.margin-left]="getMargin()"
+    fxLayoutAlign="{{ notesLayout ? 'start start' : 'center center' }}"
     gdGridAlign>
 
     <div *ngFor="let note of unPinnedNotesList">

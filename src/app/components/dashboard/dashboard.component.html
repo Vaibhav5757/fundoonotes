@@ -1,317 +1,317 @@
 <div class="container" [class.example-is-mobile]="mobileQuery.matches">
 
-  <!-- Header -->
-  <mat-toolbar class="toolbar">
-    <mat-icon (click)="snav.toggle()" style="margin-left: 1%" matTooltip="Main Menu">menu
-    </mat-icon>
-
-    <div class="logo" style="margin-left: 4%">
-
-      <div class="blue-color">F</div>
-      <div class="red-color">u</div>
-      <div class="orange-color">n</div>
-      <div class="blue-color">d</div>
-      <div class="green-color">o</div>
-      <div class="red-color">o</div>
-      <div class="blue-color">N</div>
-      <div class="red-color">o</div>
-      <div class="orange-color">t</div>
-      <div class="blue-color">e</div>
-      <div class="green-color">s</div>
-    </div>
-
-    <!-- Search bar in header -->
-    <div fxHide.lt-md="true" class="search-box-in-header" fxLayout="row" fxLayoutAlign="start center">
-      <mat-icon style="margin-left:1%;color: grey">search</mat-icon>
-      <div style="margin-left:5%">
-        <mat-form-field appearance="fill legacy" style="width:300%; margin-top: 8%">
-          <input matInput placeholder="Search">
-        </mat-form-field>
+    <!-- Header -->
+    <mat-toolbar class="toolbar">
+      <mat-icon (click)="snav.toggle()" style="margin-left: 1%" matTooltip="Main Menu">menu
+      </mat-icon>
+  
+      <div class="logo" style="margin-left: 4%">
+  
+        <div class="blue-color">F</div>
+        <div class="red-color">u</div>
+        <div class="orange-color">n</div>
+        <div class="blue-color">d</div>
+        <div class="green-color">o</div>
+        <div class="red-color">o</div>
+        <div class="blue-color">N</div>
+        <div class="red-color">o</div>
+        <div class="orange-color">t</div>
+        <div class="blue-color">e</div>
+        <div class="green-color">s</div>
       </div>
-    </div>
-
-    <!-- This fills the remaining space of the current row -->
-    <span class="fill-remaining-space"></span>
-
-
-    <!-- Three Icons -->
-    <div fxLayout="row" fxLayoutAlign="space-around" style="margin-top: 1%; margin-left:5%">
-
-      <div fxHide.gt-xs="true">
-        <mat-icon style="color: grey">search</mat-icon>
+  
+      <!-- Search bar in header -->
+      <div fxHide.lt-md="true" class="search-box-in-header" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon style="margin-left:1%;color: grey">search</mat-icon>
+        <div style="margin-left:5%">
+          <mat-form-field appearance="fill legacy" style="width:300%; margin-top: 8%">
+            <input matInput placeholder="Search">
+          </mat-form-field>
+        </div>
       </div>
-      <div ngClass.xs=three-icons-in-header-smaller-screen>
-        <mat-icon matTooltip="refresh" style="color: grey">refresh</mat-icon>
+  
+      <!-- This fills the remaining space of the current row -->
+      <span class="fill-remaining-space"></span>
+  
+  
+      <!-- Three Icons -->
+      <div fxLayout="row" fxLayoutAlign="space-around" style="margin-top: 1%; margin-left:5%">
+  
+        <div fxHide.gt-xs="true">
+          <mat-icon style="color: grey">search</mat-icon>
+        </div>
+        <div ngClass.xs=three-icons-in-header-smaller-screen>
+          <mat-icon matTooltip="refresh" style="color: grey">refresh</mat-icon>
+        </div>
+        <div [fxHide]="layout" ngClass.gt-xs="three-icons-in-header-bigger-screen" fxHide.xs="true">
+          <mat-icon (click)="changeLayout()" matTooltip="List View" style="color: grey">view_agenda</mat-icon>
+        </div>
+        <div [fxHide]="!layout" ngClass.gt-xs="three-icons-in-header-bigger-screen" fxHide.xs="true">
+          <mat-icon (click)="changeLayout()" matTooltip="Grid View" style="color: grey">dashboard</mat-icon>
+        </div>
+        <div ngClass.gt-xs="three-icons-in-header-bigger-screen" ngClass.xs=three-icons-in-header-smaller-screen>
+          <mat-icon matTooltip="Settings" style="color: grey">settings</mat-icon>
+        </div>
+        <div style="margin-left:80%;color: grey" fxHide.lt-lg="true">
+          <mat-icon matTooltip="Apps">apps</mat-icon>
+        </div>
       </div>
-      <div [fxHide]="layout" ngClass.gt-xs="three-icons-in-header-bigger-screen" fxHide.xs="true">
-        <mat-icon (click)="changeLayout()" matTooltip="List View" style="color: grey">view_agenda</mat-icon>
-      </div>
-      <div [fxHide]="!layout" ngClass.gt-xs="three-icons-in-header-bigger-screen" fxHide.xs="true">
-        <mat-icon (click)="changeLayout()" matTooltip="Grid View" style="color: grey">dashboard</mat-icon>
-      </div>
-      <div ngClass.gt-xs="three-icons-in-header-bigger-screen" ngClass.xs=three-icons-in-header-smaller-screen>
-        <mat-icon matTooltip="Settings" style="color: grey">settings</mat-icon>
-      </div>
-      <div style="margin-left:80%;color: grey" fxHide.lt-lg="true">
-        <mat-icon matTooltip="Apps">apps</mat-icon>
-      </div>
-    </div>
-
-    <!-- This fills the remaining space of the current row -->
-    <span class="example-fill-remaining-space"></span>
-
-
-    <!-- Log Out Icon -->
-    <div fxLayout="row" fxLayoutAlign="space-around" ngClass="log-out-icon">
-
-      <button mat-mini-fab color="warn" matTooltip="Log Out">
-        <mat-icon [matMenuTriggerFor]="logOutMenu">thumb_down_alt</mat-icon>
-      </button>
-      <mat-menu #logOutMenu="matMenu">
-        <button disabled mat-menu-item>
-          <strong>
-            {{user.firstName}} {{user.lastName}}
-          </strong>
+  
+      <!-- This fills the remaining space of the current row -->
+      <span class="example-fill-remaining-space"></span>
+  
+  
+      <!-- Log Out Icon -->
+      <div fxLayout="row" fxLayoutAlign="space-around" ngClass="log-out-icon">
+  
+        <button mat-mini-fab color="warn" matTooltip="Log Out">
+          <mat-icon [matMenuTriggerFor]="logOutMenu">thumb_down_alt</mat-icon>
         </button>
-        <button disabled mat-menu-item>
-          {{user.email}}
-        </button>
-        <button mat-menu-item>
-          <button (click)="addAccount()" mat-raised-button>Add account</button>
-          <button (click)="logOut()" mat-raised-button>Log Out</button>
-        </button>
-      </mat-menu>
-
-    </div>
-  </mat-toolbar>
-
-
-
-  <!-- Rest of Page -->
-  <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-
-
-    <!-- Side nav bar contents -->
-    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
-      fixedTopGap="56" ngClass.gt-xs="sidenav-bigger-screen" ngClass.xs="sidenav-smaller-screen">
-
-      <mat-nav-list style="margin-left:4%">
-
-        <mat-list-item (click)="openNotes()" class="sidenav-content">
-          <mat-icon>emoji_objects</mat-icon>
-          <h3 style="margin-left:18%">
-            Notes
-          </h3>
-        </mat-list-item>
-
-        <mat-list-item [fxHide]="!advancedUser" class="sidenav-content">
-          <mat-icon>notifications_none</mat-icon>
-          <h3 style="margin-left:18%">
-            Reminders
-          </h3>
-        </mat-list-item>
-
-        <mat-divider [fxHide]="!advancedUser"></mat-divider>
-
-        <mat-list-item [fxHide]="!advancedUser">
-          <p>LABELS</p>
-        </mat-list-item>
-
-        <mat-list-item [fxHide]="!advancedUser" class="sidenav-content">
-          <mat-icon>colorize</mat-icon>
-          <h3 style="margin-left:18%">
-            Edit labels
-          </h3>
-        </mat-list-item>
-
-        <mat-divider [fxHide]="!advancedUser"></mat-divider>
-
-
-        <mat-list-item [fxHide]="!advancedUser" (click)="openArchive()" class="sidenav-content" style="margin-top: 4%">
-          <mat-icon>archive</mat-icon>
-          <h3 style="margin-left:18%">
-            Archive
-          </h3>
-        </mat-list-item>
-
-
-        <mat-list-item [fxHide]="!advancedUser" (click)="openBin()" class="sidenav-content">
-          <mat-icon>delete_outline</mat-icon>
-          <h3 style="margin-left:18%">
-            Bin
-          </h3>
-        </mat-list-item>
-
-      </mat-nav-list>
-
-    </mat-sidenav>
-
-
-    <!-- Main Contents -->
-    <mat-sidenav-content style="min-height: 560px" ngClass.gt-xs="main-content-bigger-screen"
-      ngClass.xs="main-content-smaller-screen">
-
-      <div fxLayout="column" fxLayoutAlign="space-around center">
-
-        <!-- Search bar-->
-        <div [fxHide]="hideSearchSection" ngClass.xs="complete-search-bar-minimized"
-          ngClass.gt-xs="complete-search-bar-maximized">
-
-          <!-- Minimized -->
-          <mat-card class="search-bar-minimized" ngClass.xs="search-bar-minimized-smaller-screen" [fxHide]='hide'
-            (click)='changeHide()' fxLayout="row" FxLayoutAlign="space-between center">
-
-            <mat-card-subtitle style="width:70%; margin-top:-2em">
-              <mat-form-field appearance="fill legacy">
-                <input matInput placeholder="Take a note...">
-              </mat-form-field>
-            </mat-card-subtitle>
-            <mat-card-content [fxHide]="!advancedUser" style="width:30%">
-              <div fxLayout="row" fxLayoutAlign="space-around center">
-                <div>
-                  <mat-icon matTooltip="New List">
-                    check_box
-                  </mat-icon>
-
+        <mat-menu #logOutMenu="matMenu">
+          <button disabled mat-menu-item>
+            <strong>
+              {{user.firstName}} {{user.lastName}}
+            </strong>
+          </button>
+          <button disabled mat-menu-item>
+            {{user.email}}
+          </button>
+          <button mat-menu-item>
+            <button (click)="addAccount()" mat-raised-button>Add account</button>
+            <button (click)="logOut()" mat-raised-button>Log Out</button>
+          </button>
+        </mat-menu>
+  
+      </div>
+    </mat-toolbar>
+  
+  
+  
+    <!-- Rest of Page -->
+    <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+  
+  
+      <!-- Side nav bar contents -->
+      <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+        fixedTopGap="56" ngClass.gt-xs="sidenav-bigger-screen" ngClass.xs="sidenav-smaller-screen">
+  
+        <mat-nav-list style="margin-left:4%">
+  
+          <mat-list-item (click)="openNotes()" class="sidenav-content">
+            <mat-icon>emoji_objects</mat-icon>
+            <h3 style="margin-left:18%">
+              Notes
+            </h3>
+          </mat-list-item>
+  
+          <mat-list-item [fxHide]="!advancedUser" class="sidenav-content">
+            <mat-icon>notifications_none</mat-icon>
+            <h3 style="margin-left:18%">
+              Reminders
+            </h3>
+          </mat-list-item>
+  
+          <mat-divider [fxHide]="!advancedUser"></mat-divider>
+  
+          <mat-list-item [fxHide]="!advancedUser">
+            <p>LABELS</p>
+          </mat-list-item>
+  
+          <mat-list-item [fxHide]="!advancedUser" class="sidenav-content">
+            <mat-icon>colorize</mat-icon>
+            <h3 style="margin-left:18%">
+              Edit labels
+            </h3>
+          </mat-list-item>
+  
+          <mat-divider [fxHide]="!advancedUser"></mat-divider>
+  
+  
+          <mat-list-item [fxHide]="!advancedUser" (click)="openArchive()" class="sidenav-content" style="margin-top: 4%">
+            <mat-icon>archive</mat-icon>
+            <h3 style="margin-left:18%">
+              Archive
+            </h3>
+          </mat-list-item>
+  
+  
+          <mat-list-item [fxHide]="!advancedUser" (click)="openBin()" class="sidenav-content">
+            <mat-icon>delete_outline</mat-icon>
+            <h3 style="margin-left:18%">
+              Bin
+            </h3>
+          </mat-list-item>
+  
+        </mat-nav-list>
+  
+      </mat-sidenav>
+  
+  
+      <!-- Main Contents -->
+      <mat-sidenav-content style="min-height: 560px" ngClass.gt-xs="main-content-bigger-screen"
+        ngClass.xs="main-content-smaller-screen">
+  
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+  
+          <!-- Search bar-->
+          <div [fxHide]="hideSearchSection" ngClass.xs="complete-search-bar-minimized"
+            ngClass.gt-xs="complete-search-bar-maximized">
+  
+            <!-- Minimized -->
+            <mat-card class="search-bar-minimized" ngClass.xs="search-bar-minimized-smaller-screen" [fxHide]='hide'
+              (click)='changeHide()' fxLayout="row" FxLayoutAlign="space-between center">
+  
+              <mat-card-subtitle style="width:70%; margin-top:-2em">
+                <mat-form-field appearance="fill legacy">
+                  <input matInput placeholder="Take a note...">
+                </mat-form-field>
+              </mat-card-subtitle>
+              <mat-card-content [fxHide]="!advancedUser" style="width:30%">
+                <div fxLayout="row" fxLayoutAlign="space-around center">
+                  <div>
+                    <mat-icon matTooltip="New List">
+                      check_box
+                    </mat-icon>
+  
+                  </div>
+                  <div>
+                    <mat-icon matTooltip="New Note with drawing">
+                      brush
+                    </mat-icon>
+                  </div>
+                  <div>
+                    <mat-icon matTooltip="New Note with image">
+                      wallpaper
+                    </mat-icon>
+                  </div>
                 </div>
-                <div>
-                  <mat-icon matTooltip="New Note with drawing">
-                    brush
+              </mat-card-content>
+  
+  
+            </mat-card>
+  
+            <!-- Maximized -->
+            <mat-card [style.background]="getBackgroundColor()" style="border-radius : 10px;"
+              ngClass.xs="mat-card-maximized-small-screen" [fxHide]='!hide'>
+              <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
+                <input [formControl]='title' matInput placeholder="Title">
+                <div (click)="pinUnpinNote()" [fxHide]="!advancedUser">
+                  <mat-icon [fxHide]="isPinned">
+                    work
                   </mat-icon>
-                </div>
-                <div>
-                  <mat-icon matTooltip="New Note with image">
-                    wallpaper
-                  </mat-icon>
-                </div>
-              </div>
-            </mat-card-content>
-
-
-          </mat-card>
-
-          <!-- Maximized -->
-          <mat-card [style.background]="getBackgroundColor()" style="border-radius : 10px;"
-            ngClass.xs="mat-card-maximized-small-screen" [fxHide]='!hide'>
-            <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
-              <input [formControl]='title' matInput placeholder="Title">
-              <div (click)="pinUnpinNote()" [fxHide]="!advancedUser">
-                <mat-icon [fxHide]="isPinned">
-                  work
-                </mat-icon>
-                <mat-icon [fxHide]="!isPinned">
-                  work_off
-                </mat-icon>
-              </div>
-            </mat-card-title>
-            <mat-card-subtitle>
-              <textarea [formControl]='content' style="color:black" matTextareaAutosize matInput
-                placeholder="Take a note..."></textarea>
-            </mat-card-subtitle>
-            <mat-card-actions>
-
-              <div style="color: grey" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
-
-                <div [fxHide]="!advancedUser">
-                  <mat-icon matTooltip="Remind Me">
-                    notifications
+                  <mat-icon [fxHide]="!isPinned">
+                    work_off
                   </mat-icon>
                 </div>
-
-                <div [fxHide]="!advancedUser">
-                  <mat-icon matTooltip="Collaborator">
-                    person_add
-                  </mat-icon>
-                </div>
-
-                <div [fxHide]="!advancedUser">
-                  <mat-icon [matMenuTriggerFor]="colorMenu">
-                    color_lens
-                  </mat-icon>
-                  <mat-menu #colorMenu="matMenu">
-
-                    <div class="color-picker">
-
-                      <div class="opened">
-                        <div class="colors">
-                          <div *ngFor="let paint of defaultColors1" (click)="changeColor(paint)" class="circle"
-                            [ngStyle]="{'background': paint}"></div>
+              </mat-card-title>
+              <mat-card-subtitle>
+                <textarea [formControl]='content' style="color:black" matTextareaAutosize matInput
+                  placeholder="Take a note..."></textarea>
+              </mat-card-subtitle>
+              <mat-card-actions>
+  
+                <div style="color: grey" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
+  
+                  <div [fxHide]="!advancedUser">
+                    <mat-icon matTooltip="Remind Me">
+                      notifications
+                    </mat-icon>
+                  </div>
+  
+                  <div [fxHide]="!advancedUser">
+                    <mat-icon matTooltip="Collaborator">
+                      person_add
+                    </mat-icon>
+                  </div>
+  
+                  <div [fxHide]="!advancedUser">
+                    <mat-icon [matMenuTriggerFor]="colorMenu">
+                      color_lens
+                    </mat-icon>
+                    <mat-menu #colorMenu="matMenu">
+  
+                      <div class="color-picker">
+  
+                        <div class="opened">
+                          <div class="colors">
+                            <div *ngFor="let paint of defaultColors1" (click)="changeColor(paint)" class="circle"
+                              [ngStyle]="{'background': paint}"></div>
+                          </div>
+                          <div class="colors">
+                            <div *ngFor="let paint of defaultColors2" (click)="changeColor(paint)" class="circle"
+                              [ngStyle]="{'background': paint}"></div>
+                          </div>
+                          <div class="colors">
+                            <div *ngFor="let paint of defaultColors3" (click)="changeColor(paint)" class="circle"
+                              [ngStyle]="{'background': paint}"></div>
+                          </div>
                         </div>
-                        <div class="colors">
-                          <div *ngFor="let paint of defaultColors2" (click)="changeColor(paint)" class="circle"
-                            [ngStyle]="{'background': paint}"></div>
-                        </div>
-                        <div class="colors">
-                          <div *ngFor="let paint of defaultColors3" (click)="changeColor(paint)" class="circle"
-                            [ngStyle]="{'background': paint}"></div>
-                        </div>
+  
                       </div>
-
-                    </div>
-                  </mat-menu>
+                    </mat-menu>
+                  </div>
+  
+                  <div [fxHide]="!advancedUser">
+                    <mat-icon matTooltip="Add Image">
+                      image
+                    </mat-icon>
+                  </div>
+  
+                  <div [fxHide]="!advancedUser">
+                    <mat-icon matTooltip="Archive">
+                      archive
+                    </mat-icon>
+                  </div>
+  
+                  <div [fxHide]="!advancedUser">
+                    <mat-icon matTooltip="More">
+                      more_vert
+                    </mat-icon>
+                  </div>
+  
+                  <div [fxHide]="!advancedUser">
+                    <mat-icon matTooltip="Undo">
+                      undo
+                    </mat-icon>
+                  </div>
+  
+                  <div [fxHide]="!advancedUser">
+                    <mat-icon matTooltip="Redo">
+                      redo
+                    </mat-icon>
+                  </div>
+  
+                  <div style="color: black" fxHide.xs="true">
+                    <button mat-button (click)="changeHide();saveNote()">
+                      Close
+                    </button>
+                  </div>
                 </div>
-
-                <div [fxHide]="!advancedUser">
-                  <mat-icon matTooltip="Add Image">
-                    image
-                  </mat-icon>
-                </div>
-
-                <div [fxHide]="!advancedUser">
-                  <mat-icon matTooltip="Archive">
-                    archive
-                  </mat-icon>
-                </div>
-
-                <div [fxHide]="!advancedUser">
-                  <mat-icon matTooltip="More">
-                    more_vert
-                  </mat-icon>
-                </div>
-
-                <div [fxHide]="!advancedUser">
-                  <mat-icon matTooltip="Undo">
-                    undo
-                  </mat-icon>
-                </div>
-
-                <div [fxHide]="!advancedUser">
-                  <mat-icon matTooltip="Redo">
-                    redo
-                  </mat-icon>
-                </div>
-
-                <div style="color: black" fxHide.xs="true">
+  
+                <div [fxHide]="!advancedUser" align="right" style="color: black" fxHide.gt-xs="true">
                   <button mat-button (click)="changeHide();saveNote()">
                     Close
                   </button>
                 </div>
-              </div>
-
-              <div [fxHide]="!advancedUser" align="right" style="color: black" fxHide.gt-xs="true">
-                <button mat-button (click)="changeHide();saveNote()">
-                  Close
-                </button>
-              </div>
-            </mat-card-actions>
-          </mat-card>
-
+              </mat-card-actions>
+            </mat-card>
+  
+          </div>
+  
+          <!-- Notes -->
+          <div style="margin-left:9em" ngClass.gt-md="notes-bigger-screen" ngClass.sm="notes-medium-screen" ngClass.md="notes-medium-screen" ngClass.xs="notes-smaller-screen">
+  
+            <!-- Notes Starting Point -->
+  
+            <router-outlet></router-outlet>
+  
+            <!-- Notes Ending Point -->
+  
+  
+          </div>
+  
         </div>
-
-        <!-- Notes -->
-        <div ngClass.gt-md="notes-bigger-screen" ngClass.sm="notes-medium-screen" ngClass.md="notes-medium-screen" ngClass.xs="notes-smaller-screen">
-
-          <!-- Notes Starting Point -->
-
-          <router-outlet></router-outlet>
-
-          <!-- Notes Ending Point -->
-
-
-        </div>
-
-      </div>
-    </mat-sidenav-content>
-
-  </mat-sidenav-container>
-</div>
+      </mat-sidenav-content>
+  
+    </mat-sidenav-container>
+  </div>

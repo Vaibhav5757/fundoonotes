@@ -51,6 +51,7 @@ export class DeletedNotesComponent implements OnInit {
   //Fetch all the existing notes from database
   ngOnInit() {
     this.fetchAllNotes();
+    this.notesLayout = this.dash.getLayout() ? false : true;
   }
 
   //Fetch all notes

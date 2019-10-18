@@ -61,6 +61,7 @@ export class AllNotesComponent implements OnInit {
   //Fetch all the existing notes from database
   ngOnInit() {
     this.fetchAllNotes();
+    this.notesLayout = this.dash.getLayout() ? false : true;
   }
 
   //Fetch all notes
@@ -75,7 +76,6 @@ export class AllNotesComponent implements OnInit {
         this.pinUnpinExists = false;
       }//No Pinned Notes
       else {
-        console.log(this.pinnedNotesList);
         this.pinUnpinExists = true;
       }
     }, (error) => {
@@ -139,10 +139,6 @@ export class AllNotesComponent implements OnInit {
 
   getBackgroundColor(arg) {
     return !arg ? '	#FFFFFF' : arg;
-  }
-
-  getMargin() {
-    return this.pinUnpinExists ? '10%' : '0';
   }
 
   openEditor(note) {
