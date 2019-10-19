@@ -3,13 +3,12 @@
 </h5>
 
 <div fxLayout.md="row wrap" fxLayout.gt-md="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.lt-md="column"
-    fxLayoutAlign="{{ notesLayout ? 'start start' : 'center center' }}"
-    gdGridAlign>
-    
+    fxLayoutAlign="{{ notesLayout ? 'start start' : 'center center' }}" gdGridAlign>
+
     <div *ngFor="let note of pinnedNotesList">
         <mat-card style="margin-left: 10px; margin-top: 10px; border-radius: 15px;"
-        [style.background-color]="getBackgroundColor(note.color)" *ngIf="!note.isDeleted && !note.isArchived"
-        ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen" class="extra-actions">
+            [style.background-color]="getBackgroundColor(note.color)" *ngIf="!note.isDeleted && !note.isArchived"
+            ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen" class="extra-actions">
 
             <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
                 <div (click)="openEditor(note)">
@@ -27,6 +26,10 @@
 
             <mat-card-content (click)="openEditor(note)">
                 {{note.description}}
+            </mat-card-content>
+
+            <mat-card-content [fxHide]="!labelExists" *ngFor="let labels of note.noteLabels">
+                {{labels.label}}
             </mat-card-content>
 
             <mat-card-actions [fxHide]="basicUser">
@@ -105,8 +108,7 @@
 </h5>
 
 <div fxLayout.md="row wrap" fxLayout.gt-md="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.lt-md="column"
-    fxLayoutAlign="{{ notesLayout ? 'start start' : 'center center' }}"
-    gdGridAlign>
+    fxLayoutAlign="{{ notesLayout ? 'start start' : 'center center' }}" gdGridAlign>
 
     <div *ngFor="let note of unPinnedNotesList">
         <mat-card style="margin-left: 10px; margin-top: 10px; border-radius: 15px;"
@@ -117,7 +119,7 @@
                 <div (click)="openEditor(note)">
                     {{note.title}}
                 </div>
-                <div class=pin-icon>
+                <div [fxHide]="basicUser" class=pin-icon>
                     <mat-icon *ngIf="!note.isPined" (click)="pinUnpin(note)">
                         work
                     </mat-icon>
@@ -129,6 +131,13 @@
 
             <mat-card-content (click)="openEditor(note)">
                 {{note.description}}
+            </mat-card-content>
+
+            <mat-card-content fxLayout="row" fxLayoutAlign="space-between center" class="label" *ngFor="let labels of note.noteLabels">
+                {{labels.label}}
+                <mat-icon>
+                    clear
+                </mat-icon>
             </mat-card-content>
 
             <mat-card-actions [fxHide]="basicUser">
@@ -192,6 +201,19 @@
                         </mat-icon>
                         <mat-menu #menu="matMenu">
                             <button (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
+                            <button [matMenuTriggerFor]="archiveMenu" mat-menu-item>Add Label</button>
+                        </mat-menu>
+                        <mat-menu style="overflow: hidden;" #archiveMenu="matMenu">
+                            <strong (click)="stopPropagation($event)" mat-menu-item>
+                                Add Label
+                            </strong>
+                            <form mat-menu-item (click)="stopPropagation($event)">
+                                <input [formControl]="label" style="margin-left:1em;width: 80%;" matInput
+                                    placeholder="Enter a label">
+                            </form>
+                            <button (click)="addLabel(note)" mat-menu-item>
+                                Save
+                            </button>
                         </mat-menu>
                     </div>
                 </div>

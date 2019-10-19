@@ -24,6 +24,9 @@ import { DeletedNotesComponent } from './components/deleted-notes/deleted-notes.
 import { EditNoteComponent } from './components/edit-note/edit-note.component';
 import { AuthGuard } from "./auth.guard";
 import { StorageServiceModule} from 'angular-webstorage-service';
+import { NoteService } from './services/note.service';
+import { HomeComponent } from './components/home/home.component';
+import { RegistrationGuard } from './registration.guard';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,8 @@ import { StorageServiceModule} from 'angular-webstorage-service';
     AllNotesComponent,
     ArchivedNotesComponent,
     DeletedNotesComponent,
-    EditNoteComponent
+    EditNoteComponent,
+    HomeComponent
   ],
   entryComponents: [EditNoteComponent],
   imports: [
@@ -70,7 +74,9 @@ import { StorageServiceModule} from 'angular-webstorage-service';
   providers: [
     HttpServiceService,
     UserServiceService,
-    AuthGuard
+    NoteService,
+    AuthGuard,
+    RegistrationGuard
   ],
   bootstrap: [AppComponent]
 })

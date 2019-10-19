@@ -13,7 +13,7 @@ export class UserServiceService {
     return this.http.post('user/login', data);
   }
 
-  signUp(data: { firstName: any; lastName: any; email: string; password: any; service: any; }): any {
+  signUp(data: any) {
     return this.http.post('user/userSignUp', data);
   }
 
@@ -47,5 +47,9 @@ export class UserServiceService {
     this.http.changeUser({
       id: ''
     });
+  }
+
+  getService(){
+    return this.http.get("/user/service");
   }
 }

@@ -6,22 +6,23 @@ import { WebStorageService, LOCAL_STORAGE } from 'angular-webstorage-service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class RegistrationGuard implements CanActivate {
 
   constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService,
     private router: Router, private snackBar: MatSnackBar) {
   }
 
+
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
-    let user = this.storage.get('user');
-    if (user['id'] != '') return true;
-    else {
-      this.snackBar.open("You are not logged In", '', {
-        duration: 1500
-      });
-      this.router.navigateByUrl("/logIn");
+    let cartDetails = this.storage.get('cart-details');
+    if (cartDetails.cartId === '' || cartDetails.service === ""){
+      this.snackBar.open("Select Service Type first",'',{
+        duration:1500
+      })
+      this.router.navigateByUrl("/home");
     }
+    else return true;
   }
 }

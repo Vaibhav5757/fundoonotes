@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EventEmitter } from 'events';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-components/dashboard',
@@ -64,7 +65,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(private titleService: Title,
     private noteSvc: NoteService, private router: Router, private userSvc: UserServiceService,
-    private route: ActivatedRoute, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+    private route: ActivatedRoute, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
+    private snackBar: MatSnackBar) {
     this.setTitle('Dashboard');
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -107,19 +109,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   saveNote() {
-    let data = {
-      title: this.title.value,
-      description: this.content.value,
-      color: this.noteColor.value,
-      isPined: this.isPinned
+    if (this.title.valid) {
+      let data = {
+        title: this.title.value,
+        description: this.content.value,
+        color: this.noteColor.value,
+        isPined: this.isPinned
+      }
+
+      let obs = this.noteSvc.saveNote(data);
+      obs.subscribe(response => {
+        // Note Saved in database
+        this.events.emit("note-saved-in-database");
+      })
+    } else {
+      this.snackBar.open('Note title cannot be empty', '', {
+        duration: 1500
+      })
     }
-
-    let obs = this.noteSvc.saveNote(data);
-    obs.subscribe(response => {
-      // Note Saved in database
-      this.events.emit("note-saved-in-database");
-    })
-
     this.title.setValue("");
     this.content.setValue("");
     this.noteColor.setValue("#FFFFFF");
@@ -150,7 +157,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.events.emit('change-layout');
   }
 
-  getLayout(){
+  getLayout() {
     return this.layout;
   }
 
@@ -160,6 +167,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   addAccount() {
-    this.router.navigateByUrl("/register");
+    this.router.navigateByUrl("/home");
   }
 }

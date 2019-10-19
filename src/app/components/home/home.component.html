@@ -1,0 +1,77 @@
+<mat-toolbar style="background-color:rgb(200, 194, 197)">
+  <span>
+    <div class="blue-color">F</div>
+    <div class="red-color">u</div>
+    <div class="orange-color">n</div>
+    <div class="blue-color">d</div>
+    <div class="green-color">o</div>
+    <div class="red-color">o</div>
+    <div class="blue-color">N</div>
+    <div class="red-color">o</div>
+    <div class="orange-color">t</div>
+    <div class="blue-color">e</div>
+    <div class="green-color">s</div>
+  </span>
+  <span class="fill-remaining-space"></span>
+  <button (click)="logIn()" mat-raised-button class="next-button">
+    Log In
+  </button>
+</mat-toolbar>
+
+<div fxLayout.get-xs="row" fxLayout.xs="column" fxLayoutAlign="space-evenly center" class="payment-cards">
+  <mat-card>
+
+    <mat-card-title>
+      price: $99 per month
+    </mat-card-title>
+
+    <mat-card-subtitle style="color:blue">
+      advance
+    </mat-card-subtitle>
+
+    <mat-card-content>
+      <ul>
+        <li>
+          $99/month
+        </li>
+        <li>
+          Ability to add title, description, images, labels, checklists and colors
+        </li>
+      </ul>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button (click)="addToCartAdvance()" mat-raised-button>
+        ADD TO CART
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>
+      price: $49 per month
+    </mat-card-title>
+
+    <mat-card-subtitle style="color:blue">
+      basic
+    </mat-card-subtitle>
+
+    <mat-card-content>
+      <ul>
+        <li>
+          $49/month
+        </li>
+        <li>
+          Ability to add only title and description
+        </li>
+      </ul>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button (click)="addToCartBasic()" mat-raised-button>
+        ADD TO CART
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+

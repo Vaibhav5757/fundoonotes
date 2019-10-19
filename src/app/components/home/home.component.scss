@@ -1,0 +1,16 @@
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.payment-cards {
+  margin-top: 5em;
+  mat-card {
+    width: 150px;
+    border-radius: 10px;
+  }
+}
+
+.next-button {
+  background-color: rgb(66, 133, 244);
+  color: white;
+}

@@ -4,6 +4,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import { ProductsCartService } from 'src/app/services/products-cart.service';
 
 
 @Component({
@@ -16,7 +17,9 @@ export class RegisterComponent implements OnInit {
 
   registrationForm: FormGroup;
 
-  constructor(private userSvc: UserServiceService, private titleService: Title, private snackBar: MatSnackBar, private router: Router) {
+  constructor(private userSvc: UserServiceService, private titleService: Title, 
+    private snackBar: MatSnackBar, private router: Router,
+    private prodSvc: ProductsCartService) {
     this.setTitle("Sign Up");
 
     this.registrationForm = new FormGroup({
@@ -62,15 +65,18 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  signUp(serviceType): any {
+  signUp(): any {
     if (this.registrationForm.valid) {
       
+      let cartDetails = this.prodSvc.getServiceType();
+
       let obs = this.userSvc.signUp({
         firstName: this.registrationForm.get('firstNameFormControl').value,
         lastName: this.registrationForm.get('lastNameFormControl').value,
         email: this.registrationForm.get('emailFormControl').value + '@gmail.com',
         password: this.registrationForm.get('passwordGroup').get('passwordFormControl').value,
-        service: serviceType
+        service: cartDetails.service,
+        cartId: cartDetails.cartId
       });
 
       obs.subscribe((response) => {

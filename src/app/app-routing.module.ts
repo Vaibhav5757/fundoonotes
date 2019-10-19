@@ -8,10 +8,16 @@ import { AllNotesComponent } from './components/all-notes/all-notes.component';
 import { DeletedNotesComponent } from './components/deleted-notes/deleted-notes.component';
 import { ArchivedNotesComponent } from './components/archived-notes/archived-notes.component';
 import { AuthGuard } from './auth.guard';
+import { HomeComponent } from './components/home/home.component';
+import { RegistrationGuard } from './registration.guard';
 
 const routes: Routes = [
+  { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  {
+    canActivate: [RegistrationGuard],
+    path: 'register', component: RegisterComponent
+  },
   {
     canActivate: [AuthGuard],
     path: 'dashboard', component: DashboardComponent,

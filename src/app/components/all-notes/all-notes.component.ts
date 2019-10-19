@@ -31,11 +31,13 @@ export class AllNotesComponent implements OnInit {
   ];
 
   noteColor = new FormControl('#FFFFFF');
+  label = new FormControl('');
   notesList: Array<any> = [];
   pinnedNotesList: Array<any> = [];
   unPinnedNotesList: Array<any> = [];
   basicUser: Boolean;
   pinUnpinExists: Boolean;
+  // labelExists: Boolean;
 
   notesLayout: Boolean = true;//true for row layout, false for column Layout
 
@@ -149,7 +151,6 @@ export class AllNotesComponent implements OnInit {
     });
     obs.afterClosed().subscribe(result => {
       if (result) {
-
         if (result.message == 'update-notes') {
           this.fetchAllNotes();
         } else {
@@ -161,15 +162,20 @@ export class AllNotesComponent implements OnInit {
             color: result.color
           }
 
-          let obs = this.noteSvc.updateNote(data);
+          let updateObserver = this.noteSvc.updateNote(data);
 
-          obs.subscribe((response) => {
+          updateObserver.subscribe((response) => {
             //fetch All Notes after updating
             this.fetchAllNotes();
           })
         }
       }
     })
+  }
+
+  //Event bubbling
+  stopPropagation(event) {
+    event.stopPropagation();
   }
 
   getPinnedNotes(array) {
@@ -194,5 +200,19 @@ export class AllNotesComponent implements OnInit {
 
     //Notes are reversed because they need to be shown on basis of time created - the newer one comes first
     return result.reverse();
+  }
+
+  addLabel(note) {
+    let data = {
+      label: this.label.value,
+      isDeleted: false,
+      userId: note.userId
+    }
+    let obs = this.noteSvc.addLabel(note.id, data);
+    obs.subscribe(response => {
+      console.log("Label Added");
+      this.fetchAllNotes();
+    })
+    this.label.reset;
   }
 }

@@ -59,8 +59,8 @@ body {
 .extra-actions {
   mat-card-actions {
     visibility: hidden;
-  };
-  mat-icon{
+  }
+  mat-icon {
     visibility: hidden;
     font-size: 20px;
   }
@@ -69,7 +69,7 @@ body {
       visibility: visible;
       cursor: pointer;
     }
-    mat-icon{
+    mat-icon {
       visibility: visible;
       cursor: pointer;
       font-size: 20px;
@@ -189,12 +189,23 @@ p.style-value {
 }
 
 .dialogBox {
-  mat-dialog-container{
+  mat-dialog-container {
     padding: 0;
     overflow: hidden;
     border-radius: 15px;
-    mat-icon{
+    mat-icon {
       font-size: 20px;
     }
+  }
+}
+
+.label {
+  background: grey;
+  width: 40%;
+  height: 10%;
+  border-radius: 10px;
+  padding: 2%;
+  mat-icon{
+    font-size: 5px;
   }
 }

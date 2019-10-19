@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserServiceService } from 'src/app/services/user-service.service';
@@ -10,11 +10,12 @@ import { MatSnackBar } from '@angular/material';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private router: Router, private userSvc: UserServiceService, private snackBar: MatSnackBar, private titleService: Title) {
+  constructor(private router: Router, private userSvc: UserServiceService, 
+    private snackBar: MatSnackBar, private titleService: Title) {
     this.setTitle("Log In");
     this.loginForm = new FormGroup({
 
@@ -29,12 +30,19 @@ export class LoginComponent {
     })
   }
 
+  ngOnInit(){
+    //flush existing user
+    this.userSvc.changeUser({
+      'id':''
+    })
+  }
+
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
   }
 
   onClick(): void {
-    this.router.navigateByUrl('/register');
+    this.router.navigateByUrl('/home');
   }
 
   logIn(): void {

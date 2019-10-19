@@ -29,15 +29,19 @@ export class NoteService {
     return this.http.post("notes/archiveNotes", data);
   }
 
-  deleteForever(data){
+  deleteForever(data) {
     return this.http.post("notes/deleteForeverNotes", data);
   }
 
-  updateNote(data){
-    return this.http.post("notes/updateNotes",data);
+  updateNote(data) {
+    return this.http.post("notes/updateNotes", data);
   }
 
-  pinUnpinNotes(data){
-    return this.http.post("notes/pinUnpinNotes",data);
+  pinUnpinNotes(data) {
+    return this.http.post("notes/pinUnpinNotes", data);
+  }
+
+  addLabel(id,data) {
+    return this.http.post("notes/" + id + "/noteLabels", data);
   }
 }

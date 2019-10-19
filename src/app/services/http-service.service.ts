@@ -10,11 +10,12 @@ import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 })
 export class HttpServiceService {
 
-  constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService, private http: HttpClient, private router: Router) {
+  constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService,
+    private http: HttpClient, private router: Router) {
   }
 
   changeUser(data: any) {
-    this.storage.set('user',data);
+    this.storage.set('user', data);
   }
 
   getUser() {
