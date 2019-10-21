@@ -10,6 +10,7 @@ import { ArchivedNotesComponent } from './components/archived-notes/archived-not
 import { AuthGuard } from './auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { RegistrationGuard } from './registration.guard';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -24,12 +25,13 @@ const routes: Routes = [
     children: [
       { path: '', component: AllNotesComponent },
       { path: 'notes', component: AllNotesComponent },
+      { path: 'shoppingCart', component: ShoppingCartComponent },
       { path: 'deleted', component: DeletedNotesComponent },
       { path: 'archived', component: ArchivedNotesComponent }
     ]
   },
   { path: 'resetpassword/:token', component: ResetPasswordComponent },
-  { path: '**', redirectTo: '/login' }
+  { path: '**', redirectTo: '/home' }
 ];
 
 @NgModule({

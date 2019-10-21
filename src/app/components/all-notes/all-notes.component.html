@@ -2,13 +2,15 @@
     PINNED
 </h5>
 
-<div fxLayout.md="row wrap" fxLayout.gt-md="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.lt-md="column"
-    fxLayoutAlign="{{ notesLayout ? 'start start' : 'center center' }}" gdGridAlign>
+<div fxLayout.gt-xs="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.xs="column"
+    fxLayoutAlign="{{ notesLayout ? 'start start' : 'center start' }}" gdGridAlign>
 
     <div *ngFor="let note of pinnedNotesList">
-        <mat-card style="margin-left: 10px; margin-top: 10px; border-radius: 15px;"
+        <mat-card style="margin-top: 10px; border-radius: 15px;"
             [style.background-color]="getBackgroundColor(note.color)" *ngIf="!note.isDeleted && !note.isArchived"
-            ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen" class="extra-actions">
+            ngClass.lt-md="note-smaller-screen"
+            ngClass.md="{{ notesLayout ? 'note-medium-screen':'note-medium-screen-column' }}"
+            ngClass.gt-md="{{ notesLayout ? 'note-bigger-screen':'note-bigger-screen-column' }}" class="extra-actions">
 
             <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
                 <div (click)="openEditor(note)">
@@ -107,13 +109,15 @@
     OTHERS
 </h5>
 
-<div fxLayout.md="row wrap" fxLayout.gt-md="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.lt-md="column"
-    fxLayoutAlign="{{ notesLayout ? 'start start' : 'center center' }}" gdGridAlign>
+<div fxLayout.gt-xs="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.xs="column"
+    fxLayoutAlign="{{ notesLayout ? 'start start' : 'center start' }}" gdGridAlign>
 
     <div *ngFor="let note of unPinnedNotesList">
-        <mat-card style="margin-left: 10px; margin-top: 10px; border-radius: 15px;"
+        <mat-card style="margin-top: 10px; border-radius: 15px;"
             [style.background-color]="getBackgroundColor(note.color)" *ngIf="!note.isDeleted && !note.isArchived"
-            ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen" class="extra-actions">
+            ngClass.lt-md="note-smaller-screen"
+            ngClass.md="{{ notesLayout ? 'note-medium-screen':'note-medium-screen-column' }}"
+            ngClass.gt-md="{{ notesLayout ? 'note-bigger-screen':'note-bigger-screen-column' }}" class="extra-actions">
 
             <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
                 <div (click)="openEditor(note)">
@@ -133,9 +137,10 @@
                 {{note.description}}
             </mat-card-content>
 
-            <mat-card-content fxLayout="row" fxLayoutAlign="space-between center" class="label" *ngFor="let labels of note.noteLabels">
+            <mat-card-content fxLayout="row" fxLayoutAlign="space-between center" class="label"
+                *ngFor="let labels of note.noteLabels">
                 {{labels.label}}
-                <mat-icon>
+                <mat-icon (click)="deleteLabel(labels,note)">
                     clear
                 </mat-icon>
             </mat-card-content>

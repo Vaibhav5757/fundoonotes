@@ -42,8 +42,8 @@ body {
 }
 
 .note-smaller-screen {
-  width: 80%;
-  margin: auto;
+  width: 100px;
+  margin-left: 1em;
   white-space: pre-line;
   overflow-wrap: break-word;
   margin-bottom: 10px;
@@ -51,9 +51,31 @@ body {
 
 .note-bigger-screen {
   width: 150px;
+  margin-left: 1em;
   white-space: pre-line;
   overflow-wrap: break-word;
   margin-bottom: 10px;
+}
+
+.note-bigger-screen-column {
+  width: 600px;
+  position: relative;
+  white-space: pre-line;
+  overflow-wrap: break-word;
+  margin-bottom: 10px;
+}
+
+.note-medium-screen {
+  white-space: pre-line;
+  overflow-wrap: break-word;
+  position: relative;
+  margin-left: 1em;
+}
+
+.note-medium-screen-column {
+  white-space: pre-line;
+  position: relative;
+  overflow-wrap: break-word;
 }
 
 .extra-actions {
@@ -205,7 +227,7 @@ p.style-value {
   height: 10%;
   border-radius: 10px;
   padding: 2%;
-  mat-icon{
+  mat-icon {
     font-size: 5px;
   }
 }

@@ -8,6 +8,7 @@ import { EventEmitter } from 'events';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { AllNotesComponent } from '../all-notes/all-notes.component';
 
 @Component({
   selector: 'app-components/dashboard',
@@ -40,6 +41,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   hideLogo: Boolean = false;
   advancedUser: Boolean;//true for advanced user, false for basic user
   layout: Boolean = false;// false for row view, true for column view
+  allLabels = [];
 
   events = new EventEmitter();
 
@@ -67,10 +69,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private noteSvc: NoteService, private router: Router, private userSvc: UserServiceService,
     private route: ActivatedRoute, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
     private snackBar: MatSnackBar) {
+
     this.setTitle('Dashboard');
+
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
+    this.events.addListener('label-modified',() => {
+      this.fetchAllLabels();
+    })
   }
 
   ngOnInit(): void {
@@ -86,6 +94,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       //Notify the components whether user is basic or advanced
       if (!this.advancedUser) this.events.emit('user-is-basic');
     })
+
+    // Get All labels
+    this.fetchAllLabels();
   }
 
   ngOnDestroy(): void {
@@ -161,6 +172,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return this.layout;
   }
 
+  cart() {
+    this.hideSearchSection = true;
+    this.router.navigate(['shoppingCart'], {
+      relativeTo: this.route
+    })
+  }
+
   logOut() {
     this.userSvc.logOut();
     this.router.navigateByUrl("/login");
@@ -168,5 +186,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   addAccount() {
     this.router.navigateByUrl("/home");
+  }
+
+  fetchAllLabels() {
+    this.allLabels = [];
+    let obs = this.noteSvc.fetchAllLabel();
+    obs.subscribe((response: any) => {
+      response.data.details.forEach(element => {
+        this.allLabels.push(element);
+      });
+    })
   }
 }

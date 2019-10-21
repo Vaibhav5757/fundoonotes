@@ -1,9 +1,10 @@
-<div fxLayout.md="row wrap" fxLayout.gt-md="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.lt-md="column"
-    fxLayoutAlign="{{ notesLayout ? 'start start' : 'center center' }}" gdGridAlign>
+<div fxLayout.gt-xs="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.xs="column"
+fxLayoutAlign="{{ notesLayout ? 'start start' : 'center start' }}" gdGridAlign>
     <div *ngFor="let note of notesList.reverse()">
         <mat-card style="margin-left: 10px; margin-top: 10px; border-radius: 15px;"
-        [style.background-color]="getBackgroundColor(note.color)" *ngIf="note.isDeleted"
-        ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen" class="extra-actions">
+            [style.background-color]="getBackgroundColor(note.color)" *ngIf="note.isDeleted"
+            ngClass.lt-md="note-smaller-screen"
+            ngClass.gt-md="{{ notesLayout ? 'note-bigger-screen':'note-bigger-screen-column' }}" class="extra-actions">
 
             <mat-card-title>
                 {{note.title}}

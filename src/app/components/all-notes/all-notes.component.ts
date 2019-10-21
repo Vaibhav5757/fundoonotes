@@ -5,6 +5,7 @@ import { DashboardComponent } from 'src/app/components/dashboard/dashboard.compo
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { EditNoteComponent } from '../edit-note/edit-note.component';
 
+
 @Component({
   selector: 'app-all-notes',
   templateUrl: './all-notes.component.html',
@@ -37,7 +38,6 @@ export class AllNotesComponent implements OnInit {
   unPinnedNotesList: Array<any> = [];
   basicUser: Boolean;
   pinUnpinExists: Boolean;
-  // labelExists: Boolean;
 
   notesLayout: Boolean = true;//true for row layout, false for column Layout
 
@@ -210,9 +210,24 @@ export class AllNotesComponent implements OnInit {
     }
     let obs = this.noteSvc.addLabel(note.id, data);
     obs.subscribe(response => {
-      console.log("Label Added");
       this.fetchAllNotes();
+      this.dash.events.emit('label-modified');
     })
-    this.label.reset;
+    this.label.setValue('');
+  }
+
+  deleteLabel(label, note) {
+    let obs = this.noteSvc.deleteLabelFromNote({
+      noteId: note.id,
+      labelId: label.id
+    })
+
+    obs.subscribe((response) => {
+      this.snackBar.open("Label Deleted",'',{
+        duration: 1500
+      })
+      this.fetchAllNotes();
+      this.dash.events.emit('label-modified');
+    })
   }
 }

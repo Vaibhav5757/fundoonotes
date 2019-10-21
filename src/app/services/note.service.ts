@@ -41,7 +41,15 @@ export class NoteService {
     return this.http.post("notes/pinUnpinNotes", data);
   }
 
-  addLabel(id,data) {
+  addLabel(id, data) {
     return this.http.post("notes/" + id + "/noteLabels", data);
+  }
+
+  fetchAllLabel() {
+    return this.http.get("noteLabels/getNoteLabelList");
+  }
+
+  deleteLabelFromNote(data: any) {
+    return this.http.post("notes/" + data.noteId + "/addLabelToNotes/" + data.labelId + "/remove", data);
   }
 }

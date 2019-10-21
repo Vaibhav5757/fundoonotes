@@ -8,7 +8,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   MatButtonModule, MatInputModule, MatListModule,
   MatCardModule, MatFormFieldModule, MatMenuModule, MatSelectModule, MatDialogModule,
-  MatOptionModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatToolbarModule, MatTooltipModule, MatCheckboxModule, MatExpansionModule
+  MatOptionModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatToolbarModule, MatTooltipModule, MatCheckboxModule, MatExpansionModule, MatStepperModule
 } from '@angular/material';
 import { FlexLayoutModule, GridModule } from '@angular/flex-layout';
 import { RegisterComponent } from './components/register/register.component';
@@ -27,6 +27,7 @@ import { StorageServiceModule} from 'angular-webstorage-service';
 import { NoteService } from './services/note.service';
 import { HomeComponent } from './components/home/home.component';
 import { RegistrationGuard } from './registration.guard';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { RegistrationGuard } from './registration.guard';
     ArchivedNotesComponent,
     DeletedNotesComponent,
     EditNoteComponent,
-    HomeComponent
+    HomeComponent,
+    ShoppingCartComponent
   ],
   entryComponents: [EditNoteComponent],
   imports: [
@@ -56,6 +58,7 @@ import { RegistrationGuard } from './registration.guard';
     MatCheckboxModule,
     MatDialogModule,
     MatExpansionModule,
+    MatStepperModule,
     MatCardModule,
     MatFormFieldModule,
     MatMenuModule,

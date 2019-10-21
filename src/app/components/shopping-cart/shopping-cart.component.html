@@ -1,0 +1,116 @@
+<div ngStyle.xs="margin-left:-4em">
+  <mat-horizontal-stepper [linear]="isLinear" style="width: 80%" labelPosition="bottom">
+    <mat-step [completed]="isCompleted">
+      <ng-template matStepLabel matStepperIcon>
+        Sign In
+      </ng-template>
+      <h2>
+        Shopping Cart
+      </h2>
+      <div ngStyle.xs="width: auto" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+
+        <mat-card style="background: grey; border-radius: 15px; color: whitesmoke;height: 70px; width: 70px">
+          <mat-card-content>
+            $99 per month advance
+          </mat-card-content>
+        </mat-card>
+
+        <div ngStyle.xs="margin-top:1em" fxLayout="row" fxLayoutAlign="space-between center">
+          <div style="width: 50%">
+            <p class="blue-color" style="margin-left:1em">
+              advance Pack
+            </p>
+            <ul>
+              <li>
+                Ability to add title, description, images, labels, checklist and colors
+              </li>
+            </ul>
+          </div>
+          <div>
+            <p class="blue-color">
+              $ 99
+            </p>
+            <p>
+              per month
+            </p>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="center center" fxHide.xs="true">
+            <p>
+              Subtotal(1 item): $99
+            </p>
+            <button (click)="isCompleted = true" mat-button matStepperNext
+              style="color: white; background: rgb(56, 56, 129);">
+              Proceed to Checkout
+            </button>
+          </div>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="center center" fxHide.gt-xs="true">
+          <p>
+            Subtotal(1 item): $99
+          </p>
+          <button mat-button (click)="isCompleted = true" matStepperNext
+            style="color: white; background: rgb(56, 56, 129);">
+            Proceed to Checkout
+          </button>
+        </div>
+
+      </div>
+    </mat-step>
+
+
+    <mat-step>
+      <ng-template matStepLabel>
+        review
+
+      </ng-template>
+
+      <h2>
+        Review your Order
+      </h2>
+
+      <div fxLayout.gt-xs="row" fxLayout.xs="column" style="margin-top: 1.5em">
+
+        <mat-card fxHide.gt-xs="true"
+          style="background: grey; border-radius: 15px; color: whitesmoke;height: 70px; width: 70px; margin-bottom: 1em;">
+          <mat-card-content>
+            $99 per month advance
+          </mat-card-content>
+        </mat-card>
+
+
+        <textarea style="width: 250px; height: 100px; resize: none; margin-bottom: 1em;" matTextAreaAutosize
+          placeholder="Enter your address here">
+          </textarea>
+
+        <mat-card fxHide.xs="true"
+          style="background: grey; border-radius: 15px; color: whitesmoke;height: 70px; width: 70px; margin-left: 1em">
+          <mat-card-content>
+            $99 per month advance
+          </mat-card-content>
+        </mat-card>
+
+        <div style="margin-left: 1em">
+          <p>
+            payment method
+          </p>
+          <h5 class="blue-color">
+            Cash On Delivery
+          </h5>
+          <button mat-button matStepperNext style="color: white; background: rgb(56, 56, 129);">
+            Place your Order
+          </button>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>
+        complete
+
+      </ng-template>
+      <div fxLayoutAlign="center center">
+        Congratulations, You are a advanced user now
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

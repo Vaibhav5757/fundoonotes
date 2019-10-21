@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit {
   }
 
   logIn(){
-    this.router.navigateByUrl("/logIn");
+    this.router.navigateByUrl("/login");
   }
 }
 
