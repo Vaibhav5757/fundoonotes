@@ -52,4 +52,8 @@ export class NoteService {
   deleteLabelFromNote(data: any) {
     return this.http.post("notes/" + data.noteId + "/addLabelToNotes/" + data.labelId + "/remove", data);
   }
+
+  deleteLabel(data: any) {
+    return this.http.delete("noteLabels/" + data.id + "/deleteNoteLabel", data);
+  }
 }

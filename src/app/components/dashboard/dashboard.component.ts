@@ -76,7 +76,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
 
-    this.events.addListener('label-modified',() => {
+    this.events.addListener('label-modified', () => {
       this.fetchAllLabels();
     })
   }
@@ -195,6 +195,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
       response.data.details.forEach(element => {
         this.allLabels.push(element);
       });
+    })
+  }
+
+  deleteLabel(label) {
+    let obs = this.noteSvc.deleteLabel({
+      id: label.id
+    })
+    obs.subscribe((response) => {
+      this.fetchAllLabels();
     })
   }
 }

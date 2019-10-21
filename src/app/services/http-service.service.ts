@@ -52,6 +52,16 @@ export class HttpServiceService {
     return obs;
   }
 
+  delete(url,data){
+    let obs = this.http.delete(environment.domainURL + url, {
+      headers: new HttpHeaders({
+        'Authorization': this.storage.get('user')["id"]
+      }),
+      params: data
+    });
+    return obs;
+  }
+
   postWithToken(url, data, token) {
     let obs = this.http.post(environment.domainURL + url, data, {
       headers: new HttpHeaders({
