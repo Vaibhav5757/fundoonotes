@@ -22,9 +22,9 @@
   FundooNotes offered. Choose below Service to register
 </h3>
 
-<div fxLayout.get-xs="row" fxLayout.xs="column" fxLayoutAlign="space-evenly center" class="payment-cards">
+<div fxLayout="row" fxLayoutAlign="space-evenly center" class="payment-cards" ngClass.xs="payment-cards-smaller">
 
-  <mat-card>
+  <mat-card (click)="addToCartAdvance()">
 
     <mat-card-title>
       price: $99 per month
@@ -45,14 +45,16 @@
       </ul>
     </mat-card-content>
 
-    <mat-card-actions fxLayoutAlign="center center">
-      <button (click)="addToCartAdvance()" mat-raised-button>
-        ADD TO CART
-      </button>
-    </mat-card-actions>
+    <mat-card class="second-card-advance">
+      <mat-card-actions style="margin-top:8em" fxLayoutAlign="center end">
+        <div class="content">
+          ADD TO CART
+        </div>
+      </mat-card-actions>
+    </mat-card>
   </mat-card>
 
-  <mat-card>
+  <mat-card (click)="addToCartBasic()">
     <mat-card-title>
       price: $49 per month
     </mat-card-title>
@@ -72,11 +74,12 @@
       </ul>
     </mat-card-content>
 
-    <mat-card-actions fxLayoutAlign="center center">
-      <button (click)="addToCartBasic()" mat-raised-button>
-        ADD TO CART
-      </button>
-    </mat-card-actions>
+    <mat-card class="second-card-basic">
+      <mat-card-actions style="margin-top:8em" fxLayoutAlign="center end">
+        <div class="content">
+          ADD TO CART
+        </div>
+      </mat-card-actions>
+    </mat-card>
   </mat-card>
 </div>
-

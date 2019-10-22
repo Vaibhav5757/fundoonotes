@@ -8,7 +8,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   MatButtonModule, MatInputModule, MatListModule,
   MatCardModule, MatFormFieldModule, MatMenuModule, MatSelectModule, MatDialogModule,
-  MatOptionModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatToolbarModule, MatTooltipModule, MatCheckboxModule, MatExpansionModule, MatStepperModule
+  MatOptionModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatToolbarModule, MatTooltipModule, MatCheckboxModule, MatExpansionModule, MatStepperModule, MatChipsModule
 } from '@angular/material';
 import { FlexLayoutModule, GridModule } from '@angular/flex-layout';
 import { RegisterComponent } from './components/register/register.component';
@@ -62,6 +62,7 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
     MatCardModule,
     MatFormFieldModule,
     MatMenuModule,
+    MatChipsModule,
     MatSnackBarModule,
     MatSidenavModule,
     MatToolbarModule,

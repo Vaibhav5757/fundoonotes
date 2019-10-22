@@ -1,4 +1,3 @@
- 
 .container {
   display: flex;
   flex-direction: column;
@@ -18,19 +17,19 @@
 .sidenav-container {
   /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
      causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
-     flex: 1 0 auto;
+  flex: 1 0 auto;
 }
 
-.main-content-bigger-screen{
+.main-content-bigger-screen {
   margin-top: 5em;
 }
 
-.main-content-smaller-screen{
+.main-content-smaller-screen {
   margin-top: 1em;
 }
 
 .sidenav-bigger-screen {
-  min-width:200px;
+  min-width: 200px;
   width: 25%;
   margin-top: 3em;
   position: fixed;
@@ -74,10 +73,16 @@
 }
 
 .sidenav-content {
+  .clear-icon {
+    visibility: hidden;
+  }
   &:hover {
     background-color: rgb(254, 239, 195);
     border-bottom-right-radius: 25px;
     border-top-right-radius: 25px;
+    .clear-icon {
+      visibility: visible;
+    }
   }
 }
 
@@ -121,7 +126,7 @@
   margin-left: 7.5em;
 }
 
-.notes-medium-screen{
+.notes-medium-screen {
   margin-left: 4em;
 }
 

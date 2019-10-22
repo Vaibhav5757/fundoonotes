@@ -122,7 +122,8 @@
           <h3 style="margin-left:18%">
             {{label.label}}
           </h3>
-          <mat-icon style="margin-left: 2em" (click)="deleteLabel(label)">
+          <span class="fill-remaining-space"></span>
+          <mat-icon class="clear-icon" fxLayoutAlign="end" (click)="deleteLabel(label)">
             clear
           </mat-icon>
         </mat-list-item>

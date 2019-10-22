@@ -1,5 +1,5 @@
 <div fxLayout.gt-xs="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.xs="column"
-fxLayoutAlign="{{ notesLayout ? 'start start' : 'center start' }}" gdGridAlign>
+    fxLayoutAlign="{{ notesLayout ? 'start start' : 'center start' }}" gdGridAlign>
     <div *ngFor="let note of notesList.reverse()">
         <mat-card style="margin-left: 10px; margin-top: 10px; border-radius: 15px;"
             [style.background-color]="getBackgroundColor(note.color)" *ngIf="note.isDeleted"
@@ -13,6 +13,12 @@ fxLayoutAlign="{{ notesLayout ? 'start start' : 'center start' }}" gdGridAlign>
             <mat-card-content>
                 {{note.description}}
             </mat-card-content>
+
+            <mat-chip-list *ngFor="let labels of note.noteLabels">
+                <mat-chip>
+                    {{labels.label}}
+                </mat-chip>
+            </mat-chip-list>
 
             <mat-card-actions>
 

@@ -30,9 +30,14 @@
                 {{note.description}}
             </mat-card-content>
 
-            <mat-card-content [fxHide]="!labelExists" *ngFor="let labels of note.noteLabels">
-                {{labels.label}}
-            </mat-card-content>
+            <mat-chip-list *ngFor="let labels of note.noteLabels">
+                <mat-chip>
+                    {{labels.label}}
+                    <mat-icon (click)="deleteLabel(labels,note)">
+                        clear
+                    </mat-icon>
+                </mat-chip>
+            </mat-chip-list>
 
             <mat-card-actions [fxHide]="basicUser">
 
@@ -137,13 +142,14 @@
                 {{note.description}}
             </mat-card-content>
 
-            <mat-card-content fxLayout="row" fxLayoutAlign="space-between center" class="label"
-                *ngFor="let labels of note.noteLabels">
-                {{labels.label}}
-                <mat-icon (click)="deleteLabel(labels,note)">
-                    clear
-                </mat-icon>
-            </mat-card-content>
+            <mat-chip-list *ngFor="let labels of note.noteLabels">
+                <mat-chip>
+                    {{labels.label}}
+                    <mat-icon matChipRemove (click)="deleteLabel(labels,note)">
+                        clear
+                    </mat-icon>
+                </mat-chip>
+            </mat-chip-list>
 
             <mat-card-actions [fxHide]="basicUser">
 
