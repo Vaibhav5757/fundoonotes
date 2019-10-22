@@ -1,0 +1,253 @@
+<h5 *ngIf="pinUnpinExists">
+  PINNED
+</h5>
+
+<div fxLayout.gt-xs="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.xs="column"
+  fxLayoutAlign="{{ notesLayout ? 'start start' : 'center start' }}" gdGridAlign>
+
+  <div *ngFor="let note of pinnedNotesList">
+    <mat-card style="margin-top: 10px; border-radius: 15px;" [style.background-color]="getBackgroundColor(note.color)"
+      *ngIf="!note.isDeleted && !note.isArchived" ngClass.lt-md="note-smaller-screen"
+      ngClass.md="{{ notesLayout ? 'note-medium-screen':'note-medium-screen-column' }}"
+      ngClass.gt-md="{{ notesLayout ? 'note-bigger-screen':'note-bigger-screen-column' }}" class="extra-actions">
+
+      <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
+        <div (click)="openEditor(note)">
+          {{note.title}}
+        </div>
+        <div class=pin-icon>
+          <mat-icon *ngIf="!note.isPined" (click)="pinUnpin(note)">
+            work
+          </mat-icon>
+          <mat-icon *ngIf="note.isPined" (click)="pinUnpin(note)">
+            work_off
+          </mat-icon>
+        </div>
+      </mat-card-title>
+
+      <mat-card-content (click)="openEditor(note)">
+        {{note.description}}
+      </mat-card-content>
+
+      <mat-chip-list *ngFor="let labels of note.noteLabels">
+        <mat-chip *ngIf="labels.label != labelName">
+          {{labels.label}}
+          <mat-icon (click)="deleteLabel(labels,note)">
+            clear
+          </mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+
+      <mat-card-actions [fxHide]="basicUser">
+
+        <div style="color: black" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
+
+          <div>
+            <mat-icon matTooltip="Remind Me">
+              notifications_none
+            </mat-icon>
+          </div>
+
+          <div>
+            <mat-icon matTooltip="Collaborator">
+              person_add
+            </mat-icon>
+          </div>
+
+          <div matTooltip="Change color">
+            <mat-icon [matMenuTriggerFor]="colorMenu">
+              color_lens
+            </mat-icon>
+            <mat-menu #colorMenu="matMenu">
+
+              <div class="color-picker">
+
+                <div class="opened">
+                  <div class="colors">
+                    <div *ngFor="let paint of defaultColors1" (click)="changeColor(paint,note)" class="circle"
+                      [ngStyle]="{'background': paint}"></div>
+                  </div>
+                  <div class="colors">
+                    <div *ngFor="let paint of defaultColors2" (click)="changeColor(paint,note)" class="circle"
+                      [ngStyle]="{'background': paint}"></div>
+                  </div>
+                  <div class="colors">
+                    <div *ngFor="let paint of defaultColors3" (click)="changeColor(paint,note)" class="circle"
+                      [ngStyle]="{'background': paint}"></div>
+                  </div>
+                </div>
+
+              </div>
+            </mat-menu>
+          </div>
+
+          <div>
+            <mat-icon matTooltip="Add Image">
+              image
+            </mat-icon>
+          </div>
+
+          <div>
+            <mat-icon (click)="archiveNote(note)" matTooltip="Archive">
+              archive
+            </mat-icon>
+          </div>
+
+          <div>
+            <mat-icon [matMenuTriggerFor]="menu" matTooltip="More">
+              more_vert
+            </mat-icon>
+            <mat-menu #menu="matMenu">
+              <button (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
+              <button [matMenuTriggerFor]="archiveMenu" mat-menu-item>Add Label</button>
+            </mat-menu>
+            <mat-menu style="overflow: hidden;" #archiveMenu="matMenu">
+              <strong (click)="stopPropagation($event)" mat-menu-item>
+                Add Label
+              </strong>
+              <form mat-menu-item (click)="stopPropagation($event)">
+                <input [formControl]="label" style="margin-left:1em;width: 80%;" matInput placeholder="Enter a label">
+              </form>
+              <div mat-menu-item style="margin-left:1em;width: 80%;" *ngFor="let label of existingLabels">
+                <mat-checkbox [checked]="isLabelPresent(label,note)" (click)="addLabelsFromExistingLabels(label,note)">
+                  {{label.label}}</mat-checkbox>
+              </div>
+              <button (click)="addLabel(note)" mat-menu-item>
+                Save
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+
+      </mat-card-actions>
+
+    </mat-card>
+  </div>
+</div>
+
+<h5 *ngIf="pinUnpinExists">
+  OTHERS
+</h5>
+
+<div fxLayout.gt-xs="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.xs="column"
+  fxLayoutAlign="{{ notesLayout ? 'start start' : 'center start' }}" gdGridAlign>
+
+  <div *ngFor="let note of unPinnedNotesList">
+    <mat-card style="margin-top: 10px; border-radius: 15px;" [style.background-color]="getBackgroundColor(note.color)"
+      *ngIf="!note.isDeleted && !note.isArchived" ngClass.lt-md="note-smaller-screen"
+      ngClass.md="{{ notesLayout ? 'note-medium-screen':'note-medium-screen-column' }}"
+      ngClass.gt-md="{{ notesLayout ? 'note-bigger-screen':'note-bigger-screen-column' }}" class="extra-actions">
+
+      <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
+        <div (click)="openEditor(note)">
+          {{note.title}}
+        </div>
+        <div [fxHide]="basicUser" class=pin-icon>
+          <mat-icon *ngIf="!note.isPined" (click)="pinUnpin(note)">
+            work
+          </mat-icon>
+          <mat-icon *ngIf="note.isPined" (click)="pinUnpin(note)">
+            work_off
+          </mat-icon>
+        </div>
+      </mat-card-title>
+
+      <mat-card-content (click)="openEditor(note)">
+        {{note.description}}
+      </mat-card-content>
+
+      <mat-chip-list *ngFor="let labels of note.noteLabels">
+        <mat-chip *ngIf="labels.label != labelName">
+          {{labels.label}}
+          <mat-icon (click)="deleteLabel(labels,note)">
+            clear
+          </mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+
+      <mat-card-actions [fxHide]="basicUser">
+
+        <div style="color: black" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
+
+          <div>
+            <mat-icon matTooltip="Remind Me">
+              notifications_none
+            </mat-icon>
+          </div>
+
+          <div>
+            <mat-icon matTooltip="Collaborator">
+              person_add
+            </mat-icon>
+          </div>
+
+          <div matTooltip="Change color">
+            <mat-icon [matMenuTriggerFor]="colorMenu">
+              color_lens
+            </mat-icon>
+            <mat-menu #colorMenu="matMenu">
+
+              <div class="color-picker">
+
+                <div class="opened">
+                  <div class="colors">
+                    <div *ngFor="let paint of defaultColors1" (click)="changeColor(paint,note)" class="circle"
+                      [ngStyle]="{'background': paint}"></div>
+                  </div>
+                  <div class="colors">
+                    <div *ngFor="let paint of defaultColors2" (click)="changeColor(paint,note)" class="circle"
+                      [ngStyle]="{'background': paint}"></div>
+                  </div>
+                  <div class="colors">
+                    <div *ngFor="let paint of defaultColors3" (click)="changeColor(paint,note)" class="circle"
+                      [ngStyle]="{'background': paint}"></div>
+                  </div>
+                </div>
+
+              </div>
+            </mat-menu>
+          </div>
+
+          <div>
+            <mat-icon matTooltip="Add Image">
+              image
+            </mat-icon>
+          </div>
+
+          <div>
+            <mat-icon (click)="archiveNote(note)" matTooltip="Archive">
+              archive
+            </mat-icon>
+          </div>
+
+          <div>
+            <mat-icon [matMenuTriggerFor]="menu" matTooltip="More">
+              more_vert
+            </mat-icon>
+            <mat-menu #menu="matMenu">
+              <button (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
+              <button [matMenuTriggerFor]="archiveMenu" mat-menu-item>Add Label</button>
+            </mat-menu>
+            <mat-menu style="overflow: hidden;" #archiveMenu="matMenu">
+              <strong (click)="stopPropagation($event)" mat-menu-item>
+                Add Label
+              </strong>
+              <form mat-menu-item (click)="stopPropagation($event)">
+                <input [formControl]="label" style="margin-left:1em;width: 80%;" matInput placeholder="Enter a label">
+              </form>
+              <div mat-menu-item style="margin-left:1em;width: 80%;" *ngFor="let label of existingLabels">
+                <mat-checkbox [checked]="isLabelPresent(label,note)" (click)="addLabelsFromExistingLabels(label,note)">
+                  {{label.label}}</mat-checkbox>
+              </div>
+              <button (click)="addLabel(note)" mat-menu-item>
+                Save
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+
+      </mat-card-actions>
+
+    </mat-card>
+  </div>
+</div>

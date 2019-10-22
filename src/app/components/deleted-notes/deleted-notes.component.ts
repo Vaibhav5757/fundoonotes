@@ -3,6 +3,7 @@ import { NoteService } from 'src/app/services/note.service';
 import { FormControl } from '@angular/forms';
 import { DashboardComponent } from 'src/app/components/dashboard/dashboard.component';
 import { MatSnackBar } from '@angular/material';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -35,7 +36,11 @@ export class DeletedNotesComponent implements OnInit {
   notesList: Array<any> = [];
   notesLayout: boolean = true;
 
-  constructor(private noteSvc: NoteService, private dash: DashboardComponent, private snackBar: MatSnackBar) {
+  constructor(private noteSvc: NoteService, private dash: DashboardComponent,
+    private titleService: Title,
+    private snackBar: MatSnackBar) {
+
+      this.setTitle("Recycle Bin");
 
     this.dash.events.addListener('note-saved-in-database', () => {
       //Fetch all notes from database
@@ -52,6 +57,10 @@ export class DeletedNotesComponent implements OnInit {
   ngOnInit() {
     this.fetchAllNotes();
     this.notesLayout = this.dash.getLayout() ? false : true;
+  }
+
+  setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
   }
 
   //Fetch all notes

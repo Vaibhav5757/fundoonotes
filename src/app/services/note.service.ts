@@ -56,4 +56,20 @@ export class NoteService {
   deleteLabel(data: any) {
     return this.http.delete("noteLabels/" + data.id + "/deleteNoteLabel", data);
   }
+
+  addExistingLabel(data) {
+    return this.http.post("notes/" + data.noteId + "/addLabelToNotes/" + data.lableId + "/add", data);
+  }
+
+  getNotesOfLabel(data) {
+    return this.http.post("notes/getNotesListByLabel/" + data.labelName, data);
+  }
+
+  addLabelWithoutNote(data) {
+    return this.http.post("noteLabels", data);
+  }
+
+  updateLabel(data) {
+    return this.http.post("noteLabels/" + data.id + "/updateNoteLabel", data);
+  }
 }

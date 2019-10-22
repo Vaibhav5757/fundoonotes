@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { DashboardComponent } from 'src/app/components/dashboard/dashboard.component';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { EditNoteComponent } from '../edit-note/edit-note.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-archived-notes',
@@ -33,10 +34,12 @@ export class ArchivedNotesComponent implements OnInit {
   noteColor = new FormControl('#FFFFFF');
   notesList: Array<any> = [];
   notesLayout: boolean = true;
-  
 
-  constructor(private noteSvc: NoteService, private dash: DashboardComponent,
+
+  constructor(private titleService: Title, private noteSvc: NoteService, private dash: DashboardComponent,
     private snackBar: MatSnackBar, private dialog: MatDialog) {
+
+    this.setTitle("Archived Notes");
 
     this.dash.events.addListener('note-saved-in-database', () => {
       //Fetch all notes from database
@@ -53,6 +56,10 @@ export class ArchivedNotesComponent implements OnInit {
   ngOnInit() {
     this.fetchAllNotes();
     this.notesLayout = this.dash.getLayout() ? false : true;
+  }
+
+  setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
   }
 
   //Fetch all notes
@@ -97,7 +104,7 @@ export class ArchivedNotesComponent implements OnInit {
   }
 
   //Change Color of Card
-  changeColor(paint,card) {
+  changeColor(paint, card) {
     let data = {
       noteIdList: [card.id],
       color: paint
@@ -105,7 +112,7 @@ export class ArchivedNotesComponent implements OnInit {
     let obs = this.noteSvc.changeNoteColor(data);
     obs.subscribe(response => {
       this.fetchAllNotes();
-      
+
     })
   }
 

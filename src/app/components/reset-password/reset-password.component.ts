@@ -15,7 +15,8 @@ export class ResetPasswordComponent implements OnInit {
   resetPasswordFormGroup: FormGroup;
   token: String
 
-  constructor(private http: UserServiceService, private snackBar: MatSnackBar, private titleService: Title, private route: ActivatedRoute) {
+  constructor(private http: UserServiceService, private snackBar: MatSnackBar, 
+    private titleService: Title, private route: ActivatedRoute) {
     this.setTitle("Reset Password");
 
     this.resetPasswordFormGroup = new FormGroup({

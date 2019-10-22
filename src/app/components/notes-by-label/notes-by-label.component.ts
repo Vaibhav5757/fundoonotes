@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { NoteService } from 'src/app/services/note.service';
-import { FormControl } from '@angular/forms';
-import { DashboardComponent } from 'src/app/components/dashboard/dashboard.component';
-import { MatSnackBar, MatDialog } from '@angular/material';
-import { EditNoteComponent } from '../edit-note/edit-note.component';
+import { UserServiceService } from 'src/app/services/user-service.service';
+import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { NoteService } from 'src/app/services/note.service';
+import { DashboardComponent } from '../dashboard/dashboard.component';
+import { EditNoteComponent } from '../edit-note/edit-note.component';
 
 @Component({
-  selector: 'app-all-notes',
-  templateUrl: './all-notes.component.html',
-  styleUrls: ['./all-notes.component.scss']
+  selector: 'app-notes-by-label',
+  templateUrl: './notes-by-label.component.html',
+  styleUrls: ['./notes-by-label.component.scss']
 })
-export class AllNotesComponent implements OnInit {
+export class NotesByLabelComponent implements OnInit {
+
+  labelName: string;
 
   public defaultColors1: string[] = [
     '#ffffff',
@@ -43,11 +46,8 @@ export class AllNotesComponent implements OnInit {
 
   notesLayout: Boolean = true;//true for row layout, false for column Layout
 
-  constructor(private titleService: Title, private noteSvc: NoteService, private dash: DashboardComponent,
-    private snackBar: MatSnackBar, private dialog: MatDialog) {
-
-    this.setTitle("Notes");
-
+  constructor(private snackBar: MatSnackBar, private noteSvc: NoteService,
+    private titleService: Title, private route: ActivatedRoute, private dash: DashboardComponent, private dialog: MatDialog) {
     this.dash.events.addListener('note-saved-in-database', () => {
       //Fetch all notes from database
       this.fetchAllNotes();
@@ -64,26 +64,32 @@ export class AllNotesComponent implements OnInit {
     })
 
     this.dash.events.addListener('label-modified', () => {
-      this.fetchAllLabels();
+      // this.fetchAllLabels();
+      this.fetchAllNotes();
     });
+
   }
 
-  //Fetch all the existing notes from database
   ngOnInit() {
-    this.fetchAllNotes();
     this.notesLayout = this.dash.getLayout() ? false : true;
-    this.fetchAllLabels();
+    this.route.paramMap.subscribe(params => {
+      this.labelName = params.get("labelName");
+      this.setTitle(this.labelName);
+      this.fetchAllNotes();
+    })
   }
 
-  setTitle(newTitle: string) {
+  public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
   }
 
   //Fetch all notes
   fetchAllNotes() {
-    let obs = this.noteSvc.fetchAllNotes();
+    let obs = this.noteSvc.getNotesOfLabel({
+      labelName: this.labelName
+    });
 
-    obs.subscribe((response) => {
+    obs.subscribe((response: any) => {
 
       this.pinnedNotesList = this.getPinnedNotes(response.data.data);
       this.unPinnedNotesList = this.getUnpinnedNotes(response.data.data);
@@ -95,7 +101,7 @@ export class AllNotesComponent implements OnInit {
         this.pinUnpinExists = true;
       }
 
-      this.fetchAllLabels();
+      // this.fetchAllLabels();
     }, (error) => {
       console.log(error);
     })
@@ -218,59 +224,4 @@ export class AllNotesComponent implements OnInit {
     return result.reverse();
   }
 
-  addLabel(note) {
-    let data = {
-      label: this.label.value,
-      isDeleted: false,
-      userId: note.userId
-    }
-    let obs = this.noteSvc.addLabel(note.id, data);
-    obs.subscribe(response => {
-      this.fetchAllNotes();
-      this.dash.events.emit('label-modified');
-    })
-    this.label.setValue('');
-  }
-
-  deleteLabel(label, note) {
-    let obs = this.noteSvc.deleteLabelFromNote({
-      noteId: note.id,
-      labelId: label.id
-    })
-
-    obs.subscribe((response) => {
-      this.snackBar.open("Label Deleted", '', {
-        duration: 1500
-      })
-      this.fetchAllNotes();
-      this.dash.events.emit('label-modified');
-    })
-  }
-
-  fetchAllLabels() {
-    let obs = this.noteSvc.fetchAllLabel();
-    obs.subscribe((response: any) => {
-      this.existingLabels = response.data.details;
-    })
-  }
-
-  addLabelsFromExistingLabels(label, note) {
-    let data = {
-      lableId: label.id,
-      noteId: note.id
-    }
-    let obs = this.noteSvc.addExistingLabel(data);
-    obs.subscribe(response => {
-      this.fetchAllNotes();
-      this.dash.events.emit('label-modified');
-      this.fetchAllLabels();
-    })
-  }
-
-  isLabelPresent(label, note) {
-    for (let noteLabel of note.noteLabels) {
-      if (noteLabel.label === label.label) return true;
-    }
-    return false;
-  }
 }

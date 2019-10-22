@@ -11,6 +11,7 @@ import { AuthGuard } from './auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { RegistrationGuard } from './registration.guard';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { NotesByLabelComponent } from './components/notes-by-label/notes-by-label.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -27,7 +28,8 @@ const routes: Routes = [
       { path: 'notes', component: AllNotesComponent },
       { path: 'shoppingCart', component: ShoppingCartComponent },
       { path: 'deleted', component: DeletedNotesComponent },
-      { path: 'archived', component: ArchivedNotesComponent }
+      { path: 'archived', component: ArchivedNotesComponent },
+      { path: 'notesByLabel/:labelName', component: NotesByLabelComponent }
     ]
   },
   { path: 'resetpassword/:token', component: ResetPasswordComponent },

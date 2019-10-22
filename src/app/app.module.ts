@@ -23,11 +23,13 @@ import { ArchivedNotesComponent } from './components/archived-notes/archived-not
 import { DeletedNotesComponent } from './components/deleted-notes/deleted-notes.component';
 import { EditNoteComponent } from './components/edit-note/edit-note.component';
 import { AuthGuard } from "./auth.guard";
-import { StorageServiceModule} from 'angular-webstorage-service';
+import { StorageServiceModule } from 'angular-webstorage-service';
 import { NoteService } from './services/note.service';
 import { HomeComponent } from './components/home/home.component';
 import { RegistrationGuard } from './registration.guard';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { NotesByLabelComponent } from './components/notes-by-label/notes-by-label.component';
+import { EditLabelComponent } from './components/edit-label/edit-label.component';
 
 @NgModule({
   declarations: [
@@ -41,9 +43,14 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
     DeletedNotesComponent,
     EditNoteComponent,
     HomeComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    NotesByLabelComponent,
+    EditLabelComponent
   ],
-  entryComponents: [EditNoteComponent],
+  entryComponents: [
+    EditNoteComponent,
+    EditLabelComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

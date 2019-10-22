@@ -100,6 +100,24 @@
                         </mat-icon>
                         <mat-menu #menu="matMenu">
                             <button (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
+                            <button [matMenuTriggerFor]="archiveMenu" mat-menu-item>Add Label</button>
+                        </mat-menu>
+                        <mat-menu style="overflow: hidden;" #archiveMenu="matMenu">
+                            <strong (click)="stopPropagation($event)" mat-menu-item>
+                                Add Label
+                            </strong>
+                            <form mat-menu-item (click)="stopPropagation($event)">
+                                <input [formControl]="label" style="margin-left:1em;width: 80%;" matInput
+                                    placeholder="Enter a label">
+                            </form>
+                            <div mat-menu-item style="margin-left:1em;width: 80%;" *ngFor="let label of existingLabels">
+                                <mat-checkbox [checked]="isLabelPresent(label,note)"
+                                    (change)="addLabelsFromExistingLabels(label,note)">
+                                    {{label.label}}</mat-checkbox>
+                            </div>
+                            <button (click)="addLabel(note)" mat-menu-item>
+                                Save
+                            </button>
                         </mat-menu>
                     </div>
                 </div>
@@ -222,6 +240,11 @@
                                 <input [formControl]="label" style="margin-left:1em;width: 80%;" matInput
                                     placeholder="Enter a label">
                             </form>
+                            <div mat-menu-item style="margin-left:1em;width: 80%;" *ngFor="let label of existingLabels">
+                                <mat-checkbox [checked]="isLabelPresent(label,note)"
+                                    (change)="addLabelsFromExistingLabels(label,note)">
+                                    {{label.label}}</mat-checkbox>
+                            </div>
                             <button (click)="addLabel(note)" mat-menu-item>
                                 Save
                             </button>

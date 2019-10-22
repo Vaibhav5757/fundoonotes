@@ -7,8 +7,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EventEmitter } from 'events';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { AllNotesComponent } from '../all-notes/all-notes.component';
+import { EditLabelComponent } from '../edit-label/edit-label.component';
 
 @Component({
   selector: 'app-components/dashboard',
@@ -68,7 +69,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(private titleService: Title,
     private noteSvc: NoteService, private router: Router, private userSvc: UserServiceService,
     private route: ActivatedRoute, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar, private dialog: MatDialog) {
 
     this.setTitle('Dashboard');
 
@@ -189,12 +190,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   fetchAllLabels() {
-    this.allLabels = [];
     let obs = this.noteSvc.fetchAllLabel();
     obs.subscribe((response: any) => {
-      response.data.details.forEach(element => {
-        this.allLabels.push(element);
-      });
+      this.allLabels = response.data.details;
     })
   }
 
@@ -203,6 +201,25 @@ export class DashboardComponent implements OnInit, OnDestroy {
       id: label.id
     })
     obs.subscribe((response) => {
+      this.fetchAllLabels();
+      this.events.emit('label-modified');
+    })
+  }
+
+  redirectToLabel(label) {
+    this.hideSearchSection = true;
+    this.router.navigate(["notesByLabel/" + label.label], {
+      relativeTo: this.route
+    })
+  }
+
+  openEditor(){
+    let obs = this.dialog.open(EditLabelComponent,{
+      data: this.allLabels,
+      width: "250px",
+      panelClass: "dialogBox"
+    })
+    obs.afterClosed().subscribe(result => {
       this.fetchAllLabels();
     })
   }

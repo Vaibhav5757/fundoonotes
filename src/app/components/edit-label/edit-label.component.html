@@ -1,0 +1,25 @@
+<div class="complete-class">
+  <h3>
+    Edit Labels
+  </h3>
+
+  <mat-form-field appearance="fill legacy">
+    <input [formControl]="label" matInput placeholder="Create new label">
+  </mat-form-field>
+  <mat-icon (click)="addLabel()">
+    done
+  </mat-icon>
+
+  <div *ngFor="let labels of allLabels">
+    <div fxLayout="row">
+      <mat-icon (click)="updateLabel(labels)">
+        label
+      </mat-icon>
+      <input [formControl]="label" matInput value="{{labels.label}}">
+      <span class="fill-remaining-space"></span>
+      <mat-icon (click)="deleteLabel(labels)">
+        delete
+      </mat-icon>
+    </div>
+  </div>
+</div>

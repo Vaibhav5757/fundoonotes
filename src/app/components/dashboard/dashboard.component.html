@@ -117,7 +117,7 @@
           <p>LABELS</p>
         </mat-list-item>
 
-        <mat-list-item [fxHide]="!advancedUser" class="sidenav-content" *ngFor="let label of allLabels">
+        <mat-list-item (click)="redirectToLabel(label)" [fxHide]="!advancedUser" class="sidenav-content" *ngFor="let label of allLabels">
           <mat-icon>label</mat-icon>
           <h3 style="margin-left:18%">
             {{label.label}}
@@ -128,7 +128,7 @@
           </mat-icon>
         </mat-list-item>
 
-        <mat-list-item [fxHide]="!advancedUser" class="sidenav-content">
+        <mat-list-item (click)="openEditor()" [fxHide]="!advancedUser" class="sidenav-content">
           <mat-icon>colorize</mat-icon>
           <h3 style="margin-left:18%">
             Edit labels
