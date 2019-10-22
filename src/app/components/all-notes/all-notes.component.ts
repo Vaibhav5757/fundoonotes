@@ -64,6 +64,7 @@ export class AllNotesComponent implements OnInit {
     })
 
     this.dash.events.addListener('label-modified', () => {
+      this.fetchAllNotes();
       this.fetchAllLabels();
     });
   }

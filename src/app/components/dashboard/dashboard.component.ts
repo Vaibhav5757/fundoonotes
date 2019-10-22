@@ -213,14 +213,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     })
   }
 
-  openEditor(){
-    let obs = this.dialog.open(EditLabelComponent,{
+  openEditor() {
+    let obs = this.dialog.open(EditLabelComponent, {
       data: this.allLabels,
       width: "250px",
       panelClass: "dialogBox"
     })
     obs.afterClosed().subscribe(result => {
       this.fetchAllLabels();
+      this.events.emit('label-modified');
     })
   }
 }

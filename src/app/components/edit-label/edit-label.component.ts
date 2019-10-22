@@ -22,7 +22,6 @@ export class EditLabelComponent implements OnInit {
     @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
 
   ngOnInit() {
-    // this.allLabels = this.labels;
     this.fetchAllLabels();
   }
 
