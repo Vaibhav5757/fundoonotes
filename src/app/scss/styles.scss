@@ -82,6 +82,16 @@ body {
   mat-card-actions {
     visibility: hidden;
   }
+  .label {
+    .mat-icon {
+      visibility: hidden;
+    }
+    &:hover {
+      .mat-icon {
+        visibility: visible;
+      }
+    }
+  }
   mat-icon {
     visibility: hidden;
     font-size: 20px;
@@ -218,16 +228,5 @@ p.style-value {
     mat-icon {
       font-size: 20px;
     }
-  }
-}
-
-.label {
-  background: grey;
-  width: 40%;
-  height: 10%;
-  border-radius: 10px;
-  padding: 2%;
-  mat-icon {
-    font-size: 5px;
   }
 }

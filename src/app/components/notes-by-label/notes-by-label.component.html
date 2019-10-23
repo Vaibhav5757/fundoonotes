@@ -30,7 +30,7 @@
       </mat-card-content>
 
       <mat-chip-list *ngFor="let labels of note.noteLabels">
-        <mat-chip *ngIf="labels.label != labelName">
+        <mat-chip class="label" *ngIf="labels.label != labelName">
           {{labels.label}}
           <mat-icon (click)="deleteLabel(labels,note)">
             clear
@@ -157,7 +157,7 @@
       </mat-card-content>
 
       <mat-chip-list *ngFor="let labels of note.noteLabels">
-        <mat-chip *ngIf="labels.label != labelName">
+        <mat-chip class="label" *ngIf="labels.label != labelName">
           {{labels.label}}
           <mat-icon (click)="deleteLabel(labels,note)">
             clear

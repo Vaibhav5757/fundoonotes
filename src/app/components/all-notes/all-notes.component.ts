@@ -182,8 +182,12 @@ export class AllNotesComponent implements OnInit {
           let updateObserver = this.noteSvc.updateNote(data);
 
           updateObserver.subscribe((response) => {
-            //fetch All Notes after updating
+
+            // If color was updated
+            this.changeColor(result.color, note);
+            //  fetch All Notes after updating
             this.fetchAllNotes();
+
           })
         }
       }

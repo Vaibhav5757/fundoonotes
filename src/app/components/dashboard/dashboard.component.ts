@@ -135,9 +135,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.events.emit("note-saved-in-database");
       })
     } else {
-      this.snackBar.open('Note title cannot be empty', '', {
-        duration: 1500
-      })
+      // this.snackBar.open('Note title cannot be empty', '', {
+      //   duration: 1500
+      // })
     }
     this.title.setValue("");
     this.content.setValue("");

@@ -30,14 +30,16 @@
                 {{note.description}}
             </mat-card-content>
 
-            <mat-chip-list *ngFor="let labels of note.noteLabels">
-                <mat-chip>
-                    {{labels.label}}
-                    <mat-icon (click)="deleteLabel(labels,note)">
-                        clear
-                    </mat-icon>
-                </mat-chip>
-            </mat-chip-list>
+            <div fxLayout="row align" fxLayoutAlign="space-around " gdGridAlign>
+                <mat-chip-list *ngFor="let labels of note.noteLabels">
+                    <mat-chip class="label" style="margin-top: 10px">
+                        {{labels.label}}
+                        <mat-icon matChipRemove (click)="deleteLabel(labels,note)">
+                            clear
+                        </mat-icon>
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
 
             <mat-card-actions [fxHide]="basicUser">
 
@@ -160,14 +162,16 @@
                 {{note.description}}
             </mat-card-content>
 
-            <mat-chip-list *ngFor="let labels of note.noteLabels">
-                <mat-chip>
-                    {{labels.label}}
-                    <mat-icon matChipRemove (click)="deleteLabel(labels,note)">
-                        clear
-                    </mat-icon>
-                </mat-chip>
-            </mat-chip-list>
+            <div fxLayout="row align" fxLayoutAlign="space-around " gdGridAlign>
+                <mat-chip-list *ngFor="let labels of note.noteLabels">
+                    <mat-chip class="label" style="margin-top: 10px">
+                        {{labels.label}}
+                        <mat-icon matChipRemove (click)="deleteLabel(labels,note)">
+                            clear
+                        </mat-icon>
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
 
             <mat-card-actions [fxHide]="basicUser">
 

@@ -71,9 +71,9 @@ export class EditNoteComponent implements OnInit {
   changeColor(note, paint) {
     note.color = paint;
     this.color = paint;
-    this.snackBar.open('Color Change is not supported in our API while editing notes', '', {
-      duration: 1500
-    })
+    // this.snackBar.open('Color Change is not supported in our API while editing notes', '', {
+    //   duration: 1500
+    // })
   }
 
   //Delete a Note
