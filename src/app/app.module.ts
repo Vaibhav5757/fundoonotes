@@ -30,6 +30,7 @@ import { RegistrationGuard } from './registration.guard';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { NotesByLabelComponent } from './components/notes-by-label/notes-by-label.component';
 import { EditLabelComponent } from './components/edit-label/edit-label.component';
+import { AddCollaboratorComponent } from './components/add-collaborator/add-collaborator.component';
 
 @NgModule({
   declarations: [
@@ -45,11 +46,13 @@ import { EditLabelComponent } from './components/edit-label/edit-label.component
     HomeComponent,
     ShoppingCartComponent,
     NotesByLabelComponent,
-    EditLabelComponent
+    EditLabelComponent,
+    AddCollaboratorComponent
   ],
   entryComponents: [
     EditNoteComponent,
-    EditLabelComponent
+    EditLabelComponent,
+    AddCollaboratorComponent
   ],
   imports: [
     BrowserModule,

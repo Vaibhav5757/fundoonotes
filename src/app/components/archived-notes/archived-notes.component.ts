@@ -126,7 +126,9 @@ export class ArchivedNotesComponent implements OnInit {
 
   openEditor(note) {
     let obs = this.dialog.open(EditNoteComponent, {
-      data: note
+      data: note, 
+      width: "550px",
+      panelClass: 'dialogBox'
     });
     obs.afterClosed().subscribe(result => {
       if (result) {

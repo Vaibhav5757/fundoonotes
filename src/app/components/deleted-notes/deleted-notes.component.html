@@ -14,65 +14,9 @@
                 {{note.description}}
             </mat-card-content>
 
-            <mat-chip-list *ngFor="let labels of note.noteLabels">
-                <mat-chip>
-                    {{labels.label}}
-                </mat-chip>
-            </mat-chip-list>
-
             <mat-card-actions>
 
-                <div style="color: black" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
-
-                    <div>
-                        <mat-icon matTooltip="Remind Me">
-                            notifications_none
-                        </mat-icon>
-                    </div>
-
-                    <div>
-                        <mat-icon matTooltip="Collaborator">
-                            person_add
-                        </mat-icon>
-                    </div>
-                    <div class="color-palette" matTooltip="Change color">
-                        <mat-icon [matMenuTriggerFor]="colorMenu">
-                            color_lens
-                        </mat-icon>
-                        <mat-menu #colorMenu="matMenu">
-
-                            <div class="color-picker">
-
-                                <div class="opened">
-                                    <div class="colors">
-                                        <div *ngFor="let paint of defaultColors1" (click)="changeColor(paint,note)"
-                                            class="circle" [ngStyle]="{'background': paint}"></div>
-                                    </div>
-                                    <div class="colors">
-                                        <div *ngFor="let paint of defaultColors2" (click)="changeColor(paint,note)"
-                                            class="circle" [ngStyle]="{'background': paint}"></div>
-                                    </div>
-                                    <div class="colors">
-                                        <div *ngFor="let paint of defaultColors3" (click)="changeColor(paint,note)"
-                                            class="circle" [ngStyle]="{'background': paint}"></div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </mat-menu>
-                    </div>
-
-                    <div>
-                        <mat-icon matTooltip="Add Image">
-                            image
-                        </mat-icon>
-                    </div>
-
-                    <div>
-                        <mat-icon (click)="archiveNote(note)" matTooltip="Archive">
-                            archive
-                        </mat-icon>
-                    </div>
+                <div style="color: black" fxLayout="row" fxLayoutAlign="space-between" ngClass.xs="occupy-full">
 
                     <div>
                         <mat-icon [matMenuTriggerFor]="menu" matTooltip="More">

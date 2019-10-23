@@ -1,0 +1,56 @@
+<div style="padding: 1em;">
+  <h3>
+    Collaborators
+  </h3>
+
+  <!-- Owner Details -->
+  <div fxLayout="row">
+    <button mat-icon-button>
+      <mat-icon>
+        control_camera
+      </mat-icon>
+    </button>
+    <div style="margin-left: 1em" fxLayout="column">
+      <p>
+        {{note.user.firstName}} {{note.user.lastName}} (Owner)
+      </p>
+      <p style="color: grey">
+        {{note.user.email}}
+      </p>
+    </div>
+  </div>
+
+  <!-- Collaborator Details -->
+  <div fxLayout="row" *ngFor="let user of note.collaborators">
+    <button mat-icon-button>
+      <mat-icon>
+        supervisor_account
+      </mat-icon>
+    </button>
+    <div style="margin-left: 1em" fxLayout="column">
+      <p>
+        {{user.firstName}} {{user.lastName}}
+      </p>
+      <p style="color: grey">
+        {{user.email}}
+      </p>
+    </div>
+  </div>
+
+  <!-- Add New Collaborator Input -->
+  <div fxLayout="row">
+    <button mat-icon-button>
+      <mat-icon>
+        person_add
+      </mat-icon>
+    </button>
+    <div style="margin-left: 1em; margin-top: 0.5em">
+      <form appearance="fill legacy">
+        <input matInput placeholder="Person or email to share with">
+      </form>
+      <span style="flex: 1 1 auto"></span>
+    </div>
+  </div>
+
+
+</div>

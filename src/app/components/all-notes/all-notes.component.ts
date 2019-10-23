@@ -5,6 +5,7 @@ import { DashboardComponent } from 'src/app/components/dashboard/dashboard.compo
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { EditNoteComponent } from '../edit-note/edit-note.component';
 import { Title } from '@angular/platform-browser';
+import { AddCollaboratorComponent } from '../add-collaborator/add-collaborator.component';
 
 
 @Component({
@@ -277,5 +278,13 @@ export class AllNotesComponent implements OnInit {
       if (noteLabel.label === label.label) return true;
     }
     return false;
+  }
+
+  addCollaborator(note) {
+    let obs = this.dialog.open(AddCollaboratorComponent, {
+      width: '1100px',
+      panelClass: 'dialogBox',
+      data: note
+    })
   }
 }

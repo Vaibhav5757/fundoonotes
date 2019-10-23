@@ -4,19 +4,19 @@
 
 .payment-cards-smaller {
   .mat-card {
-    width: 100px;
-    height: 270px;
+    width: 110px;
+    height: 250px;
     .second-card-advance {
-      top: -11em;
+      top: -200px;
       .content {
-        margin-top: 2em;
+        margin-top: 195px;
         font-size: 15px;
       }
     }
     .second-card-basic {
-      top: -7.6em;
+      top: -148px;
       .content {
-        margin-top: 2em;
+        margin-top: 193px;
         font-size: 15px;
       }
     }
@@ -26,7 +26,7 @@
 .payment-cards {
   margin-top: 5em;
   mat-card {
-    width: 150px;
+    width: 180px;
     height: 200px;
     &:hover {
       // transform: scale(1.3);
@@ -45,10 +45,10 @@
   .second-card-advance {
     background: grey;
     height: 200px;
-    top: -11em;
+    top: -200px;
     z-index: -1;
     .content {
-      margin-top: 1.6em;
+      margin-top: 190px;
       cursor: pointer;
     }
     &:hover {
@@ -58,10 +58,10 @@
   .second-card-basic {
     background: grey;
     height: 200px;
-    top: -9.2em;
+    top: -165px;
     z-index: -1;
     .content {
-      margin-top: 1.5em;
+      margin-top: 190px;
       cursor: pointer;
     }
     &:hover {
