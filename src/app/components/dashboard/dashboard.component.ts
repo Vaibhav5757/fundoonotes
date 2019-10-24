@@ -147,6 +147,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.content.setValue("");
     this.noteColor.setValue("#FFFFFF");
     this.isPinned = false;
+    this.checkList = [];
   }
 
   openNotes() {

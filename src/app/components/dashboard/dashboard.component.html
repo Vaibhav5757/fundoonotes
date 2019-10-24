@@ -306,7 +306,7 @@
           </mat-card>
 
           <!-- Mat Card for Checklist -->
-          <!-- <mat-card [style.background]="getBackgroundColor()" style="border-radius : 10px;"
+          <mat-card [style.background]="getBackgroundColor()" style="border-radius : 10px;"
             ngClass.xs="mat-card-maximized-small-screen" [fxHide]='!hideCheckListCard'>
             <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
               <input [formControl]='title' matInput placeholder="Title">
@@ -412,19 +412,19 @@
                 </div>
 
                 <div style="color: black" fxHide.xs="true">
-                  <button mat-button (click)="hideCheckListCard = !hideCheckListCard;saveNote()">
+                  <button mat-button (click)="hideCheckListCard = !hideCheckListCard;saveNote();">
                     Close
                   </button>
                 </div>
               </div>
 
               <div [fxHide]="!advancedUser" align="right" style="color: black" fxHide.gt-xs="true">
-                <button mat-button (click)="hideCheckListCard = !hideCheckListCard;saveNote()">
+                <button mat-button (click)="hideCheckListCard = !hideCheckListCard;saveNote();">
                   Close
                 </button>
               </div>
             </mat-card-actions>
-          </mat-card> -->
+          </mat-card>
 
 
         </div>
