@@ -1,56 +1,76 @@
-<div style="padding: 1em;">
+<div style="padding: 2.5%">
   <h3>
     Collaborators
   </h3>
 
-  <!-- Owner Details -->
-  <div fxLayout="row">
-    <button mat-icon-button>
-      <mat-icon>
-        control_camera
-      </mat-icon>
-    </button>
-    <div style="margin-left: 1em" fxLayout="column">
-      <p>
-        {{note.user.firstName}} {{note.user.lastName}} (Owner)
-      </p>
-      <p style="color: grey">
-        {{note.user.email}}
-      </p>
-    </div>
-  </div>
+  <div fxLayout="column" fxLayoutAlign="space-evenly">
 
-  <!-- Collaborator Details -->
-  <div fxLayout="row" *ngFor="let user of note.collaborators">
-    <button mat-icon-button>
-      <mat-icon>
-        supervisor_account
-      </mat-icon>
-    </button>
-    <div style="margin-left: 1em" fxLayout="column">
-      <p>
-        {{user.firstName}} {{user.lastName}}
-      </p>
-      <p style="color: grey">
-        {{user.email}}
-      </p>
+    <!-- Owner Details -->
+    <div fxLayout="row">
+      <button mat-icon-button>
+        <mat-icon>
+          control_camera
+        </mat-icon>
+      </button>
+      <div style="margin-left: 1%" fxLayout="column">
+        <p>
+          {{note.user.firstName}} {{note.user.lastName}} (Owner)
+        </p>
+        <p style="color: grey">
+          {{note.user.email}}
+        </p>
+      </div>
     </div>
-  </div>
 
-  <!-- Add New Collaborator Input -->
-  <div fxLayout="row">
-    <button mat-icon-button>
-      <mat-icon>
-        person_add
-      </mat-icon>
-    </button>
-    <div style="margin-left: 1em; margin-top: 0.5em">
-      <form appearance="fill legacy">
-        <input matInput placeholder="Person or email to share with">
-      </form>
+    <!-- Collaborator Details -->
+    <div style="margin-top: 2.5%" fxLayout="row" *ngFor="let user of note.collaborators">
+      <button mat-icon-button>
+        <mat-icon>
+          supervisor_account
+        </mat-icon>
+      </button>
+      <div style="margin-left: 1%" fxLayout="column">
+        <p>
+          {{user.firstName}} {{user.lastName}}
+        </p>
+        <p style="color: grey">
+          {{user.email}}
+        </p>
+      </div>
       <span style="flex: 1 1 auto"></span>
+      <div>
+        <button (click)="removeCollaborator(user)" mat-icon-button>
+          <mat-icon>
+            clear
+          </mat-icon>
+        </button>
+      </div>
     </div>
+
+    <!-- Add New Collaborator Input -->
+    <div style="margin-top: 2.5%" fxLayout="row">
+      <button mat-icon-button>
+        <mat-icon>
+          person_add
+        </mat-icon>
+      </button>
+      <div style="margin-left: 1%; margin-top: 0.5%">
+        <form style="width: 150%" appearance="fill legacy">
+          <input (keypress)="search($event)" [formControl]="searchUserString" matInput [matAutocomplete]="auto"
+            placeholder="Person or email to share with">
+        </form>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option (click)="searchUserList()" [value]="user" *ngFor="let user of searchedUsers">{{user}}</mat-option>
+        </mat-autocomplete>
+      </div>
+      <span style="flex: 1 1 auto"></span>
+      <!-- <button  mat-icon-button>
+        <mat-icon>
+          done_outline
+        </mat-icon>
+      </button> -->
+    </div>
+
+
   </div>
-
-
 </div>

@@ -72,4 +72,12 @@ export class NoteService {
   updateLabel(data) {
     return this.http.post("noteLabels/" + data.id + "/updateNoteLabel", data);
   }
+
+  addCollaborator(id, data) {
+    return this.http.post("notes/" + id + "/AddcollaboratorsNotes", data);
+  }
+
+  removeCollaborator(noteId, collaboratorId) {
+    return this.http.delete("notes/" + noteId + "/removeCollaboratorsNotes/" + collaboratorId, {});
+  }
 }

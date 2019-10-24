@@ -49,7 +49,15 @@ export class UserServiceService {
     });
   }
 
-  getService(){
-    return this.http.get("/user/service");
+  getService() {
+    return this.http.get("user/service");
+  }
+
+  fetchAllUsers() {
+    return this.http.get("user");
+  }
+
+  searchUserList(data) {
+    return this.http.post("user/searchUserList",data);
   }
 }

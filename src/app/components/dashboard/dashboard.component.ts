@@ -38,15 +38,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   user: any;
   hide: Boolean = false;
+  hideCheckListCard: Boolean = false;
   hideSearchSection: Boolean = false;
   hideLogo: Boolean = false;
   advancedUser: Boolean;//true for advanced user, false for basic user
   layout: Boolean = false;// false for row view, true for column view
   allLabels = [];
+  checkList = [];
+  search = new FormControl('', []);
 
   events = new EventEmitter();
 
   noteColor = new FormControl('#FFFFFF');
+  checkListInput = new FormControl('', []);
 
   isPinned: Boolean = false;
 
@@ -223,5 +227,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.fetchAllLabels();
       this.events.emit('label-modified');
     })
+  }
+
+  searchNotes(event: any) {
+    if (event.key == "Backspace") {
+      this.events.emit("searching-backward");
+    } else {
+      this.events.emit("searching-forward");
+    }
+  }
+
+  addCheckList(event: any) {
+    if (event.key == "Enter") {
+      this.checkList.push(this.checkListInput.value);
+      this.checkListInput.setValue("");
+    }
   }
 }

@@ -50,6 +50,15 @@ export class ArchivedNotesComponent implements OnInit {
       //Change Layout of Notes
       this.notesLayout = !this.notesLayout;
     })
+
+    this.dash.events.addListener('searching-forward', () => {
+      this.filterNotes(this.dash.search.value);
+    })
+
+    this.dash.events.addListener('searching-backward', () => {
+      this.fetchAllNotes();
+      this.filterNotes(this.dash.search.value);
+    })
   }
 
   //Fetch all the existing notes from database
@@ -126,7 +135,7 @@ export class ArchivedNotesComponent implements OnInit {
 
   openEditor(note) {
     let obs = this.dialog.open(EditNoteComponent, {
-      data: note, 
+      data: note,
       width: "550px",
       panelClass: 'dialogBox'
     });
@@ -148,6 +157,18 @@ export class ArchivedNotesComponent implements OnInit {
         })
       }
     })
+  }
+
+  filterNotes(str) {
+
+    // filter notes
+    let tempList = [];
+    for (let noteIndex in this.notesList) {
+      if (this.notesList[noteIndex].description.includes(str)) {
+        tempList.push(this.notesList[noteIndex]);
+      }
+    }
+    this.notesList = tempList;
   }
 
 }

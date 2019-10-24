@@ -8,7 +8,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   MatButtonModule, MatInputModule, MatListModule,
   MatCardModule, MatFormFieldModule, MatMenuModule, MatSelectModule, MatDialogModule,
-  MatOptionModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatToolbarModule, MatTooltipModule, MatCheckboxModule, MatExpansionModule, MatStepperModule, MatChipsModule
+  MatOptionModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatToolbarModule, MatTooltipModule, MatCheckboxModule, MatExpansionModule, MatStepperModule, MatChipsModule, MatAutocomplete, MatAutocompleteModule
 } from '@angular/material';
 import { FlexLayoutModule, GridModule } from '@angular/flex-layout';
 import { RegisterComponent } from './components/register/register.component';
@@ -70,6 +70,7 @@ import { AddCollaboratorComponent } from './components/add-collaborator/add-coll
     MatExpansionModule,
     MatStepperModule,
     MatCardModule,
+    MatAutocompleteModule,
     MatFormFieldModule,
     MatMenuModule,
     MatChipsModule,

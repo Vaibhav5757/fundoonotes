@@ -40,7 +40,7 @@ export class DeletedNotesComponent implements OnInit {
     private titleService: Title,
     private snackBar: MatSnackBar) {
 
-      this.setTitle("Recycle Bin");
+    this.setTitle("Recycle Bin");
 
     this.dash.events.addListener('note-saved-in-database', () => {
       //Fetch all notes from database
@@ -50,6 +50,15 @@ export class DeletedNotesComponent implements OnInit {
     this.dash.events.addListener('change-layout', () => {
       //Change Layout of Notes
       this.notesLayout = !this.notesLayout;
+    })
+
+    this.dash.events.addListener('searching-forward', () => {
+      this.filterNotes(this.dash.search.value);
+    })
+
+    this.dash.events.addListener('searching-backward', () => {
+      this.fetchAllNotes();
+      this.filterNotes(this.dash.search.value);
     })
   }
 
@@ -90,7 +99,7 @@ export class DeletedNotesComponent implements OnInit {
   }
 
   //delete a note forever
-  deleteForever(note){
+  deleteForever(note) {
     let data = {
       noteIdList: [note.id],
     }
@@ -119,7 +128,7 @@ export class DeletedNotesComponent implements OnInit {
   }
 
   //Change Color of Card
-  changeColor(paint,card) {
+  changeColor(paint, card) {
     let data = {
       noteIdList: [card.id],
       color: paint
@@ -136,6 +145,18 @@ export class DeletedNotesComponent implements OnInit {
 
   getMargin() {
     return this.notesLayout ? 0 : "25%";
+  }
+
+  filterNotes(str) {
+
+    // filter notes
+    let tempList = [];
+    for (let noteIndex in this.notesList) {
+      if (this.notesList[noteIndex].description.includes(str)) {
+        tempList.push(this.notesList[noteIndex]);
+      }
+    }
+    this.notesList = tempList;
   }
 
 }

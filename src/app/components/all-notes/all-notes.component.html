@@ -41,6 +41,14 @@
                 </mat-chip-list>
             </div>
 
+            <div style="margin-top:5px" fxLayout="row align" fxLayoutAlign="space-around " gdGridAlign>
+                <div *ngFor="let user of note.collaborators">
+                    <button mat-mini-fab>
+                        {{user.firstName[0]}}
+                    </button>
+                </div>
+            </div>
+
             <mat-card-actions [fxHide]="basicUser">
 
                 <div style="color: black" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
@@ -171,6 +179,14 @@
                         </mat-icon>
                     </mat-chip>
                 </mat-chip-list>
+            </div>
+
+            <div style="margin-top:5px" fxLayout="row align" fxLayoutAlign="space-around " gdGridAlign>
+                <div *ngFor="let user of note.collaborators">
+                    <button mat-mini-fab>
+                        {{user.firstName[0]}}
+                    </button>
+                </div>
             </div>
 
             <mat-card-actions [fxHide]="basicUser">

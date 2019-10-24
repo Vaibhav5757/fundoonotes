@@ -68,6 +68,15 @@ export class AllNotesComponent implements OnInit {
       this.fetchAllNotes();
       this.fetchAllLabels();
     });
+
+    this.dash.events.addListener('searching-forward', () => {
+      this.filterNotes(this.dash.search.value);
+    })
+
+    this.dash.events.addListener('searching-backward', () => {
+      this.fetchAllNotes();
+      this.filterNotes(this.dash.search.value);
+    })
   }
 
   //Fetch all the existing notes from database
@@ -286,5 +295,29 @@ export class AllNotesComponent implements OnInit {
       panelClass: 'dialogBox',
       data: note
     })
+    obs.afterClosed().subscribe((response) => {
+      this.fetchAllNotes();
+    })
+  }
+
+  filterNotes(str) {
+
+    // filter pinned notes
+    let tempPinList = [];
+    for (let noteIndex in this.pinnedNotesList) {
+      if (this.pinnedNotesList[noteIndex].description.includes(str)) {
+        tempPinList.push(this.pinnedNotesList[noteIndex]);
+      }
+    }
+    this.pinnedNotesList = tempPinList;
+
+    // filter unpinned notes
+    let tempUnpinList = [];
+    for (let noteIndex in this.unPinnedNotesList) {
+      if (this.unPinnedNotesList[noteIndex].description.includes(str)) {
+        tempUnpinList.push(this.unPinnedNotesList[noteIndex]);
+      }
+    }
+    this.unPinnedNotesList = tempUnpinList;
   }
 }

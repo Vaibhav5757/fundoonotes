@@ -7,7 +7,8 @@ export interface DialogData {
   title: String,
   description: String,
   id: String,
-  color: String
+  color: String,
+  collaborators
 }
 
 @Component({
