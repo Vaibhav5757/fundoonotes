@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NoteService } from 'src/app/services/note.service';
 import { FormControl } from '@angular/forms';
 import { DashboardComponent } from 'src/app/components/dashboard/dashboard.component';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatSnackBar, MatDialog, MatMenuTrigger } from '@angular/material';
 import { EditNoteComponent } from '../edit-note/edit-note.component';
 import { Title } from '@angular/platform-browser';
 import { AddCollaboratorComponent } from '../add-collaborator/add-collaborator.component';
+import { element } from '@angular/core/src/render3/instructions';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { AddCollaboratorComponent } from '../add-collaborator/add-collaborator.c
   styleUrls: ['./all-notes.component.scss']
 })
 export class AllNotesComponent implements OnInit {
+  @ViewChild('menuTrigger') trigger: MatMenuTrigger;
 
   public defaultColors1: string[] = [
     '#ffffff',
@@ -41,8 +43,10 @@ export class AllNotesComponent implements OnInit {
   basicUser: Boolean;
   pinUnpinExists: Boolean;
   existingLabels = [];
+  latestNote: any;
 
   notesLayout: Boolean = true;//true for row layout, false for column Layout
+  remiderMenu = false;
 
   constructor(private titleService: Title, private noteSvc: NoteService, private dash: DashboardComponent,
     private snackBar: MatSnackBar, private dialog: MatDialog) {
@@ -76,6 +80,25 @@ export class AllNotesComponent implements OnInit {
     this.dash.events.addListener('searching-backward', () => {
       this.fetchAllNotes();
       this.filterNotes(this.dash.search.value);
+    })
+
+    this.dash.events.addListener("checklist-present-in-note", () => {
+      let checklist = this.dash.checkList;
+
+      checklist.forEach((element) => {
+        let obsIntermediate = this.getLatestNote();
+        obsIntermediate.subscribe(response => {
+          this.latestNote = response.data.data[response.data.data.length - 1];
+          console.log(this.latestNote);
+          let obsFinal = this.noteSvc.addCheckList(this.latestNote, {
+            itemName: element,
+            status: "open"
+          })
+          obsFinal.subscribe((response) => {
+            this.fetchAllNotes();
+          })
+        })
+      })
     })
   }
 
@@ -112,6 +135,13 @@ export class AllNotesComponent implements OnInit {
     })
   }
 
+  getLatestNote() {
+    return this.noteSvc.fetchAllNotes();
+    // obs.subscribe(response => {
+    //   this.latestNote = response.data.data[response.data.data.length - 1];
+    // })
+  }
+
   //Delete a Note
   deleteNote(note) {
     let data = {
@@ -119,7 +149,7 @@ export class AllNotesComponent implements OnInit {
       isDeleted: true
     }
     let obs = this.noteSvc.deleteNote(data);
-    obs.subscribe(response => {
+    obs.subscribe(() => {
       this.fetchAllNotes();
       this.snackBar.open("Note Deleted", '', {
         duration: 1500
@@ -134,7 +164,7 @@ export class AllNotesComponent implements OnInit {
       isArchived: true
     }
     let obs = this.noteSvc.archiveNote(data);
-    obs.subscribe(response => {
+    obs.subscribe(() => {
       this.fetchAllNotes();
       this.snackBar.open("Note Archived", '', {
         duration: 1500
@@ -149,7 +179,7 @@ export class AllNotesComponent implements OnInit {
       color: paint
     };
     let obs = this.noteSvc.changeNoteColor(data);
-    obs.subscribe(response => {
+    obs.subscribe(() => {
       this.fetchAllNotes();
     })
   }
@@ -161,7 +191,7 @@ export class AllNotesComponent implements OnInit {
       isPined: !card.isPined
     };
     let obs = this.noteSvc.pinUnpinNotes(data);
-    obs.subscribe(response => {
+    obs.subscribe(() => {
       this.fetchAllNotes();
     })
   }
@@ -191,7 +221,7 @@ export class AllNotesComponent implements OnInit {
 
           let updateObserver = this.noteSvc.updateNote(data);
 
-          updateObserver.subscribe((response) => {
+          updateObserver.subscribe(() => {
 
             // If color was updated
             this.changeColor(result.color, note);
@@ -240,7 +270,7 @@ export class AllNotesComponent implements OnInit {
       userId: note.userId
     }
     let obs = this.noteSvc.addLabel(note.id, data);
-    obs.subscribe(response => {
+    obs.subscribe(() => {
       this.fetchAllNotes();
       this.dash.events.emit('label-modified');
     })
@@ -253,7 +283,7 @@ export class AllNotesComponent implements OnInit {
       labelId: label.id
     })
 
-    obs.subscribe((response) => {
+    obs.subscribe(() => {
       this.snackBar.open("Label Deleted", '', {
         duration: 1500
       })
@@ -275,7 +305,7 @@ export class AllNotesComponent implements OnInit {
       noteId: note.id
     }
     let obs = this.noteSvc.addExistingLabel(data);
-    obs.subscribe(response => {
+    obs.subscribe(() => {
       this.fetchAllNotes();
       this.dash.events.emit('label-modified');
       this.fetchAllLabels();
@@ -295,7 +325,7 @@ export class AllNotesComponent implements OnInit {
       panelClass: 'dialogBox',
       data: note
     })
-    obs.afterClosed().subscribe((response) => {
+    obs.afterClosed().subscribe(() => {
       this.fetchAllNotes();
     })
   }
@@ -319,5 +349,11 @@ export class AllNotesComponent implements OnInit {
       }
     }
     this.unPinnedNotesList = tempUnpinList;
+  }
+
+  openReminderMenu() {
+    console.log(this.trigger);
+    // this.trigger.closeMenu();
+    // this.trigger.openMenu();
   }
 }

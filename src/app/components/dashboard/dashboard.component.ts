@@ -137,6 +137,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
       obs.subscribe(response => {
         // Note Saved in database
         this.events.emit("note-saved-in-database");
+
+        if (this.checkList.length > 0) {
+          this.events.emit("checklist-present-in-note");
+        }
       })
     } else {
       // this.snackBar.open('Note title cannot be empty', '', {
@@ -147,7 +151,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.content.setValue("");
     this.noteColor.setValue("#FFFFFF");
     this.isPinned = false;
-    this.checkList = [];
+    // this.checkList = [];
   }
 
   openNotes() {

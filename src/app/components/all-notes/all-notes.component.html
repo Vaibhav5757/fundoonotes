@@ -30,6 +30,10 @@
                 {{note.description}}
             </mat-card-content>
 
+            <div fxLayout="column" fxLayoutAlign="space-around" *ngFor="let list of note.noteCheckLists">
+                <mat-checkbox>{{list.itemName}}</mat-checkbox>
+            </div>
+
             <div fxLayout="row align" fxLayoutAlign="space-around " gdGridAlign>
                 <mat-chip-list *ngFor="let labels of note.noteLabels">
                     <mat-chip class="label" style="margin-top: 10px">
@@ -170,6 +174,10 @@
                 {{note.description}}
             </mat-card-content>
 
+            <div fxLayout="column" fxLayoutAlign="space-around" *ngFor="let list of note.noteCheckLists">
+                <mat-checkbox>{{list.itemName}}</mat-checkbox>
+            </div>
+
             <div fxLayout="row align" fxLayoutAlign="space-around " gdGridAlign>
                 <mat-chip-list *ngFor="let labels of note.noteLabels">
                     <mat-chip class="label" style="margin-top: 10px">
@@ -193,10 +201,18 @@
 
                 <div style="color: black" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
 
-                    <div>
-                        <mat-icon matTooltip="Remind Me">
+                    <div matTooltip="Remind Me">
+                        <!-- <mat-icon (click)="openReminderMenu()" #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="reminderMenu">
                             notifications_none
                         </mat-icon>
+                        <mat-menu #reminderMenu="matMenu">
+                            <app-add-reminder (click)="$event.stopPropagation();">
+                            </app-add-reminder>
+                        </mat-menu> -->
+                        <!-- <mat-menu #datePickerMenu="matMenu">
+                            <app-datepicker (click)="$event.stopPropagation();">
+                            </app-datepicker>
+                        </mat-menu> -->
                     </div>
 
                     <div>

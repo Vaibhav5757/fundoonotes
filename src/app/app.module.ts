@@ -8,7 +8,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   MatButtonModule, MatInputModule, MatListModule,
   MatCardModule, MatFormFieldModule, MatMenuModule, MatSelectModule, MatDialogModule,
-  MatOptionModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatToolbarModule, MatTooltipModule, MatCheckboxModule, MatExpansionModule, MatStepperModule, MatChipsModule, MatAutocomplete, MatAutocompleteModule
+  MatOptionModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatToolbarModule, MatTooltipModule,
+  MatCheckboxModule, MatExpansionModule, MatStepperModule, MatChipsModule,
+  MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule
 } from '@angular/material';
 import { FlexLayoutModule, GridModule } from '@angular/flex-layout';
 import { RegisterComponent } from './components/register/register.component';
@@ -31,6 +33,9 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
 import { NotesByLabelComponent } from './components/notes-by-label/notes-by-label.component';
 import { EditLabelComponent } from './components/edit-label/edit-label.component';
 import { AddCollaboratorComponent } from './components/add-collaborator/add-collaborator.component';
+import { AddReminderComponent } from './components/add-reminder/add-reminder.component';
+import { DatepickerComponent } from './components/datepicker/datepicker.component';
+
 
 @NgModule({
   declarations: [
@@ -47,7 +52,9 @@ import { AddCollaboratorComponent } from './components/add-collaborator/add-coll
     ShoppingCartComponent,
     NotesByLabelComponent,
     EditLabelComponent,
-    AddCollaboratorComponent
+    AddCollaboratorComponent,
+    AddReminderComponent,
+    DatepickerComponent
   ],
   entryComponents: [
     EditNoteComponent,
@@ -67,6 +74,8 @@ import { AddCollaboratorComponent } from './components/add-collaborator/add-coll
     MatButtonModule,
     MatCheckboxModule,
     MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatExpansionModule,
     MatStepperModule,
     MatCardModule,

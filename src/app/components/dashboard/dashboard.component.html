@@ -178,7 +178,7 @@
             <mat-card-content [fxHide]="!advancedUser" style="width:30%">
               <div fxLayout="row" fxLayoutAlign="space-around center">
                 <div>
-                  <mat-icon (click)="hideCheckListCard = !hideCheckListCard;" matTooltip="New List">
+                  <mat-icon (click)="hideCheckListCard = !hideCheckListCard; checkList = []" matTooltip="New List">
                     check_box
                   </mat-icon>
 

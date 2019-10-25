@@ -80,4 +80,8 @@ export class NoteService {
   removeCollaborator(noteId, collaboratorId) {
     return this.http.delete("notes/" + noteId + "/removeCollaboratorsNotes/" + collaboratorId, {});
   }
+
+  addCheckList(note, data) {
+    return this.http.post("notes/" + note.id + "/noteCheckLists", data);
+  }
 }

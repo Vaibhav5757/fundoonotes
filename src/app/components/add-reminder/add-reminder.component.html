@@ -1,0 +1,31 @@
+<div style="padding: 10px;">
+  <p>
+    Remind Me
+  </p>
+
+  <mat-list dense>
+    <mat-list-item>
+      <pre>
+        Later Today                   8:00 PM
+      </pre>
+    </mat-list-item>
+    <mat-list-item>
+      <pre>
+        Tomorrow                     8:00 AM
+      </pre>
+    </mat-list-item>
+    <mat-list-item>
+      <pre>
+        Next Week                   Mon,8:00 AM
+      </pre>
+    </mat-list-item>
+    <mat-list-item [matMenuTriggerFor]="datePickerMenu">
+      <mat-icon mat-list-icon>access_time</mat-icon>
+      <p mat-line>Pick Date & Time</p>
+      <!-- <mat-menu #datePickerMenu="matMenu">
+        <app-datepicker (click)="$event.stopPropagation();">
+        </app-datepicker>
+      </mat-menu> -->
+    </mat-list-item>
+  </mat-list>
+</div>
