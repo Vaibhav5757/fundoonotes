@@ -175,17 +175,12 @@
                 <input matInput placeholder="Take a note...">
               </mat-form-field>
             </mat-card-subtitle>
-            <mat-card-content [fxHide]="!advancedUser" style="width:30%">
+
+            <mat-card-content ngClass.xs="mat-card-content-smaller-screen" [fxHide]="!advancedUser" style="width:30%">
               <div fxLayout="row" fxLayoutAlign="space-around center">
                 <div>
                   <mat-icon (click)="hideCheckListCard = !hideCheckListCard; checkList = []" matTooltip="New List">
                     check_box
-                  </mat-icon>
-
-                </div>
-                <div>
-                  <mat-icon matTooltip="New Note with drawing">
-                    brush
                   </mat-icon>
                 </div>
                 <div>

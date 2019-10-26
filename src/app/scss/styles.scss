@@ -223,9 +223,10 @@ p.style-value {
 }
 
 .dialogBox {
+  // min-width: 320px;
   mat-dialog-container {
     padding: 0;
-    overflow: hidden;
+    // overflow: hidden;
     border-radius: 15px;
     mat-icon {
       font-size: 20px;
