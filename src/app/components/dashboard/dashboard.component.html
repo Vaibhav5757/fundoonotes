@@ -25,7 +25,7 @@
       <mat-icon style="margin-left:1%;color: grey">search</mat-icon>
       <div style="margin-left:5%">
         <mat-form-field appearance="fill legacy" style="width:300%; margin-top: 8%">
-          <input (keydown)="searchNotes($event)" [formControl]="search" matInput placeholder="Search">
+          <input (keyup)="searchNotes($event)" [formControl]="search" matInput placeholder="Search">
         </mat-form-field>
       </div>
     </div>
@@ -215,6 +215,7 @@
             </mat-card-subtitle>
 
             <mat-card-content>
+
               <div>
                 <mat-chip-list *ngFor="let label of inputLabels">
                   <mat-chip>
@@ -225,6 +226,14 @@
                   </mat-chip>
 
                 </mat-chip-list>
+              </div>
+
+              <div>
+                <div *ngFor="let user of user.collaborators">
+                  <button mat-mini-fab>
+                    {{user.firstName[0]}}
+                  </button>
+                </div>
               </div>
 
             </mat-card-content>
@@ -379,6 +388,7 @@
             </mat-card-subtitle>
 
             <mat-card-content>
+
               <div>
                 <mat-chip-list *ngFor="let label of inputLabels">
                   <mat-chip>
@@ -389,6 +399,14 @@
                   </mat-chip>
 
                 </mat-chip-list>
+              </div>
+
+              <div>
+                <div *ngFor="let user of user.collaborators">
+                  <button mat-mini-fab>
+                    {{user.firstName[0]}}
+                  </button>
+                </div>
               </div>
 
             </mat-card-content>
