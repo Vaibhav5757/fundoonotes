@@ -5,6 +5,7 @@ import { DashboardComponent } from 'src/app/components/dashboard/dashboard.compo
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { EditNoteComponent } from '../edit-note/edit-note.component';
 import { Title } from '@angular/platform-browser';
+import { AddCollaboratorComponent } from '../add-collaborator/add-collaborator.component';
 
 @Component({
   selector: 'app-archived-notes',
@@ -34,6 +35,8 @@ export class ArchivedNotesComponent implements OnInit {
   noteColor = new FormControl('#FFFFFF');
   notesList: Array<any> = [];
   notesLayout: boolean = true;
+  label = new FormControl('');
+  existingLabels = [];
 
 
   constructor(private titleService: Title, private noteSvc: NoteService, private dash: DashboardComponent,
@@ -65,6 +68,7 @@ export class ArchivedNotesComponent implements OnInit {
   ngOnInit() {
     this.fetchAllNotes();
     this.notesLayout = this.dash.getLayout() ? false : true;
+    this.fetchAllLabels();
   }
 
   setTitle(newTitle: string) {
@@ -169,6 +173,91 @@ export class ArchivedNotesComponent implements OnInit {
       }
     }
     this.notesList = tempList;
+  }
+
+  checkListStatus(list) {
+    return list.status === "close" ? true : false;
+  }
+
+  checkListChange(list) {
+    if (list.status === "open") list.status = "close"
+    else list.status = "open"
+    let obs = this.noteSvc.updateCheckList(list);
+    obs.subscribe((response) => {
+      this.fetchAllNotes();
+    })
+  }
+
+  deleteLabel(label, note) {
+    let obs = this.noteSvc.deleteLabelFromNote({
+      noteId: note.id,
+      labelId: label.id
+    })
+
+    obs.subscribe(() => {
+      this.snackBar.open("Label Deleted", '', {
+        duration: 1500
+      })
+      this.fetchAllNotes();
+      this.dash.events.emit('label-modified');
+    })
+  }
+
+  //Event bubbling
+  stopPropagation(event) {
+    event.stopPropagation();
+  }
+
+  addLabel(note) {
+    let data = {
+      label: this.label.value,
+      isDeleted: false,
+      userId: note.userId
+    }
+    let obs = this.noteSvc.addLabel(note.id, data);
+    obs.subscribe(() => {
+      this.fetchAllNotes();
+      this.dash.events.emit('label-modified');
+    })
+    this.label.setValue('');
+  }
+
+  fetchAllLabels() {
+    let obs = this.noteSvc.fetchAllLabel();
+    obs.subscribe((response: any) => {
+      this.existingLabels = response.data.details;
+    })
+  }
+
+  addLabelsFromExistingLabels(label, note) {
+    let data = {
+      lableId: label.id,
+      noteId: note.id
+    }
+    let obs = this.noteSvc.addExistingLabel(data);
+    obs.subscribe(() => {
+      this.fetchAllNotes();
+      this.dash.events.emit('label-modified');
+      this.fetchAllLabels();
+    })
+  }
+
+  isLabelPresent(label, note) {
+    for (let noteLabel of note.noteLabels) {
+      if (noteLabel.label === label.label) return true;
+    }
+    return false;
+  }
+
+  addCollaborator(note) {
+    let obs = this.dialog.open(AddCollaboratorComponent, {
+      width: '1100px',
+      panelClass: 'dialogBox',
+      data: note
+    })
+    obs.afterClosed().subscribe(() => {
+      this.fetchAllNotes();
+    })
   }
 
 }

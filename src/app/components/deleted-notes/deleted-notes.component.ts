@@ -159,4 +159,14 @@ export class DeletedNotesComponent implements OnInit {
     this.notesList = tempList;
   }
 
+  checkListChange(list) {
+    this.snackBar.open("Editing Notes not possible in Bin", '', {
+      duration: 1500
+    })
+  }
+
+  checkListStatus(list) {
+    return list.status === "close" ? true : false;
+  }
+
 }

@@ -84,4 +84,8 @@ export class NoteService {
   addCheckList(note, data) {
     return this.http.post("notes/" + note.id + "/noteCheckLists", data);
   }
+
+  updateCheckList(data) {
+    return this.http.post("notes/" + data.notesId + "/checklist/" + data.id + "/update", data);
+  }
 }

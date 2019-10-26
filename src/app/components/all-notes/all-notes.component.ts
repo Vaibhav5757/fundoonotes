@@ -89,7 +89,6 @@ export class AllNotesComponent implements OnInit {
         let obsIntermediate = this.getLatestNote();
         obsIntermediate.subscribe(response => {
           this.latestNote = response.data.data[response.data.data.length - 1];
-          console.log(this.latestNote);
           let obsFinal = this.noteSvc.addCheckList(this.latestNote, {
             itemName: element,
             status: "open"
@@ -99,6 +98,46 @@ export class AllNotesComponent implements OnInit {
           })
         })
       })
+    })
+
+    this.dash.events.addListener("Collaborators-exist-in-new-note", () => {
+      let collaboratorsList = this.dash.user.collaborators;
+
+      collaboratorsList.forEach((element) => {
+        let obsIntermediate = this.getLatestNote();
+        obsIntermediate.subscribe(response => {
+          this.latestNote = response.data.data[response.data.data.length - 1];
+          let obsFinal = this.noteSvc.addCollaborator(this.latestNote.id, element);
+          obsFinal.subscribe((response) => {
+            this.fetchAllNotes();
+          })
+        })
+      })
+      this.dash.user.collaborators = [];
+    })
+
+    this.dash.events.addListener("label-exist-in-note", () => {
+      let labelsList = this.dash.inputLabels;
+
+      labelsList.forEach((element) => {
+        let obsIntermediate = this.getLatestNote();
+        obsIntermediate.subscribe((response) => {
+          this.latestNote = response.data.data[response.data.data.length - 1];
+          if (this.checkIfLabelPresent(element)) {
+            this.addLabelsFromExistingLabels(element, this.latestNote);
+          } else { //add a new label
+            let obsFinal = this.noteSvc.addLabel(this.latestNote.id, {
+              label: element,
+              isDeleted: false,
+              userId: this.latestNote.userId
+            })
+            obsFinal.subscribe((response) => {
+              this.fetchAllNotes();
+            })
+          }
+        })
+      })
+      this.dash.inputLabels = [];
     })
   }
 
@@ -355,5 +394,26 @@ export class AllNotesComponent implements OnInit {
     console.log(this.trigger);
     // this.trigger.closeMenu();
     // this.trigger.openMenu();
+  }
+
+  checkListChange(list) {
+    if (list.status === "open") list.status = "close"
+    else list.status = "open"
+    let obs = this.noteSvc.updateCheckList(list);
+    obs.subscribe((response) => {
+      this.fetchAllNotes();
+    })
+  }
+
+  checkListStatus(list) {
+    return list.status === "close" ? true : false;
+  }
+
+  checkIfLabelPresent(label) {
+    let returnValue = false;
+    this.existingLabels.forEach(element => {
+      if (element.id === label.id) returnValue = true;
+    })
+    return returnValue;
   }
 }

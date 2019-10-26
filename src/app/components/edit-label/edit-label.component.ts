@@ -71,4 +71,17 @@ export class EditLabelComponent implements OnInit {
     })
   }
 
+  checkListChange(list) {
+    if (list.status === "open") list.status = "close"
+    else list.status = "open"
+    let obs = this.noteSvc.updateCheckList(list);
+    // obs.subscribe((response) => {
+    //   this.fetchAllNotes();
+    // })
+  }
+
+  checkListStatus(list) {
+    return list.status === "close" ? true : false;
+  }
+
 }

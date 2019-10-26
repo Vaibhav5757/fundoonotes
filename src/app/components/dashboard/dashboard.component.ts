@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FormControl, Validators } from '@angular/forms';
 import { NoteService } from 'src/app/services/note.service';
@@ -8,8 +8,8 @@ import { EventEmitter } from 'events';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatSnackBar, MatDialog } from '@angular/material';
-import { AllNotesComponent } from '../all-notes/all-notes.component';
 import { EditLabelComponent } from '../edit-label/edit-label.component';
+import { AddCollaboratorInNewNoteComponent } from '../add-collaborator-in-new-note/add-collaborator-in-new-note.component';
 
 @Component({
   selector: 'app-components/dashboard',
@@ -45,14 +45,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
   layout: Boolean = false;// false for row view, true for column view
   allLabels = [];
   checkList = [];
+  inputLabels = [];
+
   search = new FormControl('', []);
 
   events = new EventEmitter();
 
   noteColor = new FormControl('#FFFFFF');
+
   checkListInput = new FormControl('', []);
 
+  editCheckListInput = new FormControl('', [
+    Validators.required
+  ])
+
+  label = new FormControl('', []);
+
   isPinned: Boolean = false;
+  isArchived: Boolean = false;
 
   changeColor(paint) {
     this.noteColor.setValue(paint);
@@ -73,7 +83,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(private titleService: Title,
     private noteSvc: NoteService, private router: Router, private userSvc: UserServiceService,
     private route: ActivatedRoute, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
-    private snackBar: MatSnackBar, private dialog: MatDialog) {
+    private dialog: MatDialog) {
 
     this.setTitle('Dashboard');
 
@@ -89,6 +99,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     //Get User Details from login api
     this.user = this.userSvc.getUser();
+
+    this.user.collaborators = [];
+
 
     //Identify the type of user - basic or advanced - from details in database
     let obs = this.userSvc.getUserDetails(this.user.userId);
@@ -116,6 +129,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.isPinned = !this.isPinned;
   }
 
+  archiveUnarchiveNote() {
+    this.isArchived = !this.isArchived;
+  }
+
   getBackgroundColor() {
     return this.noteColor.value;
   }
@@ -125,12 +142,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   saveNote() {
+
     if (this.title.valid) {
       let data = {
         title: this.title.value,
         description: this.content.value,
         color: this.noteColor.value,
-        isPined: this.isPinned
+        isPined: this.isPinned,
+        isArchived: this.isArchived
       }
 
       let obs = this.noteSvc.saveNote(data);
@@ -141,16 +160,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
         if (this.checkList.length > 0) {
           this.events.emit("checklist-present-in-note");
         }
+
+        if (this.user.collaborators.length > 0) {
+          this.events.emit("Collaborators-exist-in-new-note");
+        }
+
+        if (this.inputLabels.length > 0) {
+          this.events.emit("label-exist-in-note");
+        }
       })
     } else {
-      // this.snackBar.open('Note title cannot be empty', '', {
-      //   duration: 1500
-      // })
+      //Snackbar was present here
     }
     this.title.setValue("");
     this.content.setValue("");
     this.noteColor.setValue("#FFFFFF");
     this.isPinned = false;
+    this.isArchived = false;
     // this.checkList = [];
   }
 
@@ -199,6 +225,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   fetchAllLabels() {
+    this.allLabels = [];
     let obs = this.noteSvc.fetchAllLabel();
     obs.subscribe((response: any) => {
       this.allLabels = response.data.details;
@@ -247,5 +274,47 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.checkList.push(this.checkListInput.value);
       this.checkListInput.setValue("");
     }
+  }
+
+  // @ViewChild('text', { read: ElementRef }) ref: ElementRef;
+  // editCheckListItem(index) {
+  //   this.checkList[index] = this.ref.nativeElement.value;
+  //   this.ref.nativeElement.value = "";
+  // }
+
+  deleteListItem(item) {
+    this.checkList = this.checkList.filter(obj => obj != item);
+  }
+
+  addCollaborator(user) {
+    let obs = this.dialog.open(AddCollaboratorInNewNoteComponent, {
+      width: '1100px',
+      panelClass: 'dialogBox',
+      data: {
+        user: this.user
+      }
+    })
+    obs.afterClosed().subscribe((response) => {
+      this.user = response.user.user;
+    })
+  }
+
+  addLabelsFromExistingLabels(label) {
+    if (this.inputLabels.includes(label)) {
+      this.inputLabels = this.inputLabels.filter(obj => obj != label);
+    } else this.inputLabels.push(label);
+  }
+
+  addLabel() {
+    this.inputLabels.push(this.label.value);
+    this.label.setValue("");
+  }
+
+  labelPresent(label) {
+    return this.inputLabels.includes(label);
+  }
+
+  stopPropagation(event) {
+    event.stopPropagation();
   }
 }

@@ -17,9 +17,9 @@ export class RegistrationGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
     let cartDetails = this.storage.get('cart-details');
-    if (cartDetails.cartId === '' || cartDetails.service === ""){
-      this.snackBar.open("Select Service Type first",'',{
-        duration:1500
+    if (cartDetails.cartId === '' || cartDetails.service === "") {
+      this.snackBar.open("Select Service Type first", '', {
+        duration: 1500
       })
       this.router.navigateByUrl("/home");
     }

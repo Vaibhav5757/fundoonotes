@@ -30,28 +30,36 @@
                 {{note.description}}
             </mat-card-content>
 
-            <div fxLayout="column" fxLayoutAlign="space-around" *ngFor="let list of note.noteCheckLists">
-                <mat-checkbox>{{list.itemName}}</mat-checkbox>
-            </div>
-
-            <div fxLayout="row align" fxLayoutAlign="space-around " gdGridAlign>
-                <mat-chip-list *ngFor="let labels of note.noteLabels">
-                    <mat-chip class="label" style="margin-top: 10px">
-                        {{labels.label}}
-                        <mat-icon matChipRemove (click)="deleteLabel(labels,note)">
-                            clear
-                        </mat-icon>
-                    </mat-chip>
-                </mat-chip-list>
-            </div>
-
-            <div style="margin-top:5px" fxLayout="row align" fxLayoutAlign="space-around " gdGridAlign>
-                <div *ngFor="let user of note.collaborators">
-                    <button mat-mini-fab>
-                        {{user.firstName[0]}}
-                    </button>
+            <mat-card-content>
+                <div fxLayout="column" fxLayoutAlign="space-around" *ngFor="let list of note.noteCheckLists">
+                    <mat-checkbox [ngClass]="checkListStatus(list) ? 'checked' : 'unchecked'"
+                        [checked]="checkListStatus(list)" (change)="checkListChange(list)">{{list.itemName}}
+                    </mat-checkbox>
                 </div>
-            </div>
+            </mat-card-content>
+
+            <mat-card-content>
+                <div fxLayout="row align" fxLayoutAlign="space-around " gdGridAlign>
+                    <mat-chip-list *ngFor="let labels of note.noteLabels">
+                        <mat-chip class="label" style="margin-top: 10px">
+                            {{labels.label}}
+                            <mat-icon matChipRemove (click)="deleteLabel(labels,note)">
+                                clear
+                            </mat-icon>
+                        </mat-chip>
+                    </mat-chip-list>
+                </div>
+            </mat-card-content>
+
+            <mat-card-content>
+                <div style="margin-top:5px" fxLayout="row align" fxLayoutAlign="space-around " gdGridAlign>
+                    <div *ngFor="let user of note.collaborators">
+                        <button mat-mini-fab>
+                            {{user.firstName[0]}}
+                        </button>
+                    </div>
+                </div>
+            </mat-card-content>
 
             <mat-card-actions [fxHide]="basicUser">
 
@@ -175,7 +183,8 @@
             </mat-card-content>
 
             <div fxLayout="column" fxLayoutAlign="space-around" *ngFor="let list of note.noteCheckLists">
-                <mat-checkbox>{{list.itemName}}</mat-checkbox>
+                <mat-checkbox [ngClass]="checkListStatus(list) ? 'checked' : 'unchecked'"
+                    [checked]="checkListStatus(list)" (change)="checkListChange(list)">{{list.itemName}}</mat-checkbox>
             </div>
 
             <div fxLayout="row align" fxLayoutAlign="space-around " gdGridAlign>
@@ -266,9 +275,9 @@
                         </mat-icon>
                         <mat-menu #menu="matMenu">
                             <button (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
-                            <button [matMenuTriggerFor]="archiveMenu" mat-menu-item>Add Label</button>
+                            <button [matMenuTriggerFor]="labelMenu" mat-menu-item>Add Label</button>
                         </mat-menu>
-                        <mat-menu style="overflow: hidden;" #archiveMenu="matMenu">
+                        <mat-menu style="overflow: hidden;" #labelMenu="matMenu">
                             <strong (click)="stopPropagation($event)" mat-menu-item>
                                 Add Label
                             </strong>

@@ -35,6 +35,7 @@ import { EditLabelComponent } from './components/edit-label/edit-label.component
 import { AddCollaboratorComponent } from './components/add-collaborator/add-collaborator.component';
 import { AddReminderComponent } from './components/add-reminder/add-reminder.component';
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
+import { AddCollaboratorInNewNoteComponent } from './components/add-collaborator-in-new-note/add-collaborator-in-new-note.component';
 
 
 @NgModule({
@@ -54,12 +55,14 @@ import { DatepickerComponent } from './components/datepicker/datepicker.componen
     EditLabelComponent,
     AddCollaboratorComponent,
     AddReminderComponent,
-    DatepickerComponent
+    DatepickerComponent,
+    AddCollaboratorInNewNoteComponent
   ],
   entryComponents: [
     EditNoteComponent,
     EditLabelComponent,
-    AddCollaboratorComponent
+    AddCollaboratorComponent,
+    AddCollaboratorInNewNoteComponent
   ],
   imports: [
     BrowserModule,

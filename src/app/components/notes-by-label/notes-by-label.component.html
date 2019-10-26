@@ -29,6 +29,13 @@
         {{note.description}}
       </mat-card-content>
 
+      <mat-card-content>
+        <div fxLayout="column" fxLayoutAlign="space-around" *ngFor="let list of note.noteCheckLists">
+          <mat-checkbox [ngClass]="checkListStatus(list) ? 'checked' : 'unchecked'" [checked]="checkListStatus(list)"
+            (change)="checkListChange(list)">{{list.itemName}}</mat-checkbox>
+        </div>
+      </mat-card-content>
+
       <mat-chip-list *ngFor="let labels of note.noteLabels">
         <mat-chip class="label" *ngIf="labels.label != labelName">
           {{labels.label}}
@@ -156,14 +163,36 @@
         {{note.description}}
       </mat-card-content>
 
-      <mat-chip-list *ngFor="let labels of note.noteLabels">
-        <mat-chip class="label" *ngIf="labels.label != labelName">
-          {{labels.label}}
-          <mat-icon (click)="deleteLabel(labels,note)">
-            clear
-          </mat-icon>
-        </mat-chip>
-      </mat-chip-list>
+      <mat-card-content>
+        <div *ngFor="let list of note.noteCheckLists">
+          <mat-checkbox [ngClass]="checkListStatus(list) ? 'checked' : 'unchecked'" [checked]="checkListStatus(list)"
+            (change)="checkListChange(list)">{{list.itemName}}
+          </mat-checkbox>
+        </div>
+      </mat-card-content>
+
+      <mat-card-content>
+
+        <mat-chip-list *ngFor="let labels of note.noteLabels">
+          <mat-chip class="label" style="margin-top: 10px" *ngIf="labels.label != labelName">
+            {{labels.label}}
+            <mat-icon matChipRemove (click)="deleteLabel(labels,note)">
+              clear
+            </mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+
+      </mat-card-content>
+
+      <mat-card-content>
+
+        <div *ngFor="let user of note.collaborators">
+          <button mat-mini-fab>
+            {{user.firstName[0]}}
+          </button>
+        </div>
+
+      </mat-card-content>
 
       <mat-card-actions [fxHide]="basicUser">
 
@@ -176,7 +205,7 @@
           </div>
 
           <div>
-            <mat-icon matTooltip="Collaborator">
+            <mat-icon (click)="addCollaborator(note)" matTooltip="Collaborator">
               person_add
             </mat-icon>
           </div>

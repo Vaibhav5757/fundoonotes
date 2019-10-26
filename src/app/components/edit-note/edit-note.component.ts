@@ -1,14 +1,16 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar, MatDialog } from '@angular/material';
 import { FormControl, Validators } from '@angular/forms';
 import { NoteService } from 'src/app/services/note.service';
+import { AddCollaboratorComponent } from '../add-collaborator/add-collaborator.component';
 
 export interface DialogData {
   title: String,
   description: String,
   id: String,
   color: String,
-  collaborators
+  collaborators,
+  noteCheckLists
 }
 
 @Component({
@@ -45,15 +47,21 @@ export class EditNoteComponent implements OnInit {
 
   color: String = "#FFFFF";
 
+  checkListAbsent: Boolean;
+
   constructor(@Inject(MAT_DIALOG_DATA) private note: DialogData,
     private dialogRef: MatDialogRef<EditNoteComponent>,
     private noteSvc: NoteService,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
     this.title.setValue(this.note.title);
     this.content.setValue(this.note.description);
     this.color = this.note.color;
+    if(this.note.noteCheckLists.length > 0){
+      this.checkListAbsent = false;
+    }else this.checkListAbsent = true;
   }
 
   returnData() {
@@ -111,5 +119,42 @@ export class EditNoteComponent implements OnInit {
     })
   }
 
+  deleteLabel(label, note) {
+    let obs = this.noteSvc.deleteLabelFromNote({
+      noteId: note.id,
+      labelId: label.id
+    })
+
+    obs.subscribe((response) => {
+      note.noteLabels = note.noteLabels.filter(object => object != label);
+      this.snackBar.open("Label Deleted", '', {
+        duration: 1500
+      })
+    })
+  }
+
+  checkListChange(list) {
+    if (list.status === "open") list.status = "close"
+    else list.status = "open"
+    let obs = this.noteSvc.updateCheckList(list);
+    obs.subscribe((response) => {
+      // this.fetchAllNotes();
+    })
+  }
+
+  checkListStatus(list) {
+    return list.status === "close" ? true : false;
+  }
+
+  addCollaborator(note) {
+    let obs = this.dialog.open(AddCollaboratorComponent, {
+      width: '1100px',
+      panelClass: 'dialogBox',
+      data: note
+    })
+    obs.afterClosed().subscribe(() => {
+      // this.fetchAllNotes();
+    })
+  }
 
 }

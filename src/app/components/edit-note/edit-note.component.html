@@ -2,36 +2,68 @@
   <h1 mat-dialog-title>
     <input [formControl]="title" placeholder="title" matInput [value]="note.title">
   </h1>
-  
-  <mat-dialog-content style="white-space: pre-wrap;overflow-wrap: break-word; overflow: hidden;">
-    <textarea placeholder="Enter your note here" [formControl]="content" matInput matTextareaAutosize [value]="note.description"></textarea>
+
+  <mat-dialog-content *ngIf="checkListAbsent"
+    style="white-space: pre-wrap;overflow-wrap: break-word; overflow: hidden;">
+    <textarea placeholder="Enter your note here" [formControl]="content" matInput matTextareaAutosize
+      [value]="note.description"></textarea>
   </mat-dialog-content>
-  
+
+  <mat-dialog-actions fxLayout="column" fxLayoutAlign="space-between" ngClass.xs="occupy-full">
+
+    <!-- Note CheckLists -->
+    <div fxLayout="column" fxLayoutAlign="space-between" *ngFor="let list of note.noteCheckLists">
+      <mat-checkbox [ngClass]="checkListStatus(list) ? 'checked' : 'unchecked'" [checked]="checkListStatus(list)"
+        (change)="checkListChange(list)">{{list.itemName}}</mat-checkbox>
+    </div>
+
+    <!-- Note Labels -->
+    <div fxLayout="row align" gdGridAlign>
+      <mat-chip-list *ngFor="let labels of note.noteLabels">
+        <mat-chip class="label" style="margin-top: 10px">
+          {{labels.label}}
+          <mat-icon matChipRemove (click)="deleteLabel(labels,note)">
+            clear
+          </mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+
+    <!-- Collaborators -->
+    <div style="margin-top:5px" fxLayout="row align">
+      <div *ngFor="let user of note.collaborators">
+        <button mat-mini-fab>
+          {{user.firstName[0]}}
+        </button>
+      </div>
+    </div>
+  </mat-dialog-actions>
+
   <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center" ngClass.xs="occupy-full">
-  
+
     <div>
       <mat-icon matTooltip="Remind Me">
         notifications_none
       </mat-icon>
     </div>
-  
+
     <div>
-      <mat-icon matTooltip="Collaborator">
+      <mat-icon (click)="addCollaborator(note)" matTooltip="Collaborator">
         person_add
       </mat-icon>
     </div>
-  
-  
+
+
     <div class="color-palette" matTooltip="Change color">
-  
+
       <mat-icon [matMenuTriggerFor]="colorMenu">
         color_lens
       </mat-icon>
-  
+
       <mat-menu #colorMenu="matMenu">
-  
+
         <div class="color-picker">
-  
+
           <div class="opened">
             <div class="colors">
               <div *ngFor="let paint of defaultColors1" (click)="changeColor(note,paint)" class="circle"
@@ -46,24 +78,24 @@
                 [ngStyle]="{'background': paint}"></div>
             </div>
           </div>
-  
+
         </div>
       </mat-menu>
     </div>
-  
-  
+
+
     <div>
       <mat-icon matTooltip="Add Image">
         image
       </mat-icon>
     </div>
-  
+
     <div>
       <mat-icon (click)="archiveNote(note)" matTooltip="Archive">
         archive
       </mat-icon>
     </div>
-  
+
     <div>
       <mat-icon [matMenuTriggerFor]="menu" matTooltip="More">
         more_vert
@@ -72,10 +104,10 @@
         <button (click)="deleteNote(note)" mat-menu-item>Delete</button>
       </mat-menu>
     </div>
-  
+
     <div>
-      <button (click)="returnData()" [style.background-color]="note.color"  mat-raised-button>Save</button>
+      <button (click)="returnData()" [style.background-color]="note.color" mat-raised-button>Save</button>
     </div>
-  
+
   </mat-dialog-actions>
 </div>
