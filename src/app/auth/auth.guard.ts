@@ -15,7 +15,9 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
+
     let user = this.storage.get('user');
+
     if (user['id'] != '') return true;
     else {
       this.snackBar.open("You are not logged In", '', {

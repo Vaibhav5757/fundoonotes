@@ -12,9 +12,13 @@
   <mat-dialog-actions fxLayout="column" fxLayoutAlign="space-between" ngClass.xs="occupy-full">
 
     <!-- Note CheckLists -->
-    <div fxLayout="column" fxLayoutAlign="space-between" *ngFor="let list of note.noteCheckLists">
-      <mat-checkbox [ngClass]="checkListStatus(list) ? 'checked' : 'unchecked'" [checked]="checkListStatus(list)"
-        (change)="checkListChange(list)">{{list.itemName}}</mat-checkbox>
+    <div>
+      <div fxLayout="column" fxLayoutAlign="space-between" *ngFor="let list of note.noteCheckLists">
+        <mat-checkbox [ngClass]="checkListStatus(list) ? 'checked' : 'unchecked'" [checked]="checkListStatus(list)"
+          (change)="checkListChange(list)">{{list.itemName}}</mat-checkbox>
+      </div>
+      <input *ngIf="note.noteCheckLists.length != 0" (keydown)="addCheckList($event)" [formControl]="checkListInput"
+        matInput placeholder="List Item">
     </div>
 
     <!-- Note Labels -->
@@ -41,20 +45,20 @@
 
   <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center" ngClass.xs="occupy-full">
 
-    <div>
+    <div [fxHide]="basicUser">
       <mat-icon matTooltip="Remind Me">
         notifications_none
       </mat-icon>
     </div>
 
-    <div>
+    <div [fxHide]="basicUser">
       <mat-icon (click)="addCollaborator(note)" matTooltip="Collaborator">
         person_add
       </mat-icon>
     </div>
 
 
-    <div class="color-palette" matTooltip="Change color">
+    <div [fxHide]="basicUser" class="color-palette" matTooltip="Change color">
 
       <mat-icon [matMenuTriggerFor]="colorMenu">
         color_lens
@@ -84,19 +88,19 @@
     </div>
 
 
-    <div>
+    <div [fxHide]="basicUser">
       <mat-icon matTooltip="Add Image">
         image
       </mat-icon>
     </div>
 
-    <div>
+    <div [fxHide]="basicUser">
       <mat-icon (click)="archiveNote(note)" matTooltip="Archive">
         archive
       </mat-icon>
     </div>
 
-    <div>
+    <div [fxHide]="basicUser">
       <mat-icon [matMenuTriggerFor]="menu" matTooltip="More">
         more_vert
       </mat-icon>
@@ -110,4 +114,5 @@
     </div>
 
   </mat-dialog-actions>
+
 </div>

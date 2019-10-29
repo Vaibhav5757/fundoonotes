@@ -6,7 +6,6 @@ import { MatSnackBar, MatDialog, MatMenuTrigger } from '@angular/material';
 import { EditNoteComponent } from '../edit-note/edit-note.component';
 import { Title } from '@angular/platform-browser';
 import { AddCollaboratorComponent } from '../add-collaborator/add-collaborator.component';
-import { element } from '@angular/core/src/render3/instructions';
 
 
 @Component({
@@ -46,7 +45,8 @@ export class AllNotesComponent implements OnInit {
   latestNote: any;
 
   notesLayout: Boolean = true;//true for row layout, false for column Layout
-  remiderMenu = false;
+  reminderMenu = false;
+  searchWord: any;
 
   constructor(private titleService: Title, private noteSvc: NoteService, private dash: DashboardComponent,
     private snackBar: MatSnackBar, private dialog: MatDialog) {
@@ -74,12 +74,14 @@ export class AllNotesComponent implements OnInit {
     });
 
     this.dash.events.addListener('searching-forward', () => {
-      this.filterNotes(this.dash.search.value);
+      // this.filterNotes(this.dash.search.value);
+      this.searchWord = this.dash.search.value;
     })
 
     this.dash.events.addListener('searching-backward', () => {
-      this.fetchAllNotes();
-      this.filterNotes(this.dash.search.value);
+      // this.fetchAllNotes();
+      // this.filterNotes(this.dash.search.value);
+      this.searchWord = this.dash.search.value;
     })
 
     this.dash.events.addListener("checklist-present-in-note", () => {
@@ -98,6 +100,7 @@ export class AllNotesComponent implements OnInit {
           })
         })
       })
+      this.dash.checkList = [];
     })
 
     this.dash.events.addListener("Collaborators-exist-in-new-note", () => {
@@ -187,6 +190,7 @@ export class AllNotesComponent implements OnInit {
       noteIdList: [note.id],
       isDeleted: true
     }
+
     let obs = this.noteSvc.deleteNote(data);
     obs.subscribe(() => {
       this.fetchAllNotes();
@@ -391,7 +395,7 @@ export class AllNotesComponent implements OnInit {
   }
 
   openReminderMenu() {
-    console.log(this.trigger);
+    // console.log(this.trigger);
     // this.trigger.closeMenu();
     // this.trigger.openMenu();
   }

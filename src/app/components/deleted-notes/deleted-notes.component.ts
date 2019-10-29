@@ -35,6 +35,7 @@ export class DeletedNotesComponent implements OnInit {
   noteColor = new FormControl('#FFFFFF');
   notesList: Array<any> = [];
   notesLayout: boolean = true;
+  searchWord: any;
 
   constructor(private noteSvc: NoteService, private dash: DashboardComponent,
     private titleService: Title,
@@ -53,12 +54,11 @@ export class DeletedNotesComponent implements OnInit {
     })
 
     this.dash.events.addListener('searching-forward', () => {
-      this.filterNotes(this.dash.search.value);
+      this.searchWord = this.dash.search.value;
     })
 
     this.dash.events.addListener('searching-backward', () => {
-      this.fetchAllNotes();
-      this.filterNotes(this.dash.search.value);
+      this.searchWord = this.dash.search.value;
     })
   }
 

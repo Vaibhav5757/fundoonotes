@@ -19,13 +19,54 @@
         Next Week                   Mon,8:00 AM
       </pre>
     </mat-list-item>
-    <mat-list-item [matMenuTriggerFor]="datePickerMenu">
+    <mat-list-item #triggerElement="matMenuTrigger" [matMenuTriggerFor]="datePickerMenu">
       <mat-icon mat-list-icon>access_time</mat-icon>
       <p mat-line>Pick Date & Time</p>
-      <!-- <mat-menu #datePickerMenu="matMenu">
-        <app-datepicker (click)="$event.stopPropagation();">
-        </app-datepicker>
-      </mat-menu> -->
     </mat-list-item>
+    <mat-menu #datePickerMenu="matMenu">
+      <div (click)="$event.stopPropagation();closeMenu()" mat-menu-item>
+        <mat-icon>
+          keyboard_backspace
+        </mat-icon>
+        Pick Date & Time
+      </div>
+      <div mat-menu-item (click)="$event.stopPropagation()">
+        <mat-form-field>
+          <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div mat-menu-item (click)="$event.stopPropagation()">
+        <mat-form-field>
+          <input [value]="getCurrentTime()" matInput placeholder="Enter a time">
+          <mat-icon [matMenuTriggerFor]="timePickerMenu">
+            access_time
+          </mat-icon>
+        </mat-form-field>
+      </div>
+      <mat-menu #timePickerMenu="matMenu">
+        <button mat-menu-item>
+          <pre>
+            Morning                   8:00 AM
+          </pre>
+        </button>
+        <div mat-menu-item>
+          <pre>
+            Afternoon                1:00 PM
+          </pre>
+        </div>
+        <div mat-menu-item>
+          <pre>
+            Evening                    6:00 PM
+          </pre>
+        </div>
+        <div mat-menu-item>
+          <pre>
+            Night                        8:00 PM
+          </pre>
+        </div>
+      </mat-menu>
+    </mat-menu>
   </mat-list>
 </div>

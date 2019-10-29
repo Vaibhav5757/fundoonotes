@@ -7,9 +7,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AllNotesComponent } from './components/all-notes/all-notes.component';
 import { DeletedNotesComponent } from './components/deleted-notes/deleted-notes.component';
 import { ArchivedNotesComponent } from './components/archived-notes/archived-notes.component';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from '../app/auth/auth.guard';
 import { HomeComponent } from './components/home/home.component';
-import { RegistrationGuard } from './registration.guard';
+import { RegistrationGuard } from '../app/auth/registration.guard';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { NotesByLabelComponent } from './components/notes-by-label/notes-by-label.component';
 

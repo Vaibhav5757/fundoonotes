@@ -62,6 +62,8 @@ export class AddCollaboratorComponent implements OnInit {
         let collaboratorDetails = response.data.details[0];
         observe.subscribe((response) => {
           //fetch the Note Again somehow
+
+          //current workaround - just add user to collaborators list
           this.note.collaborators.push(collaboratorDetails);
         })
 

@@ -10,7 +10,7 @@ import {
   MatCardModule, MatFormFieldModule, MatMenuModule, MatSelectModule, MatDialogModule,
   MatOptionModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatToolbarModule, MatTooltipModule,
   MatCheckboxModule, MatExpansionModule, MatStepperModule, MatChipsModule,
-  MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule
+  MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule,
 } from '@angular/material';
 import { FlexLayoutModule, GridModule } from '@angular/flex-layout';
 import { RegisterComponent } from './components/register/register.component';
@@ -24,18 +24,18 @@ import { AllNotesComponent } from './components/all-notes/all-notes.component';
 import { ArchivedNotesComponent } from './components/archived-notes/archived-notes.component';
 import { DeletedNotesComponent } from './components/deleted-notes/deleted-notes.component';
 import { EditNoteComponent } from './components/edit-note/edit-note.component';
-import { AuthGuard } from "./auth.guard";
+import { AuthGuard } from "../app/auth/auth.guard";
 import { StorageServiceModule } from 'angular-webstorage-service';
 import { NoteService } from './services/note.service';
 import { HomeComponent } from './components/home/home.component';
-import { RegistrationGuard } from './registration.guard';
+import { RegistrationGuard } from '../app/auth/registration.guard';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { NotesByLabelComponent } from './components/notes-by-label/notes-by-label.component';
 import { EditLabelComponent } from './components/edit-label/edit-label.component';
 import { AddCollaboratorComponent } from './components/add-collaborator/add-collaborator.component';
 import { AddReminderComponent } from './components/add-reminder/add-reminder.component';
-import { DatepickerComponent } from './components/datepicker/datepicker.component';
 import { AddCollaboratorInNewNoteComponent } from './components/add-collaborator-in-new-note/add-collaborator-in-new-note.component';
+import { SearchPipe } from './pipe/search.pipe';
 
 
 @NgModule({
@@ -55,8 +55,8 @@ import { AddCollaboratorInNewNoteComponent } from './components/add-collaborator
     EditLabelComponent,
     AddCollaboratorComponent,
     AddReminderComponent,
-    DatepickerComponent,
-    AddCollaboratorInNewNoteComponent
+    AddCollaboratorInNewNoteComponent,
+    SearchPipe
   ],
   entryComponents: [
     EditNoteComponent,

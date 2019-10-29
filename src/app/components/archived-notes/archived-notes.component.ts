@@ -37,6 +37,7 @@ export class ArchivedNotesComponent implements OnInit {
   notesLayout: boolean = true;
   label = new FormControl('');
   existingLabels = [];
+  searchWord: any;
 
 
   constructor(private titleService: Title, private noteSvc: NoteService, private dash: DashboardComponent,
@@ -55,12 +56,11 @@ export class ArchivedNotesComponent implements OnInit {
     })
 
     this.dash.events.addListener('searching-forward', () => {
-      this.filterNotes(this.dash.search.value);
+      this.searchWord = this.dash.search.value;
     })
 
     this.dash.events.addListener('searching-backward', () => {
-      this.fetchAllNotes();
-      this.filterNotes(this.dash.search.value);
+      this.searchWord = this.dash.search.value;
     })
   }
 

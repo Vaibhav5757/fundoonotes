@@ -177,7 +177,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.noteColor.setValue("#FFFFFF");
     this.isPinned = false;
     this.isArchived = false;
-    // this.checkList = [];
   }
 
   openNotes() {
@@ -262,6 +261,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   searchNotes(event: any) {
+    // this.events.emit(event.target.value);
     if (event.key == "Backspace") {
       this.events.emit("searching-backward");
     } else {

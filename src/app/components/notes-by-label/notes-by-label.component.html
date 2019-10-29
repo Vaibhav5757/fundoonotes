@@ -5,7 +5,7 @@
 <div fxLayout.gt-xs="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.xs="column"
   fxLayoutAlign="{{ notesLayout ? 'start start' : 'center start' }}" gdGridAlign>
 
-  <div *ngFor="let note of pinnedNotesList">
+  <div *ngFor="let note of pinnedNotesList | search:searchWord">
     <mat-card style="margin-top: 10px; border-radius: 15px;" [style.background-color]="getBackgroundColor(note.color)"
       *ngIf="!note.isDeleted && !note.isArchived" ngClass.lt-md="note-smaller-screen"
       ngClass.md="{{ notesLayout ? 'note-medium-screen':'note-medium-screen-column' }}"
@@ -139,7 +139,7 @@
 <div fxLayout.gt-xs="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.xs="column"
   fxLayoutAlign="{{ notesLayout ? 'start start' : 'center start' }}" gdGridAlign>
 
-  <div *ngFor="let note of unPinnedNotesList">
+  <div *ngFor="let note of unPinnedNotesList | search:searchWord">
     <mat-card style="margin-top: 10px; border-radius: 15px;" [style.background-color]="getBackgroundColor(note.color)"
       *ngIf="!note.isDeleted && !note.isArchived" ngClass.lt-md="note-smaller-screen"
       ngClass.md="{{ notesLayout ? 'note-medium-screen':'note-medium-screen-column' }}"

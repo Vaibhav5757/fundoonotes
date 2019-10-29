@@ -46,6 +46,7 @@ export class NotesByLabelComponent implements OnInit {
   existingLabels = [];
 
   notesLayout: Boolean = true;//true for row layout, false for column Layout
+  searchWord: any;
 
   constructor(private snackBar: MatSnackBar, private noteSvc: NoteService,
     private titleService: Title, private route: ActivatedRoute, private dash: DashboardComponent, private dialog: MatDialog) {
@@ -68,6 +69,14 @@ export class NotesByLabelComponent implements OnInit {
       // this.fetchAllLabels();
       this.fetchAllNotes();
     });
+
+    this.dash.events.addListener('searching-forward', () => {
+      this.searchWord = this.dash.search.value;
+    })
+
+    this.dash.events.addListener('searching-backward', () => {
+      this.searchWord = this.dash.search.value;
+    })
 
   }
 

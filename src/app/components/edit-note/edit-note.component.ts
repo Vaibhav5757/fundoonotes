@@ -10,7 +10,8 @@ export interface DialogData {
   id: String,
   color: String,
   collaborators,
-  noteCheckLists
+  noteCheckLists,
+  user
 }
 
 @Component({
@@ -49,6 +50,10 @@ export class EditNoteComponent implements OnInit {
 
   checkListAbsent: Boolean;
 
+  basicUser: Boolean = false;
+
+  checkListInput = new FormControl('', []);
+
   constructor(@Inject(MAT_DIALOG_DATA) private note: DialogData,
     private dialogRef: MatDialogRef<EditNoteComponent>,
     private noteSvc: NoteService,
@@ -56,12 +61,13 @@ export class EditNoteComponent implements OnInit {
     private dialog: MatDialog) { }
 
   ngOnInit() {
+    if (this.note.user.service != "advance") this.basicUser = true;
     this.title.setValue(this.note.title);
     this.content.setValue(this.note.description);
     this.color = this.note.color;
-    if(this.note.noteCheckLists.length > 0){
+    if (this.note.noteCheckLists.length > 0) {
       this.checkListAbsent = false;
-    }else this.checkListAbsent = true;
+    } else this.checkListAbsent = true;
   }
 
   returnData() {
@@ -155,6 +161,21 @@ export class EditNoteComponent implements OnInit {
     obs.afterClosed().subscribe(() => {
       // this.fetchAllNotes();
     })
+  }
+
+  addCheckList(event) {
+    if (event.key == "Enter") {
+      let obs = this.noteSvc.addCheckList(this.note, {
+        itemName: this.checkListInput.value,
+        status: "open"
+      })
+      obs.subscribe((response) => {
+        this.note.noteCheckLists.push({
+          itemName: this.checkListInput.value
+        })
+        this.checkListInput.setValue("");
+      })
+    }
   }
 
 }

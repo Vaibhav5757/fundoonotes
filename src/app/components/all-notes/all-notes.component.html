@@ -5,7 +5,7 @@
 <div fxLayout.gt-xs="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.xs="column"
     fxLayoutAlign="{{ notesLayout ? 'start start' : 'center start' }}" gdGridAlign>
 
-    <div *ngFor="let note of pinnedNotesList">
+    <div *ngFor="let note of pinnedNotesList | search:searchWord">
         <mat-card style="margin-top: 10px; border-radius: 15px;"
             [style.background-color]="getBackgroundColor(note.color)" *ngIf="!note.isDeleted && !note.isArchived"
             ngClass.lt-md="note-smaller-screen"
@@ -30,6 +30,7 @@
                 {{note.description}}
             </mat-card-content>
 
+            <!-- Note Checklists -->
             <mat-card-content>
                 <div fxLayout="column" fxLayoutAlign="space-around" *ngFor="let list of note.noteCheckLists">
                     <mat-checkbox [ngClass]="checkListStatus(list) ? 'checked' : 'unchecked'"
@@ -157,7 +158,7 @@
 <div fxLayout.gt-xs="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.xs="column"
     fxLayoutAlign="{{ notesLayout ? 'start start' : 'center start' }}" gdGridAlign>
 
-    <div *ngFor="let note of unPinnedNotesList">
+    <div *ngFor="let note of unPinnedNotesList | search:searchWord">
         <mat-card style="margin-top: 10px; border-radius: 15px;"
             [style.background-color]="getBackgroundColor(note.color)" *ngIf="!note.isDeleted && !note.isArchived"
             ngClass.lt-md="note-smaller-screen"
@@ -211,17 +212,14 @@
                 <div style="color: black" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
 
                     <div matTooltip="Remind Me">
-                        <!-- <mat-icon (click)="openReminderMenu()" #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="reminderMenu">
+                        <mat-icon (click)="openReminderMenu()" #menuTrigger="matMenuTrigger"
+                            [matMenuTriggerFor]="reminderMenu">
                             notifications_none
                         </mat-icon>
                         <mat-menu #reminderMenu="matMenu">
-                            <app-add-reminder (click)="$event.stopPropagation();">
+                            <app-add-reminder [note]="note" (click)="$event.stopPropagation()">
                             </app-add-reminder>
-                        </mat-menu> -->
-                        <!-- <mat-menu #datePickerMenu="matMenu">
-                            <app-datepicker (click)="$event.stopPropagation();">
-                            </app-datepicker>
-                        </mat-menu> -->
+                        </mat-menu>
                     </div>
 
                     <div>
