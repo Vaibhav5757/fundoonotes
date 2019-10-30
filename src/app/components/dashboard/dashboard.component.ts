@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EventEmitter } from 'events';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef } from '@angular/core';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatSnackBar, MatDialog, MatMenuTrigger } from '@angular/material';
 import { EditLabelComponent } from '../edit-label/edit-label.component';
 import { AddCollaboratorInNewNoteComponent } from '../add-collaborator-in-new-note/add-collaborator-in-new-note.component';
 
@@ -17,6 +17,8 @@ import { AddCollaboratorInNewNoteComponent } from '../add-collaborator-in-new-no
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
+
+  @ViewChild('triggerElement') trigger: MatMenuTrigger;
 
   public defaultColors1: string[] = [
     '#ffffff',
@@ -46,8 +48,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   allLabels = [];
   checkList = [];
   inputLabels = [];
+  reminder: any;
+  minDate: Date;
 
   search = new FormControl('', []);
+
+  myDatePicker = new FormControl('', []);
+  myTimePicker = new FormControl('', []);
 
   events = new EventEmitter();
 
@@ -101,6 +108,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.user = this.userSvc.getUser();
 
     this.user.collaborators = [];
+
+    this.minDate = new Date();
+    this.myTimePicker.setValue(this.getCurrentTime());
+    this.reminder = null;
 
 
     //Identify the type of user - basic or advanced - from details in database
@@ -167,6 +178,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
         if (this.inputLabels.length > 0) {
           this.events.emit("label-exist-in-note");
+        }
+
+        if (!this.reminder || this.reminder != null) {
+          this.events.emit("reminder-exist-in-note");
         }
       })
     } else {
@@ -316,5 +331,94 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   stopPropagation(event) {
     event.stopPropagation();
+  }
+
+  redirectToReminders() {
+    this.hideSearchSection = true;
+    this.router.navigate(['reminders'], {
+      relativeTo: this.route
+    })
+  }
+
+  getCurrentTime() {
+    let now = new Date();
+    let hours = now.getHours();
+    let minutes = (now.getMinutes() < 10 ? '0' : '') + now.getMinutes()
+    if (hours > 12) return hours % 12 + ":" + minutes + " PM"
+    else return hours + ":" + minutes + " AM"
+  }
+
+  closeMenu() {
+    this.trigger.closeMenu();
+  }
+
+  addReminderPreSelectedDate(date, time) {
+    let selectedDate = date;
+
+    if (date === 'today') {
+      selectedDate = new Date();
+      selectedDate = this.formatDate(selectedDate);
+    }
+    if (date === 'tomorrow') {
+      let currentDate = new Date();
+      currentDate.setDate(currentDate.getDate() + 1);
+      selectedDate = currentDate;
+      selectedDate = this.formatDate(selectedDate);
+    }
+    if (date === "nextMonday") {
+      let currentDate = new Date();
+      currentDate.setDate(currentDate.getDate() + (1 + 7 - currentDate.getDay()) % 7);
+      selectedDate = currentDate;
+      selectedDate = this.formatDate(selectedDate);
+    }
+    this.saveReminder(selectedDate, time);
+  }
+
+  addReminder() {
+
+    let selectedDate = this.formatDate(new Date(this.myDatePicker.value));
+    let time = this.myTimePicker.value;
+
+    time = this.convert12into24(time);
+
+    this.saveReminder(selectedDate, time);
+  }
+
+  saveReminder(selectedDate, time) {
+    let reminder = selectedDate + "T" + time;
+
+    console.log(reminder);
+
+    this.reminder = reminder;
+  }
+
+  convert12into24(time12h) {
+    let [time, modifier] = time12h.split(" ");
+
+    let [hours, minutes] = time.split(":");
+
+    if (hours === '12') {
+      hours = '00';
+    }
+
+    if (modifier === 'PM') {
+      hours = parseInt(hours, 10) + 12;
+    }
+
+    return hours + ":" + minutes;
+  }
+
+  formatDate(date) {
+    let d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+
+    return [year, month, day].join('-');
   }
 }

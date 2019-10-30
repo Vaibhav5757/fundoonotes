@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar, MatDialog } from '@angular/material';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar, MatDialog, MatMenuTrigger } from '@angular/material';
 import { FormControl, Validators } from '@angular/forms';
 import { NoteService } from 'src/app/services/note.service';
 import { AddCollaboratorComponent } from '../add-collaborator/add-collaborator.component';
@@ -11,7 +11,8 @@ export interface DialogData {
   color: String,
   collaborators,
   noteCheckLists,
-  user
+  user,
+  reminder
 }
 
 @Component({
@@ -20,6 +21,7 @@ export interface DialogData {
   styleUrls: ['./edit-note.component.scss']
 })
 export class EditNoteComponent implements OnInit {
+  @ViewChild('menuTrigger') trigger: MatMenuTrigger;
 
   public defaultColors1: string[] = [
     '#ffffff',
@@ -176,6 +178,15 @@ export class EditNoteComponent implements OnInit {
         this.checkListInput.setValue("");
       })
     }
+  }
+
+  removeReminder(note) {
+    let obs = this.noteSvc.removeReminder({
+      noteIdList: [note.id]
+    })
+    obs.subscribe((response) => {
+      note.reminder = [];
+    })
   }
 
 }

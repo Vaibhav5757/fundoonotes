@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NoteService } from 'src/app/services/note.service';
 import { FormControl } from '@angular/forms';
 import { DashboardComponent } from 'src/app/components/dashboard/dashboard.component';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { Title } from '@angular/platform-browser';
 
 
@@ -12,6 +12,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./deleted-notes.component.scss']
 })
 export class DeletedNotesComponent implements OnInit {
+  @ViewChild('menuTrigger') trigger: MatMenuTrigger;
 
   public defaultColors1: string[] = [
     '#ffffff',
@@ -167,6 +168,10 @@ export class DeletedNotesComponent implements OnInit {
 
   checkListStatus(list) {
     return list.status === "close" ? true : false;
+  }
+
+  removeReminder(note) {
+    this.snackBar.open("Removing Reminder not supported in Bin");
   }
 
 }

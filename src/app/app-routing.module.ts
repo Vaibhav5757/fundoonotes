@@ -12,6 +12,7 @@ import { HomeComponent } from './components/home/home.component';
 import { RegistrationGuard } from '../app/auth/registration.guard';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { NotesByLabelComponent } from './components/notes-by-label/notes-by-label.component';
+import { AllRemindersComponent } from './components/all-reminders/all-reminders.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -29,6 +30,7 @@ const routes: Routes = [
       { path: 'shoppingCart', component: ShoppingCartComponent },
       { path: 'deleted', component: DeletedNotesComponent },
       { path: 'archived', component: ArchivedNotesComponent },
+      { path: 'reminders', component: AllRemindersComponent },
       { path: 'notesByLabel/:labelName', component: NotesByLabelComponent }
     ]
   },

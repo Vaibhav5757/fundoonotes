@@ -88,4 +88,16 @@ export class NoteService {
   updateCheckList(data) {
     return this.http.post("notes/" + data.notesId + "/checklist/" + data.id + "/update", data);
   }
+
+  addReminder(data) {
+    return this.http.post("notes/addUpdateReminderNotes", data);
+  }
+
+  fetchAllReminderNotes() {
+    return this.http.get("notes/getReminderNotesList");
+  }
+
+  removeReminder(data) {
+    return this.http.post("notes/removeReminderNotes", data);
+  }
 }

@@ -142,6 +142,14 @@ export class AllNotesComponent implements OnInit {
       })
       this.dash.inputLabels = [];
     })
+
+    this.dash.events.addListener('reminder-exist-in-note', () => {
+      let obsIntermediate = this.getLatestNote();
+      obsIntermediate.subscribe((response) => {
+        this.latestNote = response.data.data[response.data.data.length - 1];
+        this.addReminder(this.latestNote, this.dash.reminder);
+      })
+    })
   }
 
   //Fetch all the existing notes from database
@@ -156,7 +164,7 @@ export class AllNotesComponent implements OnInit {
   }
 
   //Fetch all notes
-  fetchAllNotes() {
+  fetchAllNotes(event?) {
     let obs = this.noteSvc.fetchAllNotes();
 
     obs.subscribe((response) => {
@@ -179,9 +187,6 @@ export class AllNotesComponent implements OnInit {
 
   getLatestNote() {
     return this.noteSvc.fetchAllNotes();
-    // obs.subscribe(response => {
-    //   this.latestNote = response.data.data[response.data.data.length - 1];
-    // })
   }
 
   //Delete a Note
@@ -394,12 +399,6 @@ export class AllNotesComponent implements OnInit {
     this.unPinnedNotesList = tempUnpinList;
   }
 
-  openReminderMenu() {
-    // console.log(this.trigger);
-    // this.trigger.closeMenu();
-    // this.trigger.openMenu();
-  }
-
   checkListChange(list) {
     if (list.status === "open") list.status = "close"
     else list.status = "open"
@@ -419,5 +418,24 @@ export class AllNotesComponent implements OnInit {
       if (element.id === label.id) returnValue = true;
     })
     return returnValue;
+  }
+
+  removeReminder(note) {
+    let obs = this.noteSvc.removeReminder({
+      noteIdList: [note.id]
+    })
+    obs.subscribe((response) => {
+      note.reminder = [];
+    })
+  }
+
+  addReminder(note, reminder) {
+    let obs = this.noteSvc.addReminder({
+      noteIdList: [note.id],
+      reminder: reminder
+    })
+    obs.subscribe((response) => {
+      this.fetchAllNotes();
+    })
   }
 }

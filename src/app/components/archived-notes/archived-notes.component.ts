@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NoteService } from 'src/app/services/note.service';
 import { FormControl } from '@angular/forms';
 import { DashboardComponent } from 'src/app/components/dashboard/dashboard.component';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatSnackBar, MatDialog, MatMenuTrigger } from '@angular/material';
 import { EditNoteComponent } from '../edit-note/edit-note.component';
 import { Title } from '@angular/platform-browser';
 import { AddCollaboratorComponent } from '../add-collaborator/add-collaborator.component';
@@ -13,6 +13,7 @@ import { AddCollaboratorComponent } from '../add-collaborator/add-collaborator.c
   styleUrls: ['./archived-notes.component.scss']
 })
 export class ArchivedNotesComponent implements OnInit {
+  @ViewChild('menuTrigger') trigger: MatMenuTrigger;
 
   public defaultColors1: string[] = [
     '#ffffff',
@@ -257,6 +258,15 @@ export class ArchivedNotesComponent implements OnInit {
     })
     obs.afterClosed().subscribe(() => {
       this.fetchAllNotes();
+    })
+  }
+
+  removeReminder(note) {
+    let obs = this.noteSvc.removeReminder({
+      noteIdList: [note.id]
+    })
+    obs.subscribe((response) => {
+      note.reminder = [];
     })
   }
 

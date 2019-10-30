@@ -104,7 +104,7 @@
           </h3>
         </mat-list-item>
 
-        <mat-list-item [fxHide]="!advancedUser" class="sidenav-content">
+        <mat-list-item (click)="redirectToReminders()" [fxHide]="!advancedUser" class="sidenav-content">
           <mat-icon>notifications_none</mat-icon>
           <h3 style="margin-left:18%">
             Reminders
@@ -244,9 +244,30 @@
               <div style="color: grey" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
 
                 <div [fxHide]="!advancedUser">
-                  <mat-icon matTooltip="Remind Me">
-                    notifications
+                  <mat-icon #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="reminderMenu">
+                    notifications_none
                   </mat-icon>
+                  <mat-menu #reminderMenu="matMenu">
+                    <div mat-menu-item (click)="$event.stopPropagation()">
+                      <mat-form-field>
+                        <input matInput [formControl]="myDatePicker" [min]="minDate" [matDatepicker]="picker"
+                          placeholder="Choose a date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div mat-menu-item (click)="$event.stopPropagation()">
+                      <mat-form-field>
+                        <input [formControl]="myTimePicker" matInput placeholder="Enter a time">
+                        <mat-icon>
+                          access_time
+                        </mat-icon>
+                      </mat-form-field>
+                    </div>
+                    <div mat-menu-item (click)="addReminder()">
+                      <button mat-button>Save</button>
+                    </div>
+                  </mat-menu>
                 </div>
 
                 <div [fxHide]="!advancedUser">
@@ -522,8 +543,8 @@
         </div>
 
         <!-- Notes -->
-        <div ngClass.gt-md="notes-bigger-screen" ngClass.sm="notes-medium-screen"
-          ngClass.md="notes-medium-screen" ngClass.xs="notes-smaller-screen">
+        <div ngClass.gt-md="notes-bigger-screen" ngClass.sm="notes-medium-screen" ngClass.md="notes-medium-screen"
+          ngClass.xs="notes-smaller-screen">
 
           <!-- Notes Starting Point -->
 

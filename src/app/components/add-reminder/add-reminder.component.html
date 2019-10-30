@@ -4,17 +4,17 @@
   </p>
 
   <mat-list dense>
-    <mat-list-item>
+    <mat-list-item (click)="addReminderPreSelectedDate('today','20:00')">
       <pre>
         Later Today                   8:00 PM
       </pre>
     </mat-list-item>
-    <mat-list-item>
+    <mat-list-item (click)="addReminderPreSelectedDate('tomorrow','08:00')">
       <pre>
         Tomorrow                     8:00 AM
       </pre>
     </mat-list-item>
-    <mat-list-item>
+    <mat-list-item (click)="addReminderPreSelectedDate('nextMonday','08:00')">
       <pre>
         Next Week                   Mon,8:00 AM
       </pre>
@@ -32,36 +32,40 @@
       </div>
       <div mat-menu-item (click)="$event.stopPropagation()">
         <mat-form-field>
-          <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date">
+          <input matInput [formControl]="myDatePicker" [min]="minDate" [matDatepicker]="picker"
+            placeholder="Choose a date">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
       </div>
       <div mat-menu-item (click)="$event.stopPropagation()">
         <mat-form-field>
-          <input [value]="getCurrentTime()" matInput placeholder="Enter a time">
+          <input [formControl]="myTimePicker" matInput placeholder="Enter a time">
           <mat-icon [matMenuTriggerFor]="timePickerMenu">
             access_time
           </mat-icon>
         </mat-form-field>
       </div>
+      <div mat-menu-item (click)="addReminder()">
+        <button mat-button>Save</button>
+      </div>
       <mat-menu #timePickerMenu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item (click)="addReminderPreSelectedDate('today','08:00')">
           <pre>
             Morning                   8:00 AM
           </pre>
         </button>
-        <div mat-menu-item>
+        <div mat-menu-item (click)="addReminderPreSelectedDate('today','13:00')">
           <pre>
             Afternoon                1:00 PM
           </pre>
         </div>
-        <div mat-menu-item>
+        <div mat-menu-item (click)="addReminderPreSelectedDate('today','18:00')">
           <pre>
             Evening                    6:00 PM
           </pre>
         </div>
-        <div mat-menu-item>
+        <div mat-menu-item (click)="addReminderPreSelectedDate('today','20:00')">
           <pre>
             Night                        8:00 PM
           </pre>
