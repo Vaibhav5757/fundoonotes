@@ -22,7 +22,7 @@
                             timer
                         </i>
 
-                        {{ note.reminder | date: 'medium' }}
+                        {{ note.reminder | dateConverter | date: 'medium' }}
 
                         <mat-icon (click)="removeReminder(note)" matChipRemove>
                             clear

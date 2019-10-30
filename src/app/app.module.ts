@@ -37,6 +37,7 @@ import { AddReminderComponent } from './components/add-reminder/add-reminder.com
 import { AddCollaboratorInNewNoteComponent } from './components/add-collaborator-in-new-note/add-collaborator-in-new-note.component';
 import { SearchPipe } from './pipe/search.pipe';
 import { AllRemindersComponent } from './components/all-reminders/all-reminders.component';
+import { DateConverterPipe } from './pipe/date-converter.pipe';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { AllRemindersComponent } from './components/all-reminders/all-reminders.
     AddReminderComponent,
     AddCollaboratorInNewNoteComponent,
     SearchPipe,
-    AllRemindersComponent
+    AllRemindersComponent,
+    DateConverterPipe
   ],
   entryComponents: [
     EditNoteComponent,
