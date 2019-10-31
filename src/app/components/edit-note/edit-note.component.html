@@ -11,23 +11,6 @@
 
   <mat-dialog-actions fxLayout="column" fxLayoutAlign="space-between" ngClass.xs="occupy-full">
 
-    <div *ngIf="note.reminder.length > 0">
-      <mat-chip-list>
-
-        <mat-chip class="label" style="margin-top: 10px">
-          <i class="material-icons">
-            timer
-          </i>
-
-          {{ note.reminder | dateConverter | date: 'medium' }}
-
-          <mat-icon (click)="removeReminder(note)" matChipRemove>
-            clear
-          </mat-icon>
-        </mat-chip>
-      </mat-chip-list>
-    </div>
-
     <!-- Note CheckLists -->
     <div>
       <div fxLayout="column" fxLayoutAlign="space-between" *ngFor="let list of note.noteCheckLists">
@@ -37,6 +20,23 @@
       <input *ngIf="note.noteCheckLists.length != 0" (keydown)="addCheckList($event)" [formControl]="checkListInput"
         matInput placeholder="List Item">
     </div>
+
+    <div *ngIf="note.reminder.length > 0">
+        <mat-chip-list>
+  
+          <mat-chip class="label" style="margin-top: 10px">
+            <i class="material-icons">
+              timer
+            </i>
+  
+            {{ note.reminder | dateConverter | date: 'medium' | myDatePipe }}
+  
+            <mat-icon (click)="removeReminder(note)" matChipRemove>
+              clear
+            </mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </div>
 
     <!-- Note Labels -->
     <div fxLayout="row align" gdGridAlign>
@@ -68,7 +68,7 @@
           notifications_none
         </mat-icon>
         <mat-menu #reminderMenu="matMenu">
-          <app-add-reminder [note]="note" (events)="fetchAllNotes($event)" (click)="$event.stopPropagation()">
+          <app-add-reminder [note]="note" (events)="reminderAdded($event)" (click)="$event.stopPropagation()">
           </app-add-reminder>
         </mat-menu>
       </div>

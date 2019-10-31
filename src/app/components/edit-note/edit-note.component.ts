@@ -189,4 +189,9 @@ export class EditNoteComponent implements OnInit {
     })
   }
 
+  reminderAdded(event) {
+    this.snackBar.open("Reminder Added", '', {
+      duration: 1500
+    })
+  }
 }

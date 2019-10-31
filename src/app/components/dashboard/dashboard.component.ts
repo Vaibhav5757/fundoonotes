@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   search = new FormControl('', []);
 
-  myDatePicker = new FormControl('', []);
+  myDatePicker = new FormControl(new Date(), []);
   myTimePicker = new FormControl('', []);
 
   events = new EventEmitter();

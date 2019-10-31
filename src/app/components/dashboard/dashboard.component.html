@@ -243,6 +243,7 @@
 
               <div style="color: grey" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
 
+                <!-- reminder -->
                 <div [fxHide]="!advancedUser">
                   <mat-icon #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="reminderMenu">
                     notifications_none
@@ -437,9 +438,30 @@
               <div style="color: grey" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
 
                 <div [fxHide]="!advancedUser">
-                  <mat-icon matTooltip="Remind Me">
-                    notifications
+                  <mat-icon #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="reminderMenu">
+                    notifications_none
                   </mat-icon>
+                  <mat-menu #reminderMenu="matMenu">
+                    <div mat-menu-item (click)="$event.stopPropagation()">
+                      <mat-form-field>
+                        <input matInput [formControl]="myDatePicker" [min]="minDate" [matDatepicker]="picker1"
+                          placeholder="Choose a date">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div mat-menu-item (click)="$event.stopPropagation()">
+                      <mat-form-field>
+                        <input [formControl]="myTimePicker" matInput placeholder="Enter a time">
+                        <mat-icon>
+                          access_time
+                        </mat-icon>
+                      </mat-form-field>
+                    </div>
+                    <div mat-menu-item (click)="addReminder()">
+                      <button mat-button>Save</button>
+                    </div>
+                  </mat-menu>
                 </div>
 
                 <div [fxHide]="!advancedUser">

@@ -24,6 +24,7 @@ export class AddReminderComponent implements OnInit {
 
   ngOnInit() {
     this.minDate = new Date();
+    this.myDatePicker.setValue(new Date());
     this.myTimePicker.setValue(this.getCurrentTime());
   }
 
@@ -58,6 +59,9 @@ export class AddReminderComponent implements OnInit {
       selectedDate = currentDate;
       selectedDate = this.formatDate(selectedDate);
     }
+    if (date === "x") {
+      selectedDate = this.formatDate(new Date(this.myDatePicker.value));
+    }
     this.saveReminder(selectedDate, time);
   }
 
@@ -72,16 +76,15 @@ export class AddReminderComponent implements OnInit {
   }
 
   saveReminder(selectedDate, time) {
-    let reminder = selectedDate + "T" + time;
 
-    console.log(reminder);
+    let reminder = selectedDate + "T" + time;
 
     let obs = this.noteSvc.addReminder({
       noteIdList: [this.note.id],
       reminder: reminder
     })
     obs.subscribe((response) => {
-      console.log(response);
+      // console.log(response);
       this.events.emit(null);
     })
   }
@@ -115,5 +118,5 @@ export class AddReminderComponent implements OnInit {
 
     return [year, month, day].join('-');
   }
-
 }
+

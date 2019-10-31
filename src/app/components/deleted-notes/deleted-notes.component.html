@@ -14,22 +14,7 @@
                 {{note.description}}
             </mat-card-content>
 
-            <div *ngIf="note.reminder.length > 0">
-                <mat-chip-list>
 
-                    <mat-chip class="label" style="margin-top: 10px">
-                        <i class="material-icons">
-                            timer
-                        </i>
-
-                        {{ note.reminder | dateConverter | date: 'medium' }}
-
-                        <mat-icon (click)="removeReminder(note)" matChipRemove>
-                            clear
-                        </mat-icon>
-                    </mat-chip>
-                </mat-chip-list>
-            </div>
 
             <mat-card-content>
                 <div *ngFor="let list of note.noteCheckLists">
@@ -38,6 +23,23 @@
                     </mat-checkbox>
                 </div>
             </mat-card-content>
+
+            <div *ngIf="note.reminder.length > 0">
+                <mat-chip-list>
+
+                    <mat-chip class="label" style="margin-top: 10px">
+                        <i class="material-icons">
+                            timer
+                        </i>
+
+                        {{ note.reminder | dateConverter | date: 'medium' | myDatePipe }}
+
+                        <mat-icon (click)="removeReminder(note)" matChipRemove>
+                            clear
+                        </mat-icon>
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
 
             <mat-card-content>
 
