@@ -39,6 +39,8 @@ import { SearchPipe } from './pipe/search.pipe';
 import { AllRemindersComponent } from './components/all-reminders/all-reminders.component';
 import { DateConverterPipe } from './pipe/date-converter.pipe';
 import { MyDatePipePipe } from './pipe/my-date-pipe.pipe';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
 
 
 @NgModule({
@@ -62,13 +64,15 @@ import { MyDatePipePipe } from './pipe/my-date-pipe.pipe';
     SearchPipe,
     AllRemindersComponent,
     DateConverterPipe,
-    MyDatePipePipe
+    MyDatePipePipe,
+    ImageCropperComponent
   ],
   entryComponents: [
     EditNoteComponent,
     EditLabelComponent,
     AddCollaboratorComponent,
-    AddCollaboratorInNewNoteComponent
+    AddCollaboratorInNewNoteComponent,
+    ImageCropperComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +106,8 @@ import { MyDatePipePipe } from './pipe/my-date-pipe.pipe';
     GridModule,
     HttpClientModule,
     LayoutModule,
-    StorageServiceModule
+    StorageServiceModule,
+    ImageCropperModule
   ],
   providers: [
     HttpServiceService,

@@ -64,13 +64,14 @@
     <!-- Log Out Icon -->
     <div fxLayout="row" fxLayoutAlign="space-around" ngClass="log-out-icon">
 
-      <img class="avatar" src="{{profileImage}}" matTooltip="Log Out" [matMenuTriggerFor]="logOutMenu">
+      <img class="avatar" [src]="profileImage" matTooltip="Log Out" [matMenuTriggerFor]="logOutMenu">
 
 
       <mat-menu #logOutMenu="matMenu">
         <div style="padding: 10px;" (click)="$event.stopPropagation()" fxLayout="column" fxLayoutAlign="center center">
           <div style="padding: 10px;" fxLayout="column" fxLayoutAlign="center center">
-            <img class="avatar-big" src="{{profileImage}}">
+            <img class="avatar-big" (click)="filePicker.click()" [src]="profileImage">
+            <input (change)="fileChangeEvent($event)" #filePicker type="file" style="display: none;">
           </div>
           <div>
             <strong>

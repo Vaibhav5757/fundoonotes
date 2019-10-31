@@ -10,6 +10,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { MatSnackBar, MatDialog, MatMenuTrigger } from '@angular/material';
 import { EditLabelComponent } from '../edit-label/edit-label.component';
 import { AddCollaboratorInNewNoteComponent } from '../add-collaborator-in-new-note/add-collaborator-in-new-note.component';
+import { ImageCropperComponent } from '../image-cropper/image-cropper.component';
 
 @Component({
   selector: 'app-components/dashboard',
@@ -108,7 +109,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     //Get User Details from login api
     this.user = this.userSvc.getUser();
 
-    this.randomUser();
+    // this.randomUser();
     this.fetchUserProfilePic();
 
     this.user.collaborators = [];
@@ -429,12 +430,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
   randomUser() {
     let obs = this.userSvc.randomUser();
     obs.subscribe((response: any) => {
-      // console.log(response.results[0].picture.thumbnail);
       this.profileImage = response.results[0].picture.large;
     })
   }
 
   fetchUserProfilePic() {
-    this.profileImage = "http://fundoonotes.incubation.bridgelabz.com/" + this.user.imageUrl;
+    if (this.user.imageUrl === "") this.randomUser();
+    else this.profileImage = "http://fundoonotes.incubation.bridgelabz.com/" + this.user.imageUrl;
+  }
+
+  fileChangeEvent(event) {
+    this.dialog.open(ImageCropperComponent, {
+      data: event,
+      width: "500px",
+      height: "420px"
+
+    })
   }
 }
