@@ -15,6 +15,7 @@ import { NotesByLabelComponent } from './components/notes-by-label/notes-by-labe
 import { AllRemindersComponent } from './components/all-reminders/all-reminders.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: "/home", pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   {
@@ -35,7 +36,7 @@ const routes: Routes = [
     ]
   },
   { path: 'resetpassword/:token', component: ResetPasswordComponent },
-  { path: '**', redirectTo: '/home' }
+  { path: '**', redirectTo: '/login' }
 ];
 
 @NgModule({

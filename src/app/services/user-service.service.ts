@@ -58,6 +58,10 @@ export class UserServiceService {
   }
 
   searchUserList(data) {
-    return this.http.post("user/searchUserList",data);
+    return this.http.post("user/searchUserList", data);
+  }
+
+  randomUser() {
+    return this.http.randomUser();
   }
 }

@@ -64,21 +64,31 @@
     <!-- Log Out Icon -->
     <div fxLayout="row" fxLayoutAlign="space-around" ngClass="log-out-icon">
 
-      <button mat-mini-fab color="warn" matTooltip="Log Out">
-        <mat-icon [matMenuTriggerFor]="logOutMenu">thumb_down_alt</mat-icon>
-      </button>
+      <img class="avatar" src="{{profileImage}}" matTooltip="Log Out" [matMenuTriggerFor]="logOutMenu">
+
+
       <mat-menu #logOutMenu="matMenu">
-        <button disabled mat-menu-item>
-          <strong>
-            {{user.firstName}} {{user.lastName}}
-          </strong>
+        <div style="padding: 10px;" (click)="$event.stopPropagation()" fxLayout="column" fxLayoutAlign="center center">
+          <div style="padding: 10px;" fxLayout="column" fxLayoutAlign="center center">
+            <img class="avatar-big" src="{{profileImage}}">
+          </div>
+          <div>
+            <strong>
+              {{user.firstName}} {{user.lastName}}
+            </strong>
+          </div>
+          <div style="color: gray">
+            {{user.email}}
+          </div>
+        </div>
+        <button (click)="addAccount()" mat-menu-item>
+          <mat-icon>
+            person_add
+          </mat-icon>
+          Add Another account
         </button>
-        <button disabled mat-menu-item>
-          {{user.email}}
-        </button>
-        <button mat-menu-item>
-          <button (click)="addAccount()" mat-raised-button>Add account</button>
-          <button (click)="logOut()" mat-raised-button>Log Out</button>
+        <button fxLayoutAlign="center center" (click)="logOut()" mat-menu-item>
+          Sign Out
         </button>
       </mat-menu>
 

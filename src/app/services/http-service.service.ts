@@ -70,4 +70,8 @@ export class HttpServiceService {
     });
     return obs;
   }
+
+  randomUser() {
+    return this.http.get("https://randomuser.me/api/");
+  }
 }

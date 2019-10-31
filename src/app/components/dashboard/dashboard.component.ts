@@ -50,6 +50,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   inputLabels = [];
   reminder: any;
   minDate: Date;
+  profileImage: String = "https://www.w3schools.com/howto/img_avatar.png";
 
   search = new FormControl('', []);
 
@@ -106,6 +107,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     //Get User Details from login api
     this.user = this.userSvc.getUser();
+
+    this.randomUser();
+    this.fetchUserProfilePic();
 
     this.user.collaborators = [];
 
@@ -420,5 +424,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
       day = '0' + day;
 
     return [year, month, day].join('-');
+  }
+
+  randomUser() {
+    let obs = this.userSvc.randomUser();
+    obs.subscribe((response: any) => {
+      // console.log(response.results[0].picture.thumbnail);
+      this.profileImage = response.results[0].picture.large;
+    })
+  }
+
+  fetchUserProfilePic() {
+    this.profileImage = "http://fundoonotes.incubation.bridgelabz.com/" + this.user.imageUrl;
   }
 }
