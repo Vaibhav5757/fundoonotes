@@ -51,7 +51,8 @@ export class NotesByLabelComponent implements OnInit {
   searchWord: any;
 
   constructor(private snackBar: MatSnackBar, private noteSvc: NoteService,
-    private titleService: Title, private route: ActivatedRoute, private dash: DashboardComponent, private dialog: MatDialog) {
+    private titleService: Title, private route: ActivatedRoute, private dash: DashboardComponent,
+    private dialog: MatDialog) {
     this.dash.events.addListener('note-saved-in-database', () => {
       //Fetch all notes from database
       this.fetchAllNotes();

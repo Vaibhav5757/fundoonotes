@@ -13,6 +13,7 @@ import { RegistrationGuard } from '../app/auth/registration.guard';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { NotesByLabelComponent } from './components/notes-by-label/notes-by-label.component';
 import { AllRemindersComponent } from './components/all-reminders/all-reminders.component';
+import { QuestionAnswerOfNoteComponent } from './components/question-answer-of-note/question-answer-of-note.component';
 
 const routes: Routes = [
   { path: '', redirectTo: "/home", pathMatch: 'full' },
@@ -32,6 +33,7 @@ const routes: Routes = [
       { path: 'deleted', component: DeletedNotesComponent },
       { path: 'archived', component: ArchivedNotesComponent },
       { path: 'reminders', component: AllRemindersComponent },
+      { path: 'QuestionAnswer/:noteId', component: QuestionAnswerOfNoteComponent },
       { path: 'notesByLabel/:labelName', component: NotesByLabelComponent }
     ]
   },

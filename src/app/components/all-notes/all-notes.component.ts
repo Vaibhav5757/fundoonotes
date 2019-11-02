@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import { NoteService } from 'src/app/services/note.service';
 import { FormControl } from '@angular/forms';
 import { DashboardComponent } from 'src/app/components/dashboard/dashboard.component';
@@ -6,6 +6,7 @@ import { MatSnackBar, MatDialog, MatMenuTrigger } from '@angular/material';
 import { EditNoteComponent } from '../edit-note/edit-note.component';
 import { Title } from '@angular/platform-browser';
 import { AddCollaboratorComponent } from '../add-collaborator/add-collaborator.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -49,7 +50,7 @@ export class AllNotesComponent implements OnInit {
   searchWord: any;
 
   constructor(private titleService: Title, private noteSvc: NoteService, private dash: DashboardComponent,
-    private snackBar: MatSnackBar, private dialog: MatDialog) {
+    private snackBar: MatSnackBar, private dialog: MatDialog, private router: Router) {
 
     this.setTitle("Notes");
 
@@ -438,4 +439,14 @@ export class AllNotesComponent implements OnInit {
       this.fetchAllNotes();
     })
   }
+
+  removeHtmlTag(string) {
+    string = string.replace('&#39;', "'");
+    return string.replace(/<[^>]*>?/gm, '');
+  }
+
+  redirectToQuestionAnswer(noteId) {
+    this.dash.redirectToQuestionAnswers(noteId);
+  }
+
 }

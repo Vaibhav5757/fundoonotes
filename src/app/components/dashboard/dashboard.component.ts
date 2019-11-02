@@ -72,6 +72,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   isPinned: Boolean = false;
   isArchived: Boolean = false;
+  randomProfilePicture: any;
 
   changeColor(paint) {
     this.noteColor.setValue(paint);
@@ -440,11 +441,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   fileChangeEvent(event) {
-    this.dialog.open(ImageCropperComponent, {
+    let obs = this.dialog.open(ImageCropperComponent, {
       data: event,
       width: "500px",
       height: "420px"
+    })
+    obs.afterClosed().subscribe((response) => {
+      let fd = new FormData();
+      fd.append('file', response.data);
+      this.userSvc.changeProfilePicture(fd);
+    })
+  }
 
+  redirectToQuestionAnswers(noteId) {
+    // console.log(noteId);
+    this.hideSearchSection = true;
+    this.router.navigate(["QuestionAnswer/" + noteId], {
+      relativeTo: this.route
     })
   }
 }

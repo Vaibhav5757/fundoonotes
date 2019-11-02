@@ -2,4 +2,4 @@
   [resizeToWidth]="128" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
   (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
 
-<button mat-raised-button>Upload Image</button>
+<button (click)="imageSelected()" mat-raised-button>Upload Image</button>

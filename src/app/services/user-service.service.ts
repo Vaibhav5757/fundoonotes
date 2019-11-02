@@ -64,4 +64,8 @@ export class UserServiceService {
   randomUser() {
     return this.http.randomUser();
   }
+  
+  changeProfilePicture(data) {
+    return this.http.post("user/uploadProfileImage", data);
+  }
 }

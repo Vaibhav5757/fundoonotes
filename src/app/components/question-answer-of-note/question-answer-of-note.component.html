@@ -1,0 +1,61 @@
+<div class="container">
+
+  <mat-list>
+    <mat-list-item>
+      <div style="width: 100%;" fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+          <h1>
+            {{note.title}}
+          </h1>
+        </div>
+        <div>
+          <button mat-button>close</button>
+        </div>
+      </div>
+    </mat-list-item>
+    <mat-list-item>
+      {{note.description}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list>
+      Questions asked
+      <mat-list-item>
+        <p style="color: gray;">
+          {{ removeHtmlTag(note.questionAndAnswerNotes[0].message) }}
+        </p>
+      </mat-list-item>
+    </mat-list>
+    <mat-divider></mat-divider>
+    <mat-list>
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <div>
+          {{note.user.firstName}} {{note.user.lastName}} {{note.questionAndAnswerNotes[0].createdDate | date:"medium"}}
+        </div>
+        <div>
+          <mat-icon>
+            thumb_up
+          </mat-icon>
+          <p style="top:-1px">
+            0 Likes
+          </p>
+          <mat-icon>
+            star_border
+          </mat-icon>
+          <mat-icon>
+            star_border
+          </mat-icon>
+          <mat-icon>
+            star_border
+          </mat-icon>
+          <mat-icon>
+            star_border
+          </mat-icon>
+          <mat-icon>
+            star_border
+          </mat-icon>
+        </div>
+      </div>
+    </mat-list>
+  </mat-list>
+
+</div>

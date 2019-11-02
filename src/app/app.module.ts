@@ -41,6 +41,7 @@ import { DateConverterPipe } from './pipe/date-converter.pipe';
 import { MyDatePipePipe } from './pipe/my-date-pipe.pipe';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
+import { QuestionAnswerOfNoteComponent } from './components/question-answer-of-note/question-answer-of-note.component';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { ImageCropperComponent } from './components/image-cropper/image-cropper.
     AllRemindersComponent,
     DateConverterPipe,
     MyDatePipePipe,
-    ImageCropperComponent
+    ImageCropperComponent,
+    QuestionAnswerOfNoteComponent
   ],
   entryComponents: [
     EditNoteComponent,

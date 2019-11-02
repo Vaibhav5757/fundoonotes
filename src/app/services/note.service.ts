@@ -100,4 +100,9 @@ export class NoteService {
   removeReminder(data) {
     return this.http.post("notes/removeReminderNotes", data);
   }
+
+  getNotesDetail(noteId) {
+    // console.log(noteId);
+    return this.http.get("notes/getNotesDetail/" + noteId);
+  }
 }
