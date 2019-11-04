@@ -186,7 +186,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.events.emit("label-exist-in-note");
         }
 
-        if (!this.reminder || this.reminder != null) {
+        if (this.reminder != null) {
           this.events.emit("reminder-exist-in-note");
         }
       })
@@ -392,9 +392,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   saveReminder(selectedDate, time) {
     let reminder = selectedDate + "T" + time;
-
-    console.log(reminder);
-
     this.reminder = reminder;
   }
 

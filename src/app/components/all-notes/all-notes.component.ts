@@ -149,7 +149,8 @@ export class AllNotesComponent implements OnInit {
       obsIntermediate.subscribe((response) => {
         this.latestNote = response.data.data[response.data.data.length - 1];
         this.addReminder(this.latestNote, this.dash.reminder);
-      })
+        this.dash.reminder = null;
+      });
     })
   }
 

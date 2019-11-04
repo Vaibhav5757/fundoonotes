@@ -9,19 +9,31 @@ import { NoteService } from 'src/app/services/note.service';
 })
 export class QuestionAnswerOfNoteComponent implements OnInit {
 
-  noteId;
-  note;
+  noteId = null;
+  note = {
+    user: {
+      firstName: null,
+      lastName: null
+    },
+    title: null,
+    description: null,
+    noteCheckLists: [],
+    questionAndAnswerNotes: [{
+      createdDate: "",
+      message: ""
+    }],
+  };
 
   constructor(private route: ActivatedRoute,
-    private noteSvc: NoteService) { }
+    private noteSvc: NoteService) {
 
-  ngOnInit() {
-
-    // Retrieve the note Id
+    // Retrieve the note Id from params
     this.route.paramMap.subscribe(params => {
       this.noteId = params.get("noteId");
     })
+  }
 
+  ngOnInit() {
     // Fetch the note
     let obs = this.noteSvc.getNotesDetail(this.noteId);
     // Save the note details
@@ -33,6 +45,19 @@ export class QuestionAnswerOfNoteComponent implements OnInit {
   removeHtmlTag(string) {
     string = string.replace('&#39;', "'");
     return string.replace(/<[^>]*>?/gm, '');
+  }
+
+  checkListStatus(list) {
+    return list.status === "close" ? true : false;
+  }
+
+  checkListChange(list) {
+    if (list.status === "open") list.status = "close"
+    else list.status = "open"
+    let obs = this.noteSvc.updateCheckList(list);
+    // obs.subscribe((response) => {
+    //   this.fetchAllNotes();
+    // })
   }
 
 }

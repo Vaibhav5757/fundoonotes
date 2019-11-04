@@ -25,6 +25,12 @@
         </p>
       </mat-list-item>
     </mat-list>
+    <mat-list *ngFor="let list of note.noteCheckLists">
+      <mat-list-item>
+        <mat-checkbox [ngClass]="checkListStatus(list) ? 'checked' : 'unchecked'" [checked]="checkListStatus(list)"
+          (change)="checkListChange(list)">{{list.itemName}}</mat-checkbox>
+      </mat-list-item>
+    </mat-list>
     <mat-divider></mat-divider>
     <mat-list>
       <div fxLayout="row" fxLayoutAlign="space-around center">
