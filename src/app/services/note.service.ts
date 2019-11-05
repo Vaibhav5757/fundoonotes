@@ -102,7 +102,18 @@ export class NoteService {
   }
 
   getNotesDetail(noteId) {
-    // console.log(noteId);
     return this.http.get("notes/getNotesDetail/" + noteId);
+  }
+
+  addQuestion(data) {
+    return this.http.post('questionAndAnswerNotes/addQuestionAndAnswer', data);
+  }
+
+  rateQuestion(data) {
+    return this.http.post("questionAndAnswerNotes/rate/" + data.parentId, data);
+  }
+
+  likeUnlikeQuestion(data){
+    return this.http.post("questionAndAnswerNotes/like/" + data.parentId, data);
   }
 }

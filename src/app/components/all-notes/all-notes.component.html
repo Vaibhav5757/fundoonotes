@@ -150,6 +150,7 @@
                         <mat-menu #menu="matMenu">
                             <button (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
                             <button [matMenuTriggerFor]="archiveMenu" mat-menu-item>Add Label</button>
+                            <button (click)="redirectToQuestionAnswer(note.id)" mat-menu-item>Ask a question</button>
                         </mat-menu>
                         <mat-menu style="overflow: hidden;" #archiveMenu="matMenu">
                             <strong (click)="stopPropagation($event)" mat-menu-item>
@@ -331,6 +332,7 @@
                         <mat-menu #menu="matMenu">
                             <button (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
                             <button [matMenuTriggerFor]="labelMenu" mat-menu-item>Add Label</button>
+                            <button (click)="redirectToQuestionAnswer(note.id)" mat-menu-item>Ask a question</button>
                         </mat-menu>
                         <mat-menu style="overflow: hidden;" #labelMenu="matMenu">
                             <strong (click)="stopPropagation($event)" mat-menu-item>

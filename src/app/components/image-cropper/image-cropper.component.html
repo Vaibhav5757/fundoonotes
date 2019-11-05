@@ -1,5 +1,5 @@
-<image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
-  [resizeToWidth]="128" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
-  (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+<image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
+  [roundCropper]="true" [resizeToWidth]="128" format="png" (imageCropped)="imageCropped($event)"
+  (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
 
 <button (click)="imageSelected()" mat-raised-button>Upload Image</button>

@@ -42,7 +42,7 @@ import { MyDatePipePipe } from './pipe/my-date-pipe.pipe';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
 import { QuestionAnswerOfNoteComponent } from './components/question-answer-of-note/question-answer-of-note.component';
-
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
   declarations: [
@@ -82,6 +82,8 @@ import { QuestionAnswerOfNoteComponent } from './components/question-answer-of-n
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot(),
     MatDialogModule,
     MatInputModule,
     MatIconModule,

@@ -16,15 +16,6 @@
     <mat-list-item>
       {{note.description}}
     </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list>
-      Questions asked
-      <mat-list-item>
-        <p style="color: gray;">
-          {{ removeHtmlTag(note.questionAndAnswerNotes[0].message) }}
-        </p>
-      </mat-list-item>
-    </mat-list>
     <mat-list *ngFor="let list of note.noteCheckLists">
       <mat-list-item>
         <mat-checkbox [ngClass]="checkListStatus(list) ? 'checked' : 'unchecked'" [checked]="checkListStatus(list)"
@@ -32,33 +23,45 @@
       </mat-list-item>
     </mat-list>
     <mat-divider></mat-divider>
-    <mat-list>
+    <mat-list *ngIf="note.questionAndAnswerNotes.length != 0">
+      Questions asked
+      <mat-list-item>
+        <p style="color: gray;">
+          {{ removeHtmlTag(note.questionAndAnswerNotes[0].message) }}
+        </p>
+      </mat-list-item>
+    </mat-list>
+    <mat-list *ngIf="note.questionAndAnswerNotes.length === 0">
+      Ask a Question
+      <div [formControl]="editorContent" [froalaEditor]>
+      </div>
+      <div fxLayoutAlign="end">
+        <button (click)="askQuestion()" mat-button>
+          Ask
+        </button>
+      </div>
+    </mat-list>
+    <mat-divider></mat-divider>
+    <mat-list *ngIf="note.questionAndAnswerNotes.length != 0">
       <div fxLayout="row" fxLayoutAlign="space-around center">
         <div>
           {{note.user.firstName}} {{note.user.lastName}} {{note.questionAndAnswerNotes[0].createdDate | date:"medium"}}
         </div>
         <div>
-          <mat-icon>
+          <mat-icon (click)="likeUnlikeQuestion()" [style.color]="yourLike ? 'blue' : 'gray'">
             thumb_up
           </mat-icon>
           <p style="top:-1px">
-            0 Likes
+            {{ likes }} Likes
           </p>
-          <mat-icon>
-            star_border
-          </mat-icon>
-          <mat-icon>
-            star_border
-          </mat-icon>
-          <mat-icon>
-            star_border
-          </mat-icon>
-          <mat-icon>
-            star_border
-          </mat-icon>
-          <mat-icon>
-            star_border
-          </mat-icon>
+          <div style="display: inline;" *ngFor="let rate of rating; index as i">
+            <mat-icon (click)="changeRating(i)" *ngIf="rate === 0">
+              star_border
+            </mat-icon>
+            <mat-icon (click)="changeRating(i)" style="color: gold" *ngIf="rate === 1">
+              star
+            </mat-icon>
+          </div>
         </div>
       </div>
     </mat-list>
