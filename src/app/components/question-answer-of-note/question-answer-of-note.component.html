@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ngClass.xs="container-smaller-screen">
 
   <mat-list>
     <mat-list-item>
@@ -9,7 +9,7 @@
           </h1>
         </div>
         <div>
-          <button mat-button>close</button>
+          <button (click)="redirectToNotes()" mat-button>close</button>
         </div>
       </div>
     </mat-list-item>
@@ -26,8 +26,7 @@
     <mat-list *ngIf="note.questionAndAnswerNotes.length != 0">
       Questions asked
       <mat-list-item>
-        <p style="color: gray;">
-          {{ removeHtmlTag(note.questionAndAnswerNotes[0].message) }}
+        <p [innerHTML]="note.questionAndAnswerNotes[0].message" style="color: gray;">
         </p>
       </mat-list-item>
     </mat-list>
@@ -44,6 +43,9 @@
     <mat-divider></mat-divider>
     <mat-list *ngIf="note.questionAndAnswerNotes.length != 0">
       <div fxLayout="row" fxLayoutAlign="space-around center">
+        <div>
+          <img [src]="randomProfileImage" class="profile-image">
+        </div>
         <div>
           {{note.user.firstName}} {{note.user.lastName}} {{note.questionAndAnswerNotes[0].createdDate | date:"medium"}}
         </div>

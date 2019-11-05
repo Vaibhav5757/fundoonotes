@@ -398,15 +398,11 @@
               <mat-list *ngFor="let item of checkList; let i = index">
                 <mat-list-item>
                   <mat-checkbox fxFlex>
-                    <!-- <input #text matInput [value]="item"> -->
                     {{item}}
                   </mat-checkbox>
                   <mat-icon (click)="deleteListItem(item)">
                     clear
                   </mat-icon>
-                  <!-- <mat-icon (click)="editCheckListItem(i)">
-                    done
-                  </mat-icon> -->
                 </mat-list-item>
               </mat-list>
               <mat-list>

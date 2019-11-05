@@ -1,6 +1,14 @@
 .container {
   margin-top: 50px;
 }
+.container-smaller-screen {
+  margin-left: -5em;
+}
 .checked {
   text-decoration: line-through;
+}
+.profile-image {
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
 }

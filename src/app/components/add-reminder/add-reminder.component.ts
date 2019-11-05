@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validator, Validators } from '@angular/forms';
 import { NoteService } from 'src/app/services/note.service';
 
 @Component({
@@ -15,7 +15,9 @@ export class AddReminderComponent implements OnInit {
   @Output() events = new EventEmitter();
 
   myDatePicker = new FormControl('', []);
-  myTimePicker = new FormControl('', []);
+  myTimePicker = new FormControl('', [
+    Validators.pattern("([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])\s* ([AaPp][Mm])")
+  ]);
 
   minDate: Date;
 

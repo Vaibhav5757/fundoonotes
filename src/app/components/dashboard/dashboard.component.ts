@@ -119,7 +119,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.myTimePicker.setValue(this.getCurrentTime());
     this.reminder = null;
 
-
     //Identify the type of user - basic or advanced - from details in database
     let obs = this.userSvc.getUserDetails(this.user.userId);
     obs.subscribe((response: any) => {

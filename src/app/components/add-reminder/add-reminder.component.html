@@ -47,7 +47,7 @@
         </mat-form-field>
       </div>
       <div mat-menu-item (click)="addReminder()">
-        <button mat-button>Save</button>
+        <button [disabled]="myTimePicker.invalid" mat-button>Save</button>
       </div>
       <mat-menu #timePickerMenu="matMenu">
         <button mat-menu-item (click)="addReminderPreSelectedDate('x','08:00')">

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NoteService } from 'src/app/services/note.service';
 import { FormControl } from '@angular/forms';
 import { UserServiceService } from 'src/app/services/user-service.service';
-import { forEach } from '@angular/router/src/utils/collection';
+import { DashboardComponent } from '../dashboard/dashboard.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-question-answer-of-note',
@@ -32,7 +33,7 @@ export class QuestionAnswerOfNoteComponent implements OnInit {
       rate: [
         {
           userId: "",
-          rate: null
+          rate: 0
         }
       ]
     }],
@@ -42,25 +43,39 @@ export class QuestionAnswerOfNoteComponent implements OnInit {
   rating = [0, 0, 0, 0, 0];
   likes = 0;
   yourLike: Boolean = false;
+  profileImage: any;
+  randomProfileImage: any;
 
   constructor(private route: ActivatedRoute,
     private noteSvc: NoteService,
-    private userSvc: UserServiceService) {
+    private userSvc: UserServiceService,
+    private router: Router,
+    private dash: DashboardComponent,
+    private titleService: Title) {
 
     // Retrieve the note Id from params
     this.route.paramMap.subscribe(params => {
       this.noteId = params.get("noteId");
     })
+
+
   }
 
   ngOnInit() {
     this.getNote();
 
     // Get Rating
-    let limit = 0 || this.note.questionAndAnswerNotes[0].rate[0].rate;
+    let limit;
+    if (this.note.questionAndAnswerNotes[0].rate[0] != null) {
+      limit = this.note.questionAndAnswerNotes[0].rate[0].rate;
+    } else limit = 0;
     for (let itr = 0; itr < limit; ++itr) {
       this.rating[itr] = 1;
     }
+  }
+
+  setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
   }
 
   getNote() {
@@ -70,6 +85,7 @@ export class QuestionAnswerOfNoteComponent implements OnInit {
     obs.subscribe((response: any) => {
       this.note = response.data.data[0];
       this.getRatingAndLikes();
+      this.setTitle(this.note.title);
     })
   }
 
@@ -77,8 +93,8 @@ export class QuestionAnswerOfNoteComponent implements OnInit {
     this.yourLikeOrNot();
     this.getLikes();
     this.getRating();
-    console.log("Likes: " + this.likes);
-    console.log("Your Like: " + this.yourLike);
+    this.randomUser();
+    this.profileImage = this.dash.profileImage;
   }
 
   removeHtmlTag(string) {
@@ -119,7 +135,10 @@ export class QuestionAnswerOfNoteComponent implements OnInit {
   }
 
   getRating() {
-    let limit = 0 || this.note.questionAndAnswerNotes[0].rate[0].rate;
+    let limit = 0;
+    if (this.note.questionAndAnswerNotes[0].rate[0] != null) {
+      limit = this.note.questionAndAnswerNotes[0].rate[0].rate;
+    }
     //reset the ratings array
     for (let itr = 0; itr < this.rating.length; ++itr) {
       this.rating[itr] = 0;
@@ -158,5 +177,17 @@ export class QuestionAnswerOfNoteComponent implements OnInit {
         if (element.userId === userId) this.yourLike = element.like;
       });
     });
+  }
+
+  redirectToNotes() {
+    this.router.navigateByUrl("/dashboard");
+    this.dash.hideSearchSection = false;
+  }
+
+  randomUser() {
+    let obs = this.userSvc.randomUser();
+    obs.subscribe((response: any) => {
+      this.randomProfileImage = response.results[0].picture.large;
+    })
   }
 }
