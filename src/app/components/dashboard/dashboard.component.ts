@@ -93,7 +93,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(private titleService: Title,
     private noteSvc: NoteService, private router: Router, private userSvc: UserServiceService,
     private route: ActivatedRoute, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
-    private dialog: MatDialog) {
+    private dialog: MatDialog, private snackBar: MatSnackBar) {
 
     this.setTitle('Dashboard');
 
@@ -446,12 +446,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     obs.afterClosed().subscribe((response) => {
       let fd = new FormData();
       fd.append('file', response.data);
-      this.userSvc.changeProfilePicture(fd);
+      let observer = this.userSvc.changeProfilePicture(fd);
+      observer.subscribe((response) => {
+        this.snackBar.open("Profile Picture Updated", '', {
+          duration: 1500
+        })
+      })
     })
   }
 
   redirectToQuestionAnswers(noteId) {
-    // console.log(noteId);
     this.hideSearchSection = true;
     this.router.navigate(["QuestionAnswer/" + noteId], {
       relativeTo: this.route

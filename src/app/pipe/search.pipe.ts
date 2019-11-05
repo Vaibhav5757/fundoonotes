@@ -9,7 +9,8 @@ export class SearchPipe implements PipeTransform {
     if (!notes || !searchWord)
       return notes;
     return notes.filter((note) => {
-      return ((note.title.toLowerCase().indexOf(searchWord.toLowerCase()) !== -1) || (note.description.toLowerCase().indexOf(searchWord.toLowerCase()) !== -1));
+      return ((note.title.toLowerCase().indexOf(searchWord.toLowerCase()) !== -1) ||
+        (note.description.toLowerCase().indexOf(searchWord.toLowerCase()) !== -1));
     })
   }
 
