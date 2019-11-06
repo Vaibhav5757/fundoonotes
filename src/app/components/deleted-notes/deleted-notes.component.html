@@ -32,7 +32,10 @@
                             timer
                         </i>
 
-                        {{ note.reminder | dateConverter | date: 'medium' | myDatePipe }}
+                        <p [ngClass]="checkReminder(note) ? 'checked':'unchecked'">
+                            {{ note.reminder | dateConverter | date: 'medium' | myDatePipe }}
+                        </p>
+
 
                         <mat-icon (click)="removeReminder(note)" matChipRemove>
                             clear

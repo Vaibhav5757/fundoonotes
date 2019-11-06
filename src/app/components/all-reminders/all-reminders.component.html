@@ -38,7 +38,9 @@
                 timer
               </i>
 
-              {{ note.reminder | dateConverter | date: 'medium' | myDatePipe }}
+              <p [ngClass]="checkReminder(note) ? 'checked':'unchecked'">
+                {{ note.reminder | dateConverter | date: 'medium' | myDatePipe }}
+              </p>
 
               <mat-icon (click)="removeReminder(note)" matChipRemove>
                 clear
@@ -202,7 +204,7 @@
           {{note.description}}
         </mat-card-content>
 
-       
+
 
         <div fxLayout="column" fxLayoutAlign="space-around" *ngFor="let list of note.noteCheckLists">
           <mat-checkbox [ngClass]="checkListStatus(list) ? 'checked' : 'unchecked'" [checked]="checkListStatus(list)"
@@ -210,21 +212,23 @@
         </div>
 
         <div *ngIf="note.reminder.length > 0">
-            <mat-chip-list>
-  
-              <mat-chip class="label" style="margin-top: 10px">
-                <i class="material-icons">
-                  timer
-                </i>
-  
+          <mat-chip-list>
+
+            <mat-chip class="label" style="margin-top: 10px">
+              <i class="material-icons">
+                timer
+              </i>
+
+              <p [ngClass]="checkReminder(note) ? 'checked':'unchecked'">
                 {{ note.reminder | dateConverter | date: 'medium' | myDatePipe }}
-  
-                <mat-icon (click)="removeReminder(note)" matChipRemove>
-                  clear
-                </mat-icon>
-              </mat-chip>
-            </mat-chip-list>
-          </div>
+              </p>
+
+              <mat-icon (click)="removeReminder(note)" matChipRemove>
+                clear
+              </mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </div>
 
         <div fxLayout="row align" fxLayoutAlign="space-around " gdGridAlign>
           <mat-chip-list *ngFor="let labels of note.noteLabels">

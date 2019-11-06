@@ -57,12 +57,15 @@
             <div *ngIf="note.reminder.length > 0">
                 <mat-chip-list>
 
-                    <mat-chip class="label" style="margin-top: 10px">
+                    <mat-chip class="label"
+                        style="margin-top: 10px">
                         <i class="material-icons">
                             timer
                         </i>
 
-                        {{ note.reminder | dateConverter | date: 'medium' | myDatePipe }}
+                        <p [ngClass]="checkReminder(note) ? 'checked':'unchecked'">
+                            {{ note.reminder | dateConverter | date: 'medium' | myDatePipe }}
+                        </p>
 
                         <mat-icon (click)="removeReminder(note)" matChipRemove>
                             clear
@@ -236,7 +239,9 @@
                             timer
                         </i>
 
-                        {{ note.reminder | dateConverter | date: 'medium' | myDatePipe }}
+                        <p [ngClass]="checkReminder(note) ? 'checked':'unchecked'">
+                            {{ note.reminder | dateConverter | date: 'medium' | myDatePipe }}
+                        </p>
 
                         <mat-icon (click)="removeReminder(note)" matChipRemove>
                             clear

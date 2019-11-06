@@ -450,4 +450,18 @@ export class AllNotesComponent implements OnInit {
     this.dash.redirectToQuestionAnswers(noteId);
   }
 
+  checkReminder(note) {
+    let today = new Date();
+    let givenDate = new Date(note.reminder);
+
+    let dateWithNoTimezone = new Date(
+      givenDate.getUTCFullYear(),
+      givenDate.getUTCMonth(),
+      givenDate.getUTCDate(),
+      givenDate.getUTCHours(),
+      givenDate.getUTCMinutes(),
+      givenDate.getUTCSeconds()
+    );
+    return (today > dateWithNoTimezone);
+  }
 }

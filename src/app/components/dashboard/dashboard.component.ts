@@ -283,7 +283,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   searchNotes(event: any) {
-    // this.events.emit(event.target.value);
     if (event.key == "Backspace") {
       this.events.emit("searching-backward");
     } else {

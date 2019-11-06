@@ -174,4 +174,18 @@ export class DeletedNotesComponent implements OnInit {
     this.snackBar.open("Removing Reminder not supported in Bin");
   }
 
+  checkReminder(note) {
+    let today = new Date();
+    let givenDate = new Date(note.reminder);
+
+    let dateWithNoTimezone = new Date(
+      givenDate.getUTCFullYear(),
+      givenDate.getUTCMonth(),
+      givenDate.getUTCDate(),
+      givenDate.getUTCHours(),
+      givenDate.getUTCMinutes(),
+      givenDate.getUTCSeconds()
+    );
+    return (today > dateWithNoTimezone);
+  }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -7,14 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShoppingCartComponent implements OnInit {
 
-  // hide:Boolean= false;
-  // addressDetails:Boolean = true;
-  isCompleted:Boolean = false;
-  isLinear:Boolean = true;
+  basicUser: Boolean = false;
+  advancedUser: Boolean = false;
+  isCompleted: Boolean = false;
+  isLinear: Boolean = true;
 
-  constructor() { }
+  constructor(private dash: DashboardComponent) { }
 
   ngOnInit() {
+    this.advancedUser = this.dash.advancedUser;
+    this.basicUser = !this.advancedUser;
   }
 
 }

@@ -1,4 +1,4 @@
-<div style="margin-top: 50px" ngStyle.xs="margin-left:-4em">
+<div *ngIf="basicUser" style="margin-top: 50px" ngStyle.xs="margin-left:-4em">
   <mat-horizontal-stepper [linear]="isLinear" style="width: 80%" labelPosition="bottom">
     <mat-step [completed]="isCompleted">
       <ng-template matStepLabel matStepperIcon>
@@ -113,4 +113,12 @@
       </div>
     </mat-step>
   </mat-horizontal-stepper>
+</div>
+
+<div style="margin-top: 50px;margin-left: -4em" ngStyle.xs="margin-left:-4em" *ngIf="advancedUser" fxLayout="column"
+  fxLayoutAlign="center center">
+  <p>
+    You are already a Advance User
+  </p>
+  <img fxHide.xs="true" src="https://media.gettyimages.com/videos/child-showing-thumbs-up-video-id583585654?s=640x640">
 </div>
