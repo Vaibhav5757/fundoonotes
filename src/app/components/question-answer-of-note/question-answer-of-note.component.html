@@ -53,26 +53,33 @@
       </div>
     </mat-list>
     <mat-divider></mat-divider>
-    <mat-list *ngIf="note.questionAndAnswerNotes.length != 0">
+    <mat-list *ngFor="let item of note.questionAndAnswerNotes">
       <div fxLayout="row" fxLayoutAlign="space-around center">
         <div>
-          <img [src]="randomProfileImage" class="profile-image">
+          <!-- <img [src]="item.user.imageUrl" class="profile-image"> -->
+          <img src="https://picsum.photos/500" class="profile-image">
         </div>
         <div>
-          {{note.user.firstName}} {{note.user.lastName}} {{note.questionAndAnswerNotes[0].createdDate | date:"medium"}}
+          {{item.user.firstName}} {{item.user.lastName}} {{item.createdDate | date:"medium"}}
+          <p style="color: gray">
+            {{item.message}}
+          </p>
         </div>
         <div>
-          <mat-icon (click)="likeUnlikeQuestion()" [style.color]="yourLike ? 'blue' : 'gray'">
+          <mat-icon *ngIf="!youLike(item)" (click)="likeQuestion(item)">
             thumb_up
           </mat-icon>
+          <mat-icon style="color: blue" *ngIf="youLike(item)" (click)="unLikeQuestion(item)">
+            thumb_down
+          </mat-icon>
           <p style="top:-1px">
-            {{ likes }} Likes
+            {{ getLikes(item) }} Likes
           </p>
-          <div style="display: inline;" *ngFor="let rate of rating; index as i">
-            <mat-icon (click)="changeRating(i)" *ngIf="rate === 0">
+          <div style="display: inline;" *ngFor="let rate of rating(item); index as i">
+            <mat-icon (click)="changeRating(i,item)" *ngIf="rate === 0">
               star_border
             </mat-icon>
-            <mat-icon (click)="changeRating(i)" style="color: gold" *ngIf="rate === 1">
+            <mat-icon (click)="changeRating(i,item)" style="color: gold" *ngIf="rate === 1">
               star
             </mat-icon>
           </div>

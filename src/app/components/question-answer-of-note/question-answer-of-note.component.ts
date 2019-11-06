@@ -28,6 +28,11 @@ export class QuestionAnswerOfNoteComponent implements OnInit {
       name: "",
       createdDate: "",
       message: "",
+      user: {
+        firstName: "",
+        lastName: "",
+        imageUrl: ""
+      },
       like: [{
         userId: "",
         like: false
@@ -42,9 +47,7 @@ export class QuestionAnswerOfNoteComponent implements OnInit {
   };
   editorContent = new FormControl('', []);
 
-  rating = [0, 0, 0, 0, 0];
   likes = 0;
-  yourLike: Boolean = false;
   profileImage: any;
   randomProfileImage: any;
   replyHide: Boolean = false;
@@ -60,21 +63,10 @@ export class QuestionAnswerOfNoteComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.noteId = params.get("noteId");
     })
-
-
   }
 
   ngOnInit() {
     this.getNote();
-
-    // Get Rating
-    let limit;
-    if (this.note.questionAndAnswerNotes[0].rate[0] != null) {
-      limit = this.note.questionAndAnswerNotes[0].rate[0].rate;
-    } else limit = 0;
-    for (let itr = 0; itr < limit; ++itr) {
-      this.rating[itr] = 1;
-    }
   }
 
   setTitle(newTitle: string) {
@@ -93,9 +85,6 @@ export class QuestionAnswerOfNoteComponent implements OnInit {
   }
 
   getRatingAndLikes() {
-    this.yourLikeOrNot();
-    this.getLikes();
-    this.getRating();
     this.randomUser();
     this.profileImage = this.dash.profileImage;
   }
@@ -128,58 +117,24 @@ export class QuestionAnswerOfNoteComponent implements OnInit {
     this.editorContent.setValue("");
   }
 
-  getLikes() {
-    this.likes = 0;
-    this.note.questionAndAnswerNotes.forEach((element) => {
-      element.like.forEach(element => {
-        if (element.like) this.likes++;
-      })
-    })
-  }
-
-  getRating() {
-    let limit = 0;
-    if (this.note.questionAndAnswerNotes[0].rate[0] != null) {
-      limit = this.note.questionAndAnswerNotes[0].rate[0].rate;
-    }
-    //reset the ratings array
-    for (let itr = 0; itr < this.rating.length; ++itr) {
-      this.rating[itr] = 0;
-    }
-    for (let itr = 0; itr < limit; ++itr) {
-      this.rating[itr] = 1;
-    }
-  }
-
-  changeRating(index) {
-    index++;
-    let obs = this.noteSvc.rateQuestion({
-      rate: index,
-      parentId: this.note.questionAndAnswerNotes[0].id
-    })
-    obs.subscribe((response) => {
-      this.getNote();
-    })
-  }
-
-  likeUnlikeQuestion() {
+  likeQuestion(item) {
     let obs = this.noteSvc.likeUnlikeQuestion({
-      like: !this.yourLike,
-      parentId: this.note.questionAndAnswerNotes[0].id
+      like: true,
+      parentId: item.id
     })
     obs.subscribe((response) => {
       this.getNote();
     })
   }
 
-  yourLikeOrNot() {
-    let user = this.userSvc.getUser();
-    let userId = user.userId;
-    this.note.questionAndAnswerNotes.forEach(element => {
-      element.like.forEach(element => {
-        if (element.userId === userId) this.yourLike = element.like;
-      });
-    });
+  unLikeQuestion(item) {
+    let obs = this.noteSvc.likeUnlikeQuestion({
+      like: false,
+      parentId: item.id
+    })
+    obs.subscribe((response) => {
+      this.getNote();
+    })
   }
 
   redirectToNotes() {
@@ -196,5 +151,49 @@ export class QuestionAnswerOfNoteComponent implements OnInit {
 
   toggleReplyHide() {
     this.replyHide = !this.replyHide;
+  }
+
+  rating(item) {
+    let array = [0, 0, 0, 0, 0];
+    let limit = 0;
+    let you = this.dash.user;
+    if (item.rate[0] != null) {
+      item.rate.forEach(element => {
+        if (element.userId == you.userId) limit = element.rate;
+      });
+    }
+    for (let itr = 0; itr < limit; ++itr) {
+      array[itr] = 1;
+    }
+    return array;
+  }
+
+
+  changeRating(index, item) {
+    index++;
+    let obs = this.noteSvc.rateQuestion({
+      rate: index,
+      parentId: item.id
+    })
+    obs.subscribe((response) => {
+      this.getNote();
+    })
+  }
+
+  youLike(item) {
+    let you = this.dash.user;
+    let returnValue = false;
+    item.like.forEach(element => {
+      if (element.userId === you.userId) returnValue = element.like;
+    });
+    return returnValue;
+  }
+
+  getLikes(item) {
+    let count = 0;
+    item.like.forEach(element => {
+      if (element.like) count++;
+    });
+    return count;
   }
 }
