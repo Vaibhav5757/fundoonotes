@@ -270,4 +270,13 @@ export class ArchivedNotesComponent implements OnInit {
     })
   }
 
+  removeHtmlTag(string) {
+    string = string.replace('&#39;', "'");
+    return string.replace(/<[^>]*>?/gm, '');
+  }
+
+  redirectToQuestionAnswer(noteId) {
+    this.dash.redirectToQuestionAnswers(noteId);
+  }
+
 }

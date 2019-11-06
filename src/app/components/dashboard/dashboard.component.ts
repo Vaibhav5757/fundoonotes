@@ -55,8 +55,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   search = new FormControl('', []);
 
-  myDatePicker = new FormControl(new Date(), []);
-  myTimePicker = new FormControl('', []);
+  myDatePicker = new FormControl('', []);
+  myTimePicker = new FormControl('', [
+    Validators.pattern("([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])\s* ([AaPp][Mm])")
+  ]);
 
   events = new EventEmitter();
 
@@ -357,36 +359,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.trigger.closeMenu();
   }
 
-  addReminderPreSelectedDate(date, time) {
-    let selectedDate = date;
-
-    if (date === 'today') {
-      selectedDate = new Date();
-      selectedDate = this.formatDate(selectedDate);
-    }
-    if (date === 'tomorrow') {
-      let currentDate = new Date();
-      currentDate.setDate(currentDate.getDate() + 1);
-      selectedDate = currentDate;
-      selectedDate = this.formatDate(selectedDate);
-    }
-    if (date === "nextMonday") {
-      let currentDate = new Date();
-      currentDate.setDate(currentDate.getDate() + (1 + 7 - currentDate.getDay()) % 7);
-      selectedDate = currentDate;
-      selectedDate = this.formatDate(selectedDate);
-    }
-    this.saveReminder(selectedDate, time);
-  }
-
   addReminder() {
 
     let selectedDate = this.formatDate(new Date(this.myDatePicker.value));
-    let time = this.myTimePicker.value;
+    if (this.myTimePicker.valid) {
+      let time = this.myTimePicker.value;
 
-    time = this.convert12into24(time);
+      time = this.convert12into24(time);
 
-    this.saveReminder(selectedDate, time);
+      this.saveReminder(selectedDate, time);
+    } else {
+      this.snackBar.open("Reminder Time Invalid", '', {
+        duration: 1500
+      })
+    }
   }
 
   saveReminder(selectedDate, time) {

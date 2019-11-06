@@ -25,10 +25,19 @@
     <mat-divider></mat-divider>
     <mat-list *ngIf="note.questionAndAnswerNotes.length != 0">
       Questions asked
-      <mat-list-item>
-        <p [innerHTML]="note.questionAndAnswerNotes[0].message" style="color: gray;">
-        </p>
-      </mat-list-item>
+      <ng-container *ngFor="let item of note.questionAndAnswerNotes">
+        <mat-list-item>
+          <p [innerHTML]="item.message" style="color: gray;">
+          </p>
+        </mat-list-item>
+      </ng-container>
+    </mat-list>
+    <mat-divider></mat-divider>
+    <mat-list>
+      <button *ngIf="!replyHide" (click)="toggleReplyHide()" mat-button>Reply</button>
+      <div *ngIf="replyHide" [formControl]="editorContent" [froalaEditor]>
+      </div>
+      <button *ngIf="replyHide" (click)="toggleReplyHide();askQuestion()" mat-button>Reply</button>
     </mat-list>
     <mat-list *ngIf="note.questionAndAnswerNotes.length === 0">
       Ask a Question

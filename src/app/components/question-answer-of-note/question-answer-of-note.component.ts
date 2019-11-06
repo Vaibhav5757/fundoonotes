@@ -45,6 +45,7 @@ export class QuestionAnswerOfNoteComponent implements OnInit {
   yourLike: Boolean = false;
   profileImage: any;
   randomProfileImage: any;
+  replyHide: Boolean = false;
 
   constructor(private route: ActivatedRoute,
     private noteSvc: NoteService,
@@ -189,5 +190,9 @@ export class QuestionAnswerOfNoteComponent implements OnInit {
     obs.subscribe((response: any) => {
       this.randomProfileImage = response.results[0].picture.large;
     })
+  }
+
+  toggleReplyHide() {
+    this.replyHide = !this.replyHide;
   }
 }
