@@ -64,11 +64,6 @@ export class AllNotesComponent implements OnInit {
       this.notesLayout = !this.notesLayout;
     })
 
-    this.dash.events.addListener('user-is-basic', () => {
-      //Change type of User
-      this.basicUser = true;
-    })
-
     this.dash.events.addListener('label-modified', () => {
       this.fetchAllNotes();
       this.fetchAllLabels();
@@ -159,6 +154,7 @@ export class AllNotesComponent implements OnInit {
     this.fetchAllNotes();
     this.notesLayout = this.dash.getLayout() ? false : true;
     this.fetchAllLabels();
+    this.basicUser = !this.dash.advancedUser;
   }
 
   setTitle(newTitle: string) {

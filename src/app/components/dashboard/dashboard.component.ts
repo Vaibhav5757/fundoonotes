@@ -126,9 +126,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     obs.subscribe((response: any) => {
       if (response.service === 'basic') this.advancedUser = false;
       else this.advancedUser = true;
-
-      //Notify the components whether user is basic or advanced
-      if (!this.advancedUser) this.events.emit('user-is-basic');
     })
 
     // Get All labels
