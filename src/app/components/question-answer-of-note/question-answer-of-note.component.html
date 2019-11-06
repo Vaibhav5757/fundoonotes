@@ -27,6 +27,9 @@
       Questions asked
       <ng-container *ngFor="let item of note.questionAndAnswerNotes">
         <mat-list-item>
+          <p>
+            {{ item.user.firstName }} {{ item.user.lastName }}-
+          </p>
           <p [innerHTML]="item.message" style="color: gray;">
           </p>
         </mat-list-item>

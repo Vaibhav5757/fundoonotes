@@ -24,6 +24,8 @@ export class QuestionAnswerOfNoteComponent implements OnInit {
     noteCheckLists: [],
     questionAndAnswerNotes: [{
       id: "",
+      userId: "",
+      name: "",
       createdDate: "",
       message: "",
       like: [{
