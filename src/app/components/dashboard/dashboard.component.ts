@@ -11,6 +11,7 @@ import { MatSnackBar, MatDialog, MatMenuTrigger } from '@angular/material';
 import { EditLabelComponent } from '../edit-label/edit-label.component';
 import { AddCollaboratorInNewNoteComponent } from '../add-collaborator-in-new-note/add-collaborator-in-new-note.component';
 import { ImageCropperComponent } from '../image-cropper/image-cropper.component';
+import { ProductsCartService } from 'src/app/services/products-cart.service';
 
 @Component({
   selector: 'app-components/dashboard',
@@ -44,7 +45,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   hideCheckListCard: Boolean = false;
   hideSearchSection: Boolean = false;
   hideLogo: Boolean = false;
-  advancedUser: Boolean;//true for advanced user, false for basic user
+  advancedUser: Boolean = false;//true for advanced user, false for basic user
   layout: Boolean = false;// false for row view, true for column view
   allLabels = [];
   checkList = [];
@@ -87,6 +88,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   content = new FormControl('', [
   ])
 
+  cartDetails: any;
+
   mobileQuery: MediaQueryList;
   fillerNav = Array.from({ length: 50 }, (_, i) => `Nav Item ${i + 1}`);
 
@@ -95,7 +98,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(private titleService: Title,
     private noteSvc: NoteService, private router: Router, private userSvc: UserServiceService,
     private route: ActivatedRoute, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
-    private dialog: MatDialog, private snackBar: MatSnackBar) {
+    private dialog: MatDialog, private snackBar: MatSnackBar,
+    private prodSvc: ProductsCartService) {
 
     this.setTitle('Dashboard');
 
@@ -109,6 +113,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
     //Get User Details from login api
     this.user = this.userSvc.getUser();
 
@@ -124,12 +129,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
     //Identify the type of user - basic or advanced - from details in database
     let obs = this.userSvc.getUserDetails(this.user.userId);
     obs.subscribe((response: any) => {
-      if (response.service === 'basic') this.advancedUser = false;
+      if (response.service === 'basic'){
+        this.advancedUser = false;
+        this.events.emit("user-is-basic");
+      }
       else this.advancedUser = true;
     })
 
     // Get All labels
     this.fetchAllLabels();
+
+    // Get Cart Details and redirect if needed
+    this.cartDetails = this.prodSvc.getServiceType();
+    if (this.cartDetails.service != "") {
+      this.cart();
+    }
   }
 
   ngOnDestroy(): void {

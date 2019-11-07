@@ -53,6 +53,10 @@ export class AllRemindersComponent implements OnInit {
 
     this.setTitle("Notes");
 
+    this.dash.events.addListener('user-is-basic', () => {
+      this.basicUser = true;
+    })
+
     this.dash.events.addListener('note-saved-in-database', () => {
       //Fetch all notes from database
       this.fetchAllNotes();

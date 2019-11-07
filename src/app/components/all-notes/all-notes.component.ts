@@ -54,6 +54,10 @@ export class AllNotesComponent implements OnInit {
 
     this.setTitle("Notes");
 
+    this.dash.events.addListener('user-is-basic', () => {
+      this.basicUser = true;
+    })
+
     this.dash.events.addListener('note-saved-in-database', () => {
       //Fetch all notes from database
       this.fetchAllNotes();
@@ -154,7 +158,6 @@ export class AllNotesComponent implements OnInit {
     this.fetchAllNotes();
     this.notesLayout = this.dash.getLayout() ? false : true;
     this.fetchAllLabels();
-    this.basicUser = !this.dash.advancedUser;
   }
 
   setTitle(newTitle: string) {

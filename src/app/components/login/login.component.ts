@@ -89,6 +89,10 @@ export class LoginComponent implements OnInit {
     obs.subscribe((response) => this.snackBar.open("Check Mail Inbox"));
   }
 
+  isCartEmpty() {
+    return this.cartDetails === null;
+  }
+
 }
 
 
