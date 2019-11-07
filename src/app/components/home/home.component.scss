@@ -4,19 +4,32 @@
 
 .payment-cards-smaller {
   .mat-card {
-    width: 110px;
-    height: 250px;
+    width: 100px;
+    height: 160px;
+    .mat-card-title {
+      font-size: 16px;
+    }
+    .mat-card-subtitle {
+      font-size: 12px;
+    }
+    .mat-card-content {
+      font-size: 8px;
+    }
     .second-card-advance {
-      top: -200px;
+      top: -150px;
+      width: 100px;
+      height: 160px;
       .content {
-        margin-top: 195px;
+        margin-top: 150px;
         font-size: 15px;
       }
     }
     .second-card-basic {
-      top: -148px;
+      top: -130px;
+      width: 100px;
+      height: 160px;
       .content {
-        margin-top: 193px;
+        margin-top: 150px;
         font-size: 15px;
       }
     }
@@ -33,11 +46,15 @@
       cursor: pointer;
       .second-card-advance {
         // transform: scale(1);
-        background: yellowgreen;
+        // background: yellowgreen;
+        background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
+        color: transparent;
       }
       .second-card-basic {
         // transform: scale(1);
-        background: yellowgreen;
+        // background: yellowgreen;
+        color: transparent;
+        background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
       }
     }
   }
