@@ -69,8 +69,8 @@ export class HomeComponent implements OnInit {
   changeService(data) {
     this.prodSvc.setServiceType(data);
   }
-
-  logIn(){
+  
+  logIn() {
     this.router.navigateByUrl("/login");
   }
 }

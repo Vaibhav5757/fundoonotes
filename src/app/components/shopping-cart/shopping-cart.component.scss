@@ -1,5 +1,21 @@
-rest-of-div{
-    margin-left:-18em;
-    background: red;
-    width:auto;
+.rest-of-div {
+  margin-left: -18em;
+  background: red;
+  width: auto;
+}
+
+.click-to-change-button {
+  margin-top: 10px;
+  color: #494949 !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #ffffff;
+  display: inline-block;
+  transition: all 0.4s ease 0s;
+  &:hover {
+    color: #ffffff !important;
+    background: #e63131;
+    border-color: #e63131 !important;
+    transition: all 0.4s ease 0s;
+  }
 }

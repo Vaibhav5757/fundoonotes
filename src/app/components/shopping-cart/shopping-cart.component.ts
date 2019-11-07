@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DashboardComponent } from '../dashboard/dashboard.component';
+import { ProductsCartService } from 'src/app/services/products-cart.service';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -9,15 +11,49 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 export class ShoppingCartComponent implements OnInit {
 
   basicUser: Boolean = false;
-  advancedUser: Boolean = false;
-  isCompleted: Boolean = false;
-  isLinear: Boolean = true;
+  advancedUserWishToShop: Boolean;
+  cartDetails: any;
+  cartEmpty: Boolean = false;
+  cartPresent: Boolean = false;
+  cartAdvance: Boolean;//True for advance Service, False for basic service
+  serviceAmount;
+  serviceType;
+  serviceDescription: String;
 
-  constructor(private dash: DashboardComponent) { }
+  formGroup = new FormGroup({
+    addressFormControl: new FormControl('', [
+      Validators.required
+    ])
+  })
+
+  constructor(private dash: DashboardComponent,
+    private prodSvc: ProductsCartService) { }
 
   ngOnInit() {
-    this.advancedUser = this.dash.advancedUser;
-    this.basicUser = !this.advancedUser;
+    this.advancedUserWishToShop = this.dash.advancedUser;
+    this.getCartDetails();
   }
 
+  getCartDetails() {
+    this.cartDetails = this.prodSvc.getServiceType();
+    if (this.cartDetails.service === "") this.cartEmpty = true;
+    else {
+      this.cartPresent = true;
+      this.cartAdvance = this.cartDetails.service === "advance";
+      this.serviceAmount = this.cartAdvance ? "99$" : "49$";
+      this.serviceType = this.cartAdvance ? "advance" : "basic";
+      this.serviceDescription = this.cartAdvance ? "Ability to add title, description, images, labels, checklist and colors"
+        : "Ability to add only title and description"
+    }
+  }
+
+  placeOrder() {
+    let obs = this.prodSvc.placeOrder({
+      cartId: this.cartDetails.cartId,
+      address: this.formGroup.get('addressFormControl').value
+    })
+    obs.subscribe((response) => {
+      this.formGroup.get('addressFormControl').setValue("");
+    })
+  }
 }

@@ -1,6 +1,26 @@
-<div *ngIf="basicUser" style="margin-top: 50px" ngStyle.xs="margin-left:-4em">
-  <mat-horizontal-stepper [linear]="isLinear" style="width: 80%" labelPosition="bottom">
-    <mat-step [completed]="isCompleted">
+<div *ngIf="cartEmpty" style="margin-top: 100px;margin-left: -4em" ngStyle.xs="margin-left:-4em" fxLayout="column"
+  fxLayoutAlign="center center">
+  <p>
+    You cart is Empty
+  </p>
+  <img fxHide.xs="true" src="https://chillydraji.files.wordpress.com/2015/08/empty_cart.jpeg">
+</div>
+
+<div style="margin-top: 100px;margin-left: -4em" ngStyle.xs="margin-left:-4em"
+  *ngIf="!cartEmpty && advancedUserWishToShop" fxLayout="column" fxLayoutAlign="space-around center">
+  <p>
+    You are already a Advance User
+  </p>
+  <img fxHide.xs="true" src="https://media.gettyimages.com/videos/child-showing-thumbs-up-video-id583585654?s=640x640">
+  <button (click)="advancedUserWishToShop = !advancedUserWishToShop" mat-button class="click-to-change-button">
+    Click to Change
+  </button>
+</div>
+
+<div *ngIf="!advancedUserWishToShop" style="margin-top: 50px" ngStyle.xs="margin-left:-4em">
+  <mat-horizontal-stepper *ngIf="cartPresent" [linear]="true" style="width: 80%" labelPosition="bottom">
+
+    <mat-step>
       <ng-template matStepLabel matStepperIcon>
         Sign In
       </ng-template>
@@ -11,24 +31,24 @@
 
         <mat-card style="background: grey; border-radius: 15px; color: whitesmoke;height: 70px; width: 70px">
           <mat-card-content>
-            $99 per month advance
+            {{serviceAmount}} per month {{serviceType}}
           </mat-card-content>
         </mat-card>
 
         <div ngStyle.xs="margin-top:1em" fxLayout="row" fxLayoutAlign="space-between center">
           <div style="width: 50%">
             <p class="blue-color" style="margin-left:1em">
-              advance Pack
+              {{serviceType}} Pack
             </p>
             <ul>
               <li>
-                Ability to add title, description, images, labels, checklist and colors
+                {{serviceDescription}}
               </li>
             </ul>
           </div>
           <div>
             <p class="blue-color">
-              $ 99
+              {{serviceAmount}}
             </p>
             <p>
               per month
@@ -36,10 +56,9 @@
           </div>
           <div fxLayout="column" fxLayoutAlign="center center" fxHide.xs="true">
             <p>
-              Subtotal(1 item): $99
+              Subtotal(1 item): {{serviceAmount}}
             </p>
-            <button (click)="isCompleted = true" mat-button matStepperNext
-              style="color: white; background: rgb(56, 56, 129);">
+            <button mat-button matStepperNext style="color: white; background: rgb(56, 56, 129);">
               Proceed to Checkout
             </button>
           </div>
@@ -47,10 +66,9 @@
 
         <div fxLayout="column" fxLayoutAlign="center center" fxHide.gt-xs="true">
           <p>
-            Subtotal(1 item): $99
+            Subtotal(1 item): {{serviceAmount}}
           </p>
-          <button mat-button (click)="isCompleted = true" matStepperNext
-            style="color: white; background: rgb(56, 56, 129);">
+          <button mat-button matStepperNext style="color: white; background: rgb(56, 56, 129);">
             Proceed to Checkout
           </button>
         </div>
@@ -58,8 +76,7 @@
       </div>
     </mat-step>
 
-
-    <mat-step>
+    <mat-step [stepControl]="formGroup">
       <ng-template matStepLabel>
         review
 
@@ -74,19 +91,22 @@
         <mat-card fxHide.gt-xs="true"
           style="background: grey; border-radius: 15px; color: whitesmoke;height: 70px; width: 70px; margin-bottom: 1em;">
           <mat-card-content>
-            $99 per month advance
+            {{serviceAmount}} per month {{serviceType}}
           </mat-card-content>
         </mat-card>
 
 
-        <textarea style="width: 250px; height: 100px; resize: none; margin-bottom: 1em;" matTextAreaAutosize
-          placeholder="Enter your address here">
-          </textarea>
+        <form [formGroup]="formGroup">
+          <textarea formControlName="addressFormControl"
+            style="width: 250px; height: 100px; resize: none; margin-bottom: 1em;" matTextAreaAutosize
+            placeholder="Enter your address here">
+            </textarea>
+        </form>
 
         <mat-card fxHide.xs="true"
           style="background: grey; border-radius: 15px; color: whitesmoke;height: 70px; width: 70px; margin-left: 1em">
           <mat-card-content>
-            $99 per month advance
+            {{serviceAmount}} per month {{serviceType}}
           </mat-card-content>
         </mat-card>
 
@@ -97,28 +117,22 @@
           <h5 class="blue-color">
             Cash On Delivery
           </h5>
-          <button mat-button matStepperNext style="color: white; background: rgb(56, 56, 129);">
+          <button mat-button [disabled]="formGroup.invalid" matStepperNext
+            style="color: white; background: rgb(56, 56, 129);">
             Place your Order
           </button>
         </div>
       </div>
     </mat-step>
+
     <mat-step>
       <ng-template matStepLabel>
         complete
-
       </ng-template>
       <div fxLayoutAlign="center center">
-        Congratulations, You are a advanced user now
+        Congratulations, You are a {{serviceType}} user now
       </div>
     </mat-step>
-  </mat-horizontal-stepper>
-</div>
 
-<div style="margin-top: 50px;margin-left: -4em" ngStyle.xs="margin-left:-4em" *ngIf="advancedUser" fxLayout="column"
-  fxLayoutAlign="center center">
-  <p>
-    You are already a Advance User
-  </p>
-  <img fxHide.xs="true" src="https://media.gettyimages.com/videos/child-showing-thumbs-up-video-id583585654?s=640x640">
+  </mat-horizontal-stepper>
 </div>

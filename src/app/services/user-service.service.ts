@@ -9,7 +9,7 @@ export class UserServiceService {
   constructor(private http: HttpServiceService) {
   }
 
-  logIn(data: { email: any; password: any; }): any {
+  logIn(data): any {
     return this.http.post('user/login', data);
   }
 
@@ -64,7 +64,7 @@ export class UserServiceService {
   randomUser() {
     return this.http.randomUser();
   }
-  
+
   changeProfilePicture(data) {
     return this.http.post("user/uploadProfileImage", data);
   }

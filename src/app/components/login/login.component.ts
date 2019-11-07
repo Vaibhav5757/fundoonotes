@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserServiceService } from 'src/app/services/user-service.service';
 import { Title } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material';
+import { ProductsCartService } from 'src/app/services/products-cart.service';
 
 @Component({
   selector: 'app-login',
@@ -13,9 +14,10 @@ import { MatSnackBar } from '@angular/material';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  cartDetails: any;
 
-  constructor(private router: Router, private userSvc: UserServiceService, 
-    private snackBar: MatSnackBar, private titleService: Title) {
+  constructor(private router: Router, private userSvc: UserServiceService,
+    private snackBar: MatSnackBar, private titleService: Title, private prodSvc: ProductsCartService) {
     this.setTitle("Log In");
     this.loginForm = new FormGroup({
 
@@ -30,11 +32,12 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  ngOnInit(){
+  ngOnInit() {
     //flush existing user
     this.userSvc.changeUser({
-      'id':''
+      'id': ''
     })
+    this.cartDetails = this.prodSvc.getServiceType();
   }
 
   public setTitle(newTitle: string) {
@@ -61,7 +64,8 @@ export class LoginComponent implements OnInit {
 
       let obs = this.userSvc.logIn({
         email: this.loginForm.get('emailFormControl').value,
-        password: this.loginForm.get('passwordFormControl').value
+        password: this.loginForm.get('passwordFormControl').value,
+        cartId: "" || this.cartDetails.cartId
       })
 
       obs.subscribe((response: any) => {

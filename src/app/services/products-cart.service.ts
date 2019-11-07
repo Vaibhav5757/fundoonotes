@@ -15,13 +15,17 @@ export class ProductsCartService {
   }
 
   setServiceType(data) {
-    this.storage.set('cart-details',{
+    this.storage.set('cart-details', {
       "service": data.name,
-      "cartId":data.id
+      "cartId": data.id
     })
   }
 
-  getServiceType(){
+  getServiceType() {
     return this.storage.get('cart-details');
+  }
+
+  placeOrder(data) {
+    return this.http.post("productcarts/placeOrder", data);
   }
 }
