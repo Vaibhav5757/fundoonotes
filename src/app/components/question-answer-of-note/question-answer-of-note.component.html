@@ -61,9 +61,7 @@
         </div>
         <div>
           {{item.user.firstName}} {{item.user.lastName}} {{item.createdDate | date:"medium"}}
-          <p style="color: gray">
-            {{item.message}}
-          </p>
+          <p [innerHTML]="item.message" style="color: gray;">
         </div>
         <div>
           <mat-icon *ngIf="!youLike(item)" (click)="likeQuestion(item)">
