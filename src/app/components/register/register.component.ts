@@ -17,7 +17,9 @@ export class RegisterComponent implements OnInit {
 
   registrationForm: FormGroup;
 
-  constructor(private userSvc: UserServiceService, private titleService: Title, 
+  cartDetails: any;
+
+  constructor(private userSvc: UserServiceService, private titleService: Title,
     private snackBar: MatSnackBar, private router: Router,
     private prodSvc: ProductsCartService) {
     this.setTitle("Sign Up");
@@ -58,6 +60,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.cartDetails = this.prodSvc.getServiceType();
   }
 
   onClick(): void {
@@ -67,16 +70,14 @@ export class RegisterComponent implements OnInit {
 
   signUp(): any {
     if (this.registrationForm.valid) {
-      
-      let cartDetails = this.prodSvc.getServiceType();
 
       let obs = this.userSvc.signUp({
         firstName: this.registrationForm.get('firstNameFormControl').value,
         lastName: this.registrationForm.get('lastNameFormControl').value,
         email: this.registrationForm.get('emailFormControl').value + '@gmail.com',
         password: this.registrationForm.get('passwordGroup').get('passwordFormControl').value,
-        service: cartDetails.service,
-        cartId: cartDetails.cartId
+        service: this.cartDetails.service,
+        cartId: this.cartDetails.cartId
       });
 
       obs.subscribe((response) => {

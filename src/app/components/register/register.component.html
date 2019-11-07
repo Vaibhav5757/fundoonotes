@@ -115,6 +115,13 @@
           </p>
         </mat-card-content>
 
+        <mat-card-content>
+          Service Selected:
+          <div style="color: blue;">
+            {{cartDetails.service}}
+          </div>
+        </mat-card-content>
+
         <mat-card-content fxLayout="row" fxLayoutAlign="space-between center">
           <div>
             <a class="use-my-email" (click)="onClick()">Sign In instead</a>
