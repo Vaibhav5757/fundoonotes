@@ -37,7 +37,8 @@
     </mat-list>
     <mat-divider></mat-divider>
     <mat-list>
-      <button *ngIf="!replyHide" (click)="toggleReplyHide()" mat-button>Reply</button>
+      <button *ngIf="!replyHide && note.questionAndAnswerNotes.length != 0" (click)="toggleReplyHide()"
+        mat-button>Reply</button>
       <div *ngIf="replyHide" [formControl]="editorContent" [froalaEditor]>
       </div>
       <button *ngIf="replyHide" (click)="toggleReplyHide();askQuestion()" mat-button>Reply</button>
