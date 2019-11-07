@@ -4,21 +4,9 @@
     You cart is Empty
   </p>
   <img fxHide.xs="true" src="https://chillydraji.files.wordpress.com/2015/08/empty_cart.jpeg">
-  <a (click)="redirectToHomePage()" style="color:cornflowerblue;cursor: pointer;">Go to Shopping Page</a>
 </div>
 
-<div style="margin-top: 100px;margin-left: -4em" ngStyle.xs="margin-left:-4em"
-  *ngIf="!cartEmpty && advancedUserWishToShop" fxLayout="column" fxLayoutAlign="space-around center">
-  <p>
-    You are already a Advance User
-  </p>
-  <img fxHide.xs="true" src="https://media.gettyimages.com/videos/child-showing-thumbs-up-video-id583585654?s=640x640">
-  <button (click)="advancedUserWishToShop = !advancedUserWishToShop" mat-button class="click-to-change-button">
-    Click to Change
-  </button>
-</div>
-
-<div *ngIf="!advancedUserWishToShop" style="margin-top: 50px" ngStyle.xs="margin-left:-4em">
+<div style="margin-top: 50px" ngStyle.xs="margin-left:-4em">
   <mat-horizontal-stepper *ngIf="cartPresent" [linear]="true" style="width: 80%" labelPosition="bottom">
 
     <mat-step>

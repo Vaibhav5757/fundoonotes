@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { ProductsCartService } from 'src/app/services/products-cart.service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -12,7 +11,6 @@ import { Router } from '@angular/router';
 export class ShoppingCartComponent implements OnInit {
 
   basicUser: Boolean = false;
-  advancedUserWishToShop: Boolean;
   cartDetails: any;
   cartEmpty: Boolean = false;
   cartPresent: Boolean = false;
@@ -28,10 +26,9 @@ export class ShoppingCartComponent implements OnInit {
   })
 
   constructor(private dash: DashboardComponent,
-    private prodSvc: ProductsCartService, private router: Router) { }
+    private prodSvc: ProductsCartService) { }
 
   ngOnInit() {
-    this.advancedUserWishToShop = this.dash.advancedUser;
     this.getCartDetails();
   }
 
@@ -56,10 +53,5 @@ export class ShoppingCartComponent implements OnInit {
     obs.subscribe((response) => {
       this.formGroup.get('addressFormControl').setValue("");
     })
-  }
-
-  redirectToHomePage() {
-    this.dash.logOut();
-    this.router.navigateByUrl("/home");
   }
 }
