@@ -41,6 +41,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ];
 
   user: any;
+  toggleSearchBarInSmallerScreen: Boolean = false;
   hide: Boolean = false;
   hideCheckListCard: Boolean = false;
   hideSearchSection: Boolean = false;
@@ -129,7 +130,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     //Identify the type of user - basic or advanced - from details in database
     let obs = this.userSvc.getUserDetails(this.user.userId);
     obs.subscribe((response: any) => {
-      if (response.service === 'basic'){
+      if (response.service === 'basic') {
         this.advancedUser = false;
         this.events.emit("user-is-basic");
       }

@@ -51,7 +51,7 @@ export class AllRemindersComponent implements OnInit {
   constructor(private titleService: Title, private noteSvc: NoteService, private dash: DashboardComponent,
     private snackBar: MatSnackBar, private dialog: MatDialog) {
 
-    this.setTitle("Notes");
+    this.setTitle("Reminders");
 
     this.dash.events.addListener('user-is-basic', () => {
       this.basicUser = true;
