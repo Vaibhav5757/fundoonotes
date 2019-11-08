@@ -218,6 +218,8 @@
           <!-- Maximized -->
           <mat-card [style.background]="getBackgroundColor()" style="border-radius : 10px;"
             ngClass.xs="mat-card-maximized-small-screen" [fxHide]='!hide'>
+
+            <!-- Title of Note -->
             <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
               <input [formControl]='title' matInput placeholder="Title">
               <div (click)="pinUnpinNote()" [fxHide]="!advancedUser">
@@ -230,35 +232,37 @@
               </div>
             </mat-card-title>
 
+            <!-- Contents of Note -->
             <mat-card-subtitle>
               <textarea [formControl]='content' style="color:black" matTextareaAutosize matInput
                 placeholder="Take a note..."></textarea>
             </mat-card-subtitle>
 
-            <mat-card-content>
-
-              <div>
-                <mat-chip-list *ngFor="let label of inputLabels">
-                  <mat-chip>
-                    {{label.label}}
-                    <mat-icon matChipRemove (click)="addLabelsFromExistingLabels(label)">
-                      clear
-                    </mat-icon>
-                  </mat-chip>
-
-                </mat-chip-list>
-              </div>
-
-              <div>
-                <div *ngFor="let user of user.collaborators">
-                  <button mat-mini-fab>
-                    {{user.firstName[0]}}
-                  </button>
-                </div>
-              </div>
-
+            <!-- Labels of Note -->
+            <mat-card-content *ngIf="inputLabels.length != 0">
+              <mat-chip-list *ngFor="let label of inputLabels">
+                <mat-chip>
+                  {{label.label}}
+                  <mat-icon matChipRemove (click)="addLabelsFromExistingLabels(label)">
+                    clear
+                  </mat-icon>
+                </mat-chip>
+              </mat-chip-list>
             </mat-card-content>
 
+            <!-- Collaborators of Note -->
+            <mat-card-content>
+              <mat-chip-list *ngFor="let user of user.collaborators">
+                <mat-chip>
+                  {{user.firstName}}
+                </mat-chip>
+              </mat-chip-list>
+            </mat-card-content>
+
+            <!-- Reminders -->
+            <mat-card-content style="color:rgb(64, 64, 182)" *ngIf="reminder != null">
+              {{reminder | date: 'medium' | myDatePipe}}
+            </mat-card-content>
 
             <mat-card-actions>
 
@@ -392,6 +396,8 @@
           <!-- Mat Card for Checklist -->
           <mat-card [style.background]="getBackgroundColor()" style="border-radius : 10px;"
             ngClass.xs="mat-card-maximized-small-screen" [fxHide]='!hideCheckListCard'>
+
+            <!-- Title of Note -->
             <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
               <input [formControl]='title' matInput placeholder="Title">
               <div (click)="pinUnpinNote()" [fxHide]="!advancedUser">
@@ -404,6 +410,7 @@
               </div>
             </mat-card-title>
 
+            <!-- CheckLists of Note -->
             <mat-card-subtitle>
               <mat-list *ngFor="let item of checkList; let i = index">
                 <mat-list-item>
@@ -426,28 +433,31 @@
               </mat-list>
             </mat-card-subtitle>
 
+
+            <!-- Labels of Note -->
+            <mat-card-content *ngIf="inputLabels.length != 0">
+              <mat-chip-list *ngFor="let label of inputLabels">
+                <mat-chip>
+                  {{label.label}}
+                  <mat-icon matChipRemove (click)="addLabelsFromExistingLabels(label)">
+                    clear
+                  </mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </mat-card-content>
+
+            <!-- Collaborators of Note -->
             <mat-card-content>
+              <mat-chip-list *ngFor="let user of user.collaborators">
+                <mat-chip>
+                  {{user.firstName}}
+                </mat-chip>
+              </mat-chip-list>
+            </mat-card-content>
 
-              <div>
-                <mat-chip-list *ngFor="let label of inputLabels">
-                  <mat-chip>
-                    {{label.label}}
-                    <mat-icon matChipRemove (click)="addLabelsFromExistingLabels(label)">
-                      clear
-                    </mat-icon>
-                  </mat-chip>
-
-                </mat-chip-list>
-              </div>
-
-              <div>
-                <div *ngFor="let user of user.collaborators">
-                  <button mat-mini-fab>
-                    {{user.firstName[0]}}
-                  </button>
-                </div>
-              </div>
-
+            <!-- Reminders -->
+            <mat-card-content style="color:rgb(64, 64, 182)" *ngIf="reminder != null">
+              {{reminder | date: 'medium' | myDatePipe}}
             </mat-card-content>
 
             <mat-card-actions>
