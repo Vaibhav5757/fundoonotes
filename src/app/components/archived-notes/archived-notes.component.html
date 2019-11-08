@@ -14,8 +14,6 @@
                 {{note.description}}
             </mat-card-content>
 
-
-
             <mat-card-content>
                 <div *ngFor="let list of note.noteCheckLists">
                     <mat-checkbox [ngClass]="checkListStatus(list) ? 'checked' : 'unchecked'"
@@ -35,7 +33,6 @@
                         <p [ngClass]="checkReminder(note) ? 'checked':'unchecked'">
                             {{ note.reminder | dateConverter | date: 'medium' | myDatePipe }}
                         </p>
-
 
                         <mat-icon (click)="removeReminder(note)" matChipRemove>
                             clear
@@ -94,25 +91,7 @@
                             color_lens
                         </mat-icon>
                         <mat-menu #colorMenu="matMenu">
-
-                            <div class="color-picker">
-
-                                <div class="opened">
-                                    <div class="colors">
-                                        <div *ngFor="let paint of defaultColors1" (click)="changeColor(paint,note)"
-                                            class="circle" [ngStyle]="{'background': paint}"></div>
-                                    </div>
-                                    <div class="colors">
-                                        <div *ngFor="let paint of defaultColors2" (click)="changeColor(paint,note)"
-                                            class="circle" [ngStyle]="{'background': paint}"></div>
-                                    </div>
-                                    <div class="colors">
-                                        <div *ngFor="let paint of defaultColors3" (click)="changeColor(paint,note)"
-                                            class="circle" [ngStyle]="{'background': paint}"></div>
-                                    </div>
-                                </div>
-
-                            </div>
+                            <app-color-picker (events)="fetchAllNotes()" [note]="note"></app-color-picker>
                         </mat-menu>
                     </div>
 

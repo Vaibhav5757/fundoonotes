@@ -43,6 +43,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
 import { QuestionAnswerOfNoteComponent } from './components/question-answer-of-note/question-answer-of-note.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { PinnedUnPinnedComponent } from './components/pinned-un-pinned/pinned-un-pinned.component';
+import { ColorPickerComponent } from './components/color-picker/color-picker.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,9 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     DateConverterPipe,
     MyDatePipePipe,
     ImageCropperComponent,
-    QuestionAnswerOfNoteComponent
+    QuestionAnswerOfNoteComponent,
+    PinnedUnPinnedComponent,
+    ColorPickerComponent
   ],
   entryComponents: [
     EditNoteComponent,

@@ -1,0 +1,329 @@
+<h5 *ngIf="pinUnpinExists">
+  PINNED
+</h5>
+
+<div fxLayout.gt-xs="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.xs="column"
+  fxLayoutAlign="{{ notesLayout ? 'start start' : 'center start' }}" gdGridAlign>
+
+  <div *ngFor="let note of pinnedNotesList | search:searchWord">
+    <mat-card style="margin-top: 10px; border-radius: 15px;" [style.background-color]="getBackgroundColor(note.color)"
+      *ngIf="!note.isDeleted && !note.isArchived" ngClass.lt-md="note-smaller-screen"
+      ngClass.md="{{ notesLayout ? 'note-medium-screen':'note-medium-screen-column' }}"
+      ngClass.gt-md="{{ notesLayout ? 'note-bigger-screen':'note-bigger-screen-column' }}" class="extra-actions">
+
+      <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
+        <div (click)="openEditor(note)">
+          {{note.title}}
+        </div>
+        <div class=pin-icon>
+          <mat-icon *ngIf="!note.isPined" (click)="pinUnpin(note)">
+            work
+          </mat-icon>
+          <mat-icon *ngIf="note.isPined" (click)="pinUnpin(note)">
+            work_off
+          </mat-icon>
+        </div>
+      </mat-card-title>
+
+      <mat-card-content (click)="openEditor(note)">
+        {{note.description}}
+      </mat-card-content>
+
+
+
+      <!-- Note Checklists -->
+      <mat-card-content>
+        <div fxLayout="column" fxLayoutAlign="space-around" *ngFor="let list of note.noteCheckLists">
+          <mat-checkbox style="overflow-wrap:break-word;" [ngClass]="checkListStatus(list) ? 'checked' : 'unchecked'"
+            [checked]="checkListStatus(list)" (change)="checkListChange(list)">{{list.itemName}}
+          </mat-checkbox>
+        </div>
+      </mat-card-content>
+
+      <mat-chip-list *ngFor="let labels of note.noteLabels">
+        <mat-chip class="label" *ngIf="labels.label != labelName">
+          {{labels.label}}
+          <mat-icon (click)="deleteLabel(labels,note)">
+            clear
+          </mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+
+      <div *ngIf="note.reminder.length > 0">
+        <mat-chip-list>
+
+          <mat-chip class="label" style="margin-top: 10px">
+            <i class="material-icons">
+              timer
+            </i>
+
+            <p [ngClass]="checkReminder(note) ? 'checked':'unchecked'">
+              {{ note.reminder | dateConverter | date: 'medium' | myDatePipe }}
+            </p>
+
+            <mat-icon (click)="removeReminder(note)" matChipRemove>
+              clear
+            </mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+
+      <mat-card-content>
+        <div style="margin-top:5px" fxLayout="row align" fxLayoutAlign="space-around " gdGridAlign>
+          <div *ngFor="let user of note.collaborators">
+            <button mat-mini-fab>
+              {{user.firstName[0]}}
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions [fxHide]="basicUser">
+
+        <div style="color: black" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
+
+
+          <div matTooltip="Remind Me">
+            <mat-icon #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="reminderMenu">
+              notifications_none
+            </mat-icon>
+            <mat-menu #reminderMenu="matMenu">
+              <app-add-reminder [note]="note" (events)="fetchAllNotes($event)" (click)="$event.stopPropagation()">
+              </app-add-reminder>
+            </mat-menu>
+          </div>
+
+
+          <div>
+            <mat-icon (click)="addCollaborator(note)" matTooltip="Collaborator">
+              person_add
+            </mat-icon>
+          </div>
+
+          <div matTooltip="Change color">
+            <mat-icon [matMenuTriggerFor]="colorMenu">
+              color_lens
+            </mat-icon>
+            <mat-menu #colorMenu="matMenu">
+              <app-color-picker (events)="informToParent()" [note]="note"></app-color-picker>
+            </mat-menu>
+          </div>
+
+          <div>
+            <mat-icon matTooltip="Add Image">
+              image
+            </mat-icon>
+          </div>
+
+          <div>
+            <mat-icon (click)="archiveNote(note)" matTooltip="Archive">
+              archive
+            </mat-icon>
+          </div>
+
+          <div>
+            <mat-icon [matMenuTriggerFor]="menu" matTooltip="More">
+              more_vert
+            </mat-icon>
+            <mat-menu #menu="matMenu">
+              <button (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
+              <button [matMenuTriggerFor]="archiveMenu" mat-menu-item>Add Label</button>
+              <button (click)="redirectToQuestionAnswer(note.id)" mat-menu-item>Ask a question</button>
+            </mat-menu>
+            <mat-menu style="overflow: hidden;" #archiveMenu="matMenu">
+              <strong (click)="stopPropagation($event)" mat-menu-item>
+                Add Label
+              </strong>
+              <form mat-menu-item (click)="stopPropagation($event)">
+                <input [formControl]="label" style="margin-left:1em;width: 80%;" matInput placeholder="Enter a label">
+              </form>
+              <div mat-menu-item style="margin-left:1em;width: 80%;" *ngFor="let label of existingLabels">
+                <mat-checkbox [checked]="isLabelPresent(label,note)" (change)="addLabelsFromExistingLabels(label,note)">
+                  {{label.label}}</mat-checkbox>
+              </div>
+              <button (click)="addLabel(note)" mat-menu-item>
+                Save
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+
+      </mat-card-actions>
+
+      <div (click)="redirectToQuestionAnswer(note.id)" *ngIf="note.questionAndAnswerNotes.length != 0">
+        <mat-list>
+          <mat-divider></mat-divider>
+        </mat-list>
+        Questions asked
+        <mat-list>
+          <mat-list-item>
+            {{ removeHtmlTag(note.questionAndAnswerNotes[0].message) }}
+          </mat-list-item>
+        </mat-list>
+      </div>
+
+    </mat-card>
+  </div>
+</div>
+
+<h5 *ngIf="pinUnpinExists">
+  OTHERS
+</h5>
+
+<div fxLayout.gt-xs="{{ notesLayout ? 'row wrap' : 'column' }}" fxLayout.xs="column"
+  fxLayoutAlign="{{ notesLayout ? 'start start' : 'center start' }}" gdGridAlign>
+
+  <div *ngFor="let note of unPinnedNotesList | search:searchWord">
+    <mat-card style="margin-top: 10px; border-radius: 15px;" [style.background-color]="getBackgroundColor(note.color)"
+      *ngIf="!note.isDeleted && !note.isArchived" ngClass.lt-md="note-smaller-screen"
+      ngClass.md="{{ notesLayout ? 'note-medium-screen':'note-medium-screen-column' }}"
+      ngClass.gt-md="{{ notesLayout ? 'note-bigger-screen':'note-bigger-screen-column' }}" class="extra-actions">
+
+      <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
+        <div (click)="openEditor(note)">
+          {{note.title}}
+        </div>
+        <div [fxHide]="basicUser" class=pin-icon>
+          <mat-icon *ngIf="!note.isPined" (click)="pinUnpin(note)">
+            work
+          </mat-icon>
+          <mat-icon *ngIf="note.isPined" (click)="pinUnpin(note)">
+            work_off
+          </mat-icon>
+        </div>
+      </mat-card-title>
+
+      <mat-card-content (click)="openEditor(note)">
+        {{note.description}}
+      </mat-card-content>
+
+      <mat-card-content style="position: relative;" fxLayout="column" fxLayoutAlign="space-around"
+        *ngFor="let list of note.noteCheckLists">
+        <mat-checkbox [ngClass]="checkListStatus(list) ? 'checked' : 'unchecked'" [checked]="checkListStatus(list)"
+          (change)="checkListChange(list)">
+          {{list.itemName}}
+        </mat-checkbox>
+      </mat-card-content>
+
+      <div *ngIf="note.reminder.length > 0">
+        <mat-chip-list>
+
+          <mat-chip class="label" style="margin-top: 10px">
+            <i class="material-icons">
+              timer
+            </i>
+
+            <p [ngClass]="checkReminder(note) ? 'checked':'unchecked'">
+              {{ note.reminder | dateConverter | date: 'medium' | myDatePipe }}
+            </p>
+
+            <mat-icon (click)="removeReminder(note)" matChipRemove>
+              clear
+            </mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+
+
+      <mat-chip-list *ngFor="let labels of note.noteLabels">
+        <mat-chip class="label" *ngIf="labels.label != labelName">
+          {{labels.label}}
+          <mat-icon (click)="deleteLabel(labels,note)">
+            clear
+          </mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+
+      <div style="margin-top:5px" fxLayout="row align" fxLayoutAlign="space-around " gdGridAlign>
+        <div *ngFor="let user of note.collaborators">
+          <button mat-mini-fab>
+            {{user.firstName[0]}}
+          </button>
+        </div>
+      </div>
+
+      <mat-card-actions [fxHide]="basicUser">
+
+        <div style="color: black" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
+
+          <div matTooltip="Remind Me">
+            <mat-icon #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="reminderMenu">
+              notifications_none
+            </mat-icon>
+            <mat-menu #reminderMenu="matMenu">
+              <app-add-reminder [note]="note" (events)="fetchAllNotes($event)" (click)="$event.stopPropagation()">
+              </app-add-reminder>
+            </mat-menu>
+          </div>
+
+          <div>
+            <mat-icon (click)="addCollaborator(note)" matTooltip="Collaborator">
+              person_add
+            </mat-icon>
+          </div>
+
+          <div matTooltip="Change color">
+            <mat-icon [matMenuTriggerFor]="colorMenu">
+              color_lens
+            </mat-icon>
+            <mat-menu #colorMenu="matMenu">
+              <app-color-picker (events)="informToParent()" [note]="note"></app-color-picker>
+            </mat-menu>
+          </div>
+
+          <div>
+            <mat-icon matTooltip="Add Image">
+              image
+            </mat-icon>
+          </div>
+
+          <div>
+            <mat-icon (click)="archiveNote(note)" matTooltip="Archive">
+              archive
+            </mat-icon>
+          </div>
+
+          <div>
+            <mat-icon [matMenuTriggerFor]="menu" matTooltip="More">
+              more_vert
+            </mat-icon>
+            <mat-menu #menu="matMenu">
+              <button (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
+              <button [matMenuTriggerFor]="labelMenu" mat-menu-item>Add Label</button>
+              <button (click)="redirectToQuestionAnswer(note.id)" mat-menu-item>Ask a question</button>
+            </mat-menu>
+            <mat-menu style="overflow: hidden;" #labelMenu="matMenu">
+              <strong (click)="stopPropagation($event)" mat-menu-item>
+                Add Label
+              </strong>
+              <form mat-menu-item (click)="stopPropagation($event)">
+                <input [formControl]="label" style="margin-left:1em;width: 80%;" matInput placeholder="Enter a label">
+              </form>
+              <div mat-menu-item style="margin-left:1em;width: 80%;" *ngFor="let label of existingLabels">
+                <mat-checkbox [checked]="isLabelPresent(label,note)" (change)="addLabelsFromExistingLabels(label,note)">
+                  {{label.label}}</mat-checkbox>
+              </div>
+              <button (click)="addLabel(note)" mat-menu-item>
+                Save
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+
+      </mat-card-actions>
+
+      <div (click)="redirectToQuestionAnswer(note.id)" *ngIf="note.questionAndAnswerNotes.length != 0">
+        <mat-list>
+          <mat-divider></mat-divider>
+        </mat-list>
+        Questions asked
+        <mat-list>
+          <mat-list-item>
+            {{ removeHtmlTag(note.questionAndAnswerNotes[0].message) }}
+          </mat-list-item>
+        </mat-list>
+      </div>
+
+    </mat-card>
+  </div>
+</div>

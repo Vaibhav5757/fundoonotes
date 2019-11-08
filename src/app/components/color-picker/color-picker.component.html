@@ -1,0 +1,18 @@
+<div class="color-picker">
+
+  <div class="opened">
+    <div class="colors">
+      <div *ngFor="let paint of defaultColors1" (click)="changeColor(paint)" class="circle"
+        [ngStyle]="{'background': paint}"></div>
+    </div>
+    <div class="colors">
+      <div *ngFor="let paint of defaultColors2" (click)="changeColor(paint)" class="circle"
+        [ngStyle]="{'background': paint}"></div>
+    </div>
+    <div class="colors">
+      <div *ngFor="let paint of defaultColors3" (click)="changeColor(paint)" class="circle"
+        [ngStyle]="{'background': paint}"></div>
+    </div>
+  </div>
+
+</div>
