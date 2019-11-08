@@ -192,7 +192,7 @@
             *ngIf="!hideCheckListCard" [fxHide]='hide' fxLayout="row" FxLayoutAlign="space-between center">
 
             <mat-card-subtitle style="width:70%; margin-top:-2em">
-              <mat-form-field (click)='changeHide()' appearance="fill legacy">
+              <mat-form-field (click)='hide = !hide;hideContentCard = false;' appearance="fill legacy">
                 <input matInput placeholder="Take a note...">
               </mat-form-field>
             </mat-card-subtitle>
@@ -200,7 +200,7 @@
             <mat-card-content ngClass.xs="mat-card-content-smaller-screen" [fxHide]="!advancedUser" style="width:30%">
               <div fxLayout="row" fxLayoutAlign="space-around center">
                 <div>
-                  <mat-icon (click)="hideCheckListCard = !hideCheckListCard; checkList = []" matTooltip="New List">
+                  <mat-icon (click)="hideContentCard = true; checkList = [];hide = !hide" matTooltip="New List">
                     check_box
                   </mat-icon>
                 </div>
@@ -233,9 +233,32 @@
             </mat-card-title>
 
             <!-- Contents of Note -->
-            <mat-card-subtitle>
+            <mat-card-subtitle [fxHide]='hideContentCard'>
               <textarea [formControl]='content' style="color:black" matTextareaAutosize matInput
                 placeholder="Take a note..."></textarea>
+            </mat-card-subtitle>
+
+            <!-- CheckLists of Note -->
+            <mat-card-subtitle [fxHide]='!hideContentCard'>
+              <mat-list *ngFor="let item of checkList; let i = index">
+                <mat-list-item>
+                  <mat-checkbox fxFlex>
+                    {{item}}
+                  </mat-checkbox>
+                  <mat-icon (click)="deleteListItem(item)">
+                    clear
+                  </mat-icon>
+                </mat-list-item>
+              </mat-list>
+              <mat-list>
+                <mat-list-item>
+                  <mat-icon mat-list-icon>
+                    add
+                  </mat-icon>
+                  <input (keydown)="addCheckList($event)" [formControl]="checkListInput" matInput
+                    placeholder="List Item">
+                </mat-list-item>
+              </mat-list>
             </mat-card-subtitle>
 
             <!-- Labels of Note -->
@@ -379,215 +402,19 @@
                 </div>
 
                 <div style="color: black" fxHide.xs="true">
-                  <button mat-button (click)="changeHide();saveNote()">
+                  <button mat-button (click)="hide = !hide;saveNote()">
                     Close
                   </button>
                 </div>
               </div>
 
               <div [fxHide]="!advancedUser" align="right" style="color: black" fxHide.gt-xs="true">
-                <button mat-button (click)="changeHide();saveNote()">
+                <button mat-button (click)="hide = !hide;saveNote()">
                   Close
                 </button>
               </div>
             </mat-card-actions>
           </mat-card>
-
-          <!-- Mat Card for Checklist -->
-          <mat-card [style.background]="getBackgroundColor()" style="border-radius : 10px;"
-            ngClass.xs="mat-card-maximized-small-screen" [fxHide]='!hideCheckListCard'>
-
-            <!-- Title of Note -->
-            <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
-              <input [formControl]='title' matInput placeholder="Title">
-              <div (click)="pinUnpinNote()" [fxHide]="!advancedUser">
-                <mat-icon [fxHide]="isPinned">
-                  work
-                </mat-icon>
-                <mat-icon [fxHide]="!isPinned">
-                  work_off
-                </mat-icon>
-              </div>
-            </mat-card-title>
-
-            <!-- CheckLists of Note -->
-            <mat-card-subtitle>
-              <mat-list *ngFor="let item of checkList; let i = index">
-                <mat-list-item>
-                  <mat-checkbox fxFlex>
-                    {{item}}
-                  </mat-checkbox>
-                  <mat-icon (click)="deleteListItem(item)">
-                    clear
-                  </mat-icon>
-                </mat-list-item>
-              </mat-list>
-              <mat-list>
-                <mat-list-item>
-                  <mat-icon mat-list-icon>
-                    add
-                  </mat-icon>
-                  <input (keydown)="addCheckList($event)" [formControl]="checkListInput" matInput
-                    placeholder="List Item">
-                </mat-list-item>
-              </mat-list>
-            </mat-card-subtitle>
-
-
-            <!-- Labels of Note -->
-            <mat-card-content *ngIf="inputLabels.length != 0">
-              <mat-chip-list *ngFor="let label of inputLabels">
-                <mat-chip>
-                  {{label.label}}
-                  <mat-icon matChipRemove (click)="addLabelsFromExistingLabels(label)">
-                    clear
-                  </mat-icon>
-                </mat-chip>
-              </mat-chip-list>
-            </mat-card-content>
-
-            <!-- Collaborators of Note -->
-            <mat-card-content>
-              <mat-chip-list *ngFor="let user of user.collaborators">
-                <mat-chip>
-                  {{user.firstName}}
-                </mat-chip>
-              </mat-chip-list>
-            </mat-card-content>
-
-            <!-- Reminders -->
-            <mat-card-content style="color:rgb(64, 64, 182)" *ngIf="reminder != null">
-              {{reminder | date: 'medium' | myDatePipe}}
-            </mat-card-content>
-
-            <mat-card-actions>
-
-              <div style="color: grey" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
-
-                <div [fxHide]="!advancedUser">
-                  <mat-icon #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="reminderMenu">
-                    notifications_none
-                  </mat-icon>
-                  <mat-menu #reminderMenu="matMenu">
-                    <div mat-menu-item (click)="$event.stopPropagation()">
-                      <mat-form-field>
-                        <input matInput [formControl]="myDatePicker" [min]="minDate" [matDatepicker]="picker1"
-                          placeholder="Choose a date">
-                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                        <mat-datepicker #picker1></mat-datepicker>
-                      </mat-form-field>
-                    </div>
-                    <div mat-menu-item (click)="$event.stopPropagation()">
-                      <mat-form-field>
-                        <input [formControl]="myTimePicker" matInput placeholder="Enter a time">
-                        <mat-icon>
-                          access_time
-                        </mat-icon>
-                      </mat-form-field>
-                    </div>
-                    <div mat-menu-item (click)="addReminder()">
-                      <button mat-button>Save</button>
-                    </div>
-                  </mat-menu>
-                </div>
-
-                <div [fxHide]="!advancedUser">
-                  <mat-icon (click)="addCollaborator(user)" matTooltip="Collaborator">
-                    person_add
-                  </mat-icon>
-                </div>
-
-                <div [fxHide]="!advancedUser">
-                  <mat-icon [matMenuTriggerFor]="colorMenu">
-                    color_lens
-                  </mat-icon>
-                  <mat-menu #colorMenu="matMenu">
-
-                    <div class="color-picker">
-
-                      <div class="opened">
-                        <div class="colors">
-                          <div *ngFor="let paint of defaultColors1" (click)="changeColor(paint)" class="circle"
-                            [ngStyle]="{'background': paint}"></div>
-                        </div>
-                        <div class="colors">
-                          <div *ngFor="let paint of defaultColors2" (click)="changeColor(paint)" class="circle"
-                            [ngStyle]="{'background': paint}"></div>
-                        </div>
-                        <div class="colors">
-                          <div *ngFor="let paint of defaultColors3" (click)="changeColor(paint)" class="circle"
-                            [ngStyle]="{'background': paint}"></div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </mat-menu>
-                </div>
-
-                <div [fxHide]="!advancedUser">
-                  <mat-icon matTooltip="Add Image">
-                    image
-                  </mat-icon>
-                </div>
-
-                <div [fxHide]="!advancedUser">
-                  <mat-icon *ngIf="!isArchived" (click)="archiveUnarchiveNote()" matTooltip="Archive">
-                    archive
-                  </mat-icon>
-                  <mat-icon *ngIf="isArchived" (click)="archiveUnarchiveNote()" matTooltip="Unarchive">
-                    unarchive
-                  </mat-icon>
-                </div>
-
-                <div [fxHide]="!advancedUser">
-                  <mat-icon [matMenuTriggerFor]="newNoteMenu" matTooltip="Add Label">
-                    more_vert
-                  </mat-icon>
-                  <mat-menu style="overflow: hidden;" #newNoteMenu="matMenu">
-                    <strong (click)="stopPropagation($event)" mat-menu-item>
-                      Add Label
-                    </strong>
-                    <form mat-menu-item (click)="stopPropagation($event)">
-                      <input [formControl]="label" style="margin-left:1em;width: 80%;" matInput
-                        placeholder="Enter a label">
-                    </form>
-                    <div mat-menu-item style="margin-left:1em;width: 80%" *ngFor="let label of allLabels">
-                      <mat-checkbox [checked]="labelPresent(label)" (change)="addLabelsFromExistingLabels(label)">
-                        {{label.label}}</mat-checkbox>
-                    </div>
-                    <button (click)="addLabel()" mat-menu-item>
-                      Save
-                    </button>
-                  </mat-menu>
-                </div>
-
-                <div [fxHide]="!advancedUser">
-                  <mat-icon matTooltip="Undo">
-                    undo
-                  </mat-icon>
-                </div>
-
-                <div [fxHide]="!advancedUser">
-                  <mat-icon matTooltip="Redo">
-                    redo
-                  </mat-icon>
-                </div>
-
-                <div style="color: black" fxHide.xs="true">
-                  <button mat-button (click)="hideCheckListCard = !hideCheckListCard;saveNote();">
-                    Close
-                  </button>
-                </div>
-              </div>
-
-              <div [fxHide]="!advancedUser" align="right" style="color: black" fxHide.gt-xs="true">
-                <button mat-button (click)="hideCheckListCard = !hideCheckListCard;saveNote();">
-                  Close
-                </button>
-              </div>
-            </mat-card-actions>
-          </mat-card>
-
 
         </div>
 

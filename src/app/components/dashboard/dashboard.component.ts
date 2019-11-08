@@ -42,8 +42,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   user: any;
   toggleSearchBarInSmallerScreen: Boolean = false;
+  hideContentCard: Boolean;
   hide: Boolean = false;
-  hideCheckListCard: Boolean = false;
   hideSearchSection: Boolean = false;
   hideLogo: Boolean = false;
   advancedUser: Boolean = false;//true for advanced user, false for basic user
@@ -149,10 +149,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
-  }
-
-  changeHide() {
-    this.hide = !this.hide;
   }
 
   pinUnpinNote() {
