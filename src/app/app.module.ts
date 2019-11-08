@@ -45,6 +45,7 @@ import { QuestionAnswerOfNoteComponent } from './components/question-answer-of-n
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { PinnedUnPinnedComponent } from './components/pinned-un-pinned/pinned-un-pinned.component';
 import { ColorPickerComponent } from './components/color-picker/color-picker.component';
+import { NoteComponent } from './components/note/note.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { ColorPickerComponent } from './components/color-picker/color-picker.com
     ImageCropperComponent,
     QuestionAnswerOfNoteComponent,
     PinnedUnPinnedComponent,
-    ColorPickerComponent
+    ColorPickerComponent,
+    NoteComponent
   ],
   entryComponents: [
     EditNoteComponent,

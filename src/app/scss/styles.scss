@@ -242,3 +242,13 @@ p.style-value {
 .checked {
   text-decoration: line-through;
 }
+.checkbox-icons {
+  mat-icon {
+    visibility: visible;
+  }
+  .label-text {
+    margin-top: 2.5px;
+    min-width: 50px;
+    overflow-wrap: break-word;
+  }
+}

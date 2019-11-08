@@ -59,16 +59,6 @@ export class PinnedUnPinnedComponent implements OnChanges {
       this.fetchAllLabels();
     });
 
-    this.dash.events.addListener('searching-forward', () => {
-      // this.filterNotes(this.dash.search.value);
-      this.searchWord = this.dash.search.value;
-    })
-
-    this.dash.events.addListener('searching-backward', () => {
-      // this.fetchNotes.emit()
-      // this.filterNotes(this.dash.search.value);
-      this.searchWord = this.dash.search.value;
-    })
 
     this.dash.events.addListener("checklist-present-in-note", () => {
       let checklist = this.dash.checkList;
@@ -135,6 +125,7 @@ export class PinnedUnPinnedComponent implements OnChanges {
         this.latestNote = response.data.data[response.data.data.length - 1];
         this.addReminder(this.latestNote, this.dash.reminder);
         this.dash.reminder = null;
+        this.fetchNotes.emit
       });
     })
   }
@@ -142,7 +133,6 @@ export class PinnedUnPinnedComponent implements OnChanges {
   //Fetch all the existing notes from database
   ngOnChanges() {
     this.getPinnedUnPinnedNotes();
-    this.notesLayout = this.dash.getLayout() ? false : true;
     this.fetchAllLabels();
   }
 
@@ -176,37 +166,6 @@ export class PinnedUnPinnedComponent implements OnChanges {
     return this.noteSvc.fetchAllNotes();
   }
 
-  //Delete a Note
-  deleteNote(note) {
-    let data = {
-      noteIdList: [note.id],
-      isDeleted: true
-    }
-
-    let obs = this.noteSvc.deleteNote(data);
-    obs.subscribe(() => {
-      this.fetchNotes.emit()
-      this.snackBar.open("Note Deleted", '', {
-        duration: 1500
-      })
-    })
-  }
-
-  //archive a note
-  archiveNote(note) {
-    let data = {
-      noteIdList: [note.id],
-      isArchived: true
-    }
-    let obs = this.noteSvc.archiveNote(data);
-    obs.subscribe(() => {
-      this.fetchNotes.emit()
-      this.snackBar.open("Note Archived", '', {
-        duration: 1500
-      })
-    })
-  }
-
   //Change Color of Card
   changeColor(paint, card) {
     let data = {
@@ -233,40 +192,6 @@ export class PinnedUnPinnedComponent implements OnChanges {
 
   getBackgroundColor(arg) {
     return !arg ? '	#FFFFFF' : arg;
-  }
-
-  openEditor(note) {
-    let obs = this.dialog.open(EditNoteComponent, {
-      data: note,
-      width: "550px",
-      panelClass: 'dialogBox'
-    });
-    obs.afterClosed().subscribe(result => {
-      if (result) {
-        if (result.message == 'update-notes') {
-          this.fetchNotes.emit()
-        } else {
-          // Update the note
-          let data = {
-            noteId: result.id,
-            title: result.title,
-            description: result.description,
-            color: result.color
-          }
-
-          let updateObserver = this.noteSvc.updateNote(data);
-
-          updateObserver.subscribe(() => {
-
-            // If color was updated
-            this.changeColor(result.color, note);
-            //  fetch All Notes after updating
-            this.fetchNotes.emit()
-
-          })
-        }
-      }
-    })
   }
 
   //Event bubbling
@@ -310,21 +235,6 @@ export class PinnedUnPinnedComponent implements OnChanges {
       this.dash.events.emit('label-modified');
     })
     this.label.setValue('');
-  }
-
-  deleteLabel(label, note) {
-    let obs = this.noteSvc.deleteLabelFromNote({
-      noteId: note.id,
-      labelId: label.id
-    })
-
-    obs.subscribe(() => {
-      this.snackBar.open("Label Deleted", '', {
-        duration: 1500
-      })
-      this.fetchNotes.emit()
-      this.dash.events.emit('label-modified');
-    })
   }
 
   fetchAllLabels() {
@@ -451,7 +361,6 @@ export class PinnedUnPinnedComponent implements OnChanges {
   }
 
   informToParent() {
-    console.log("I am here");
     this.fetchNotes.emit();
   }
 }

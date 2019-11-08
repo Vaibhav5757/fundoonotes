@@ -16,9 +16,20 @@
 
             <mat-card-content>
                 <div *ngFor="let list of note.noteCheckLists">
-                    <mat-checkbox [ngClass]="checkListStatus(list) ? 'checked' : 'unchecked'"
-                        [checked]="checkListStatus(list)" (change)="checkListChange(list)">{{list.itemName}}
-                    </mat-checkbox>
+                    <div (click)="checkListChange(list)" class="checkbox-icons">
+                        <div fxLayout="row" fxLayoutAlign="start center">
+                            <button mat-icon-button>
+                                <mat-icon *ngIf="!checkListStatus(list)">
+                                    check_box_outline_blank
+                                </mat-icon>
+                                <mat-icon *ngIf="checkListStatus(list)">
+                                    check_box
+                                </mat-icon>
+                            </button>
+                            <p [ngClass]="checkListStatus(list) ? 'checked' : 'unchecked'" class="label-text">
+                                {{list.itemName}}</p>
+                        </div>
+                    </div>
                 </div>
             </mat-card-content>
 

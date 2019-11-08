@@ -40,6 +40,7 @@ export class ColorPickerComponent {
     let obs = this.noteSvc.changeNoteColor(data);
     obs.subscribe(() => {
       this.events.emit();
+      this.note.color = paint;
     })
   }
 

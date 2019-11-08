@@ -48,8 +48,6 @@ export class EditNoteComponent implements OnInit {
   content = new FormControl('', [
   ])
 
-  color: String = "#FFFFF";
-
   checkListAbsent: Boolean;
 
   basicUser: Boolean = false;
@@ -66,7 +64,6 @@ export class EditNoteComponent implements OnInit {
     if (this.note.user.service != "advance") this.basicUser = true;
     this.title.setValue(this.note.title);
     this.content.setValue(this.note.description);
-    this.color = this.note.color;
     if (this.note.noteCheckLists.length > 0) {
       this.checkListAbsent = false;
     } else this.checkListAbsent = true;
@@ -78,19 +75,10 @@ export class EditNoteComponent implements OnInit {
         title: this.title.value,
         description: this.content.value,
         id: this.note.id,
-        color: this.color
       })
     } else {
       this.dialogRef.close();
     }
-  }
-
-  changeColor(note, paint) {
-    note.color = paint;
-    this.color = paint;
-    // this.snackBar.open('Color Change is not supported in our API while editing notes', '', {
-    //   duration: 1500
-    // })
   }
 
   //Delete a Note
