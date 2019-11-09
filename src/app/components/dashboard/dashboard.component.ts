@@ -22,24 +22,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   @ViewChild('triggerElement') trigger: MatMenuTrigger;
 
-  public defaultColors1: string[] = [
-    '#ffffff',
-    '#BDD561',
-    '#3e6158'
-  ];
-
-  public defaultColors2: string[] = [
-    '#3f7a89',
-    '#96c582',
-    '#b7d5c4'
-  ];
-
-  public defaultColors3: string[] = [
-    '#bcd6e7',
-    '#7c90c1',
-    '#9d8594'
-  ];
-
   user: any;
   toggleSearchBarInSmallerScreen: Boolean = false;
   hideContentCard: Boolean;
@@ -78,8 +60,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   isArchived: Boolean = false;
   randomProfilePicture: any;
 
-  changeColor(paint) {
-    this.noteColor.setValue(paint);
+  changeColor(event: any) {
+    this.noteColor.setValue(event);
   }
 
   title = new FormControl('', [
@@ -125,7 +107,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     this.minDate = new Date();
     this.myTimePicker.setValue(this.getCurrentTime());
-    this.reminder = null;
+    this.reminder = "";
 
     //Identify the type of user - basic or advanced - from details in database
     let obs = this.userSvc.getUserDetails(this.user.userId);
@@ -175,12 +157,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
         description: this.content.value,
         color: this.noteColor.value,
         isPined: this.isPinned,
-        isArchived: this.isArchived
+        isArchived: this.isArchived,
+        reminder: this.reminder
       }
 
       let obs = this.noteSvc.saveNote(data);
       obs.subscribe(response => {
         // Note Saved in database
+
+        this.title.setValue("");
+        this.content.setValue("");
+        this.noteColor.setValue("#FFFFFF");
+        this.isPinned = false;
+        this.isArchived = false;
+        this.reminder = "";
+
         this.events.emit("note-saved-in-database");
 
         if (this.checkList.length > 0) {
@@ -195,9 +186,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.events.emit("label-exist-in-note");
         }
 
-        if (this.reminder != null) {
-          this.events.emit("reminder-exist-in-note");
-        }
       })
     } else {
       //Snackbar was present here
@@ -300,9 +288,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   addCheckList(event: any) {
     if (event.key == "Enter") {
-      this.checkList.push(this.checkListInput.value);
+      // this.checkList.push(this.checkListInput.value);
+      this.checkList.push({
+        message: this.checkListInput.value,
+        status: true
+      })
       this.checkListInput.setValue("");
     }
+  }
+
+  checklistChange(item) {
+    item.status = !item.status;
   }
 
   // @ViewChild('text', { read: ElementRef }) ref: ElementRef;
@@ -366,55 +362,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.trigger.closeMenu();
   }
 
-  addReminder() {
-
-    let selectedDate = this.formatDate(new Date(this.myDatePicker.value));
-    if (this.myTimePicker.valid) {
-      let time = this.myTimePicker.value;
-
-      time = this.convert12into24(time);
-
-      this.saveReminder(selectedDate, time);
-    } else {
-      this.snackBar.open("Reminder Time Invalid", '', {
-        duration: 1500
-      })
-    }
-  }
-
-  saveReminder(selectedDate, time) {
-    let reminder = selectedDate + "T" + time;
-    this.reminder = reminder;
-  }
-
-  convert12into24(time12h) {
-    let [time, modifier] = time12h.split(" ");
-
-    let [hours, minutes] = time.split(":");
-
-    if (hours === '12') {
-      hours = '00';
-    }
-
-    if (modifier === 'PM') {
-      hours = parseInt(hours, 10) + 12;
-    }
-
-    return hours + ":" + minutes;
-  }
-
-  formatDate(date) {
-    let d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-
-    if (month.length < 2)
-      month = '0' + month;
-    if (day.length < 2)
-      day = '0' + day;
-
-    return [year, month, day].join('-');
+  setReminder(event: any) {
+    this.reminder = event;
   }
 
   randomUser() {

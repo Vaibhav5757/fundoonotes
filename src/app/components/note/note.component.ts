@@ -34,6 +34,18 @@ export class NoteComponent implements OnChanges {
 
   constructor(private noteSvc: NoteService, private dash: DashboardComponent,
     private snackBar: MatSnackBar, private dialog: MatDialog, private router: Router) {
+    this.dash.events.addListener('change-layout', () => {
+      //Change Layout of Notes
+      this.notesLayout = !this.notesLayout;
+    })
+
+    this.dash.events.addListener('searching-forward', () => {
+      this.searchWord = this.dash.search.value;
+    })
+
+    this.dash.events.addListener('searching-backward', () => {
+      this.searchWord = this.dash.search.value;
+    })
   }
 
   //Fetch all the existing notes from database

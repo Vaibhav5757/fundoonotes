@@ -18,7 +18,7 @@ export class AddCollaboratorComponent implements OnInit {
     Validators.required
   ]);
 
-  constructor(@Inject(MAT_DIALOG_DATA) private note: DialogData,
+  constructor(@Inject(MAT_DIALOG_DATA) public note: DialogData,
     private userSvc: UserServiceService, private noteSvc: NoteService,
     private dialogRef: MatDialogRef<AddCollaboratorComponent>,
     private snackBar: MatSnackBar) { }

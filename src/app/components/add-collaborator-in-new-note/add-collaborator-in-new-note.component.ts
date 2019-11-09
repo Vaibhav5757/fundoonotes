@@ -23,7 +23,7 @@ export class AddCollaboratorInNewNoteComponent implements OnInit {
     Validators.required
   ]);
 
-  constructor(@Inject(MAT_DIALOG_DATA) private user: DialogDataForUser,
+  constructor(@Inject(MAT_DIALOG_DATA) public user: DialogDataForUser,
     private dialogRef: MatDialogRef<AddCollaboratorInNewNoteComponent>,
     private userSvc: UserServiceService,
     private snackBar: MatSnackBar) { }

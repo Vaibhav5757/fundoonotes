@@ -33,15 +33,19 @@ export class ColorPickerComponent {
 
   //Change Color of Card
   changeColor(paint) {
-    let data = {
-      noteIdList: [this.note.id],
-      color: paint
-    };
-    let obs = this.noteSvc.changeNoteColor(data);
-    obs.subscribe(() => {
-      this.events.emit();
-      this.note.color = paint;
-    })
+    if (this.note == null) {
+      this.events.emit(paint);
+    } else {
+      let data = {
+        noteIdList: [this.note.id],
+        color: paint
+      };
+      let obs = this.noteSvc.changeNoteColor(data);
+      obs.subscribe(() => {
+        this.events.emit();
+        this.note.color = paint;
+      })
+    }
   }
 
 }

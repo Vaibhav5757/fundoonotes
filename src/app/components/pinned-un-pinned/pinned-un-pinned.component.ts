@@ -68,8 +68,8 @@ export class PinnedUnPinnedComponent implements OnChanges {
         obsIntermediate.subscribe(response => {
           this.latestNote = response.data.data[response.data.data.length - 1];
           let obsFinal = this.noteSvc.addCheckList(this.latestNote, {
-            itemName: element,
-            status: "open"
+            itemName: element.message,
+            status: element.status ? "open" : "close"
           })
           obsFinal.subscribe((response) => {
             this.fetchNotes.emit()
@@ -117,16 +117,6 @@ export class PinnedUnPinnedComponent implements OnChanges {
         })
       })
       this.dash.inputLabels = [];
-    })
-
-    this.dash.events.addListener('reminder-exist-in-note', () => {
-      let obsIntermediate = this.getLatestNote();
-      obsIntermediate.subscribe((response) => {
-        this.latestNote = response.data.data[response.data.data.length - 1];
-        this.addReminder(this.latestNote, this.dash.reminder);
-        this.dash.reminder = null;
-        this.fetchNotes.emit
-      });
     })
   }
 

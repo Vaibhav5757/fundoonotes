@@ -12,7 +12,8 @@ export interface DialogData {
   collaborators,
   noteCheckLists,
   user,
-  reminder
+  reminder,
+  noteLabels
 }
 
 @Component({
@@ -54,7 +55,7 @@ export class EditNoteComponent implements OnInit {
 
   checkListInput = new FormControl('', []);
 
-  constructor(@Inject(MAT_DIALOG_DATA) private note: DialogData,
+  constructor(@Inject(MAT_DIALOG_DATA) public note: DialogData,
     private dialogRef: MatDialogRef<EditNoteComponent>,
     private noteSvc: NoteService,
     private snackBar: MatSnackBar,

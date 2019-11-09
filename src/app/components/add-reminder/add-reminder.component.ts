@@ -81,14 +81,18 @@ export class AddReminderComponent implements OnInit {
 
     let reminder = selectedDate + "T" + time;
 
-    let obs = this.noteSvc.addReminder({
-      noteIdList: [this.note.id],
-      reminder: reminder
-    })
-    obs.subscribe((response) => {
-      // console.log(response);
-      this.events.emit(null);
-    })
+    if (this.note == null) {
+      this.events.emit(reminder);
+    } else {
+      let obs = this.noteSvc.addReminder({
+        noteIdList: [this.note.id],
+        reminder: reminder
+      })
+      obs.subscribe((response) => {
+        // console.log(response);
+        this.events.emit(null);
+      })
+    }
   }
 
   convert12into24(time12h) {

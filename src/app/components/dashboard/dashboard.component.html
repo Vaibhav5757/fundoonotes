@@ -188,8 +188,8 @@
           ngClass.gt-xs="complete-search-bar-maximized">
 
           <!-- Minimized -->
-          <mat-card class="search-bar-minimized" ngClass.xs="search-bar-minimized-smaller-screen"
-            *ngIf="!hideCheckListCard" [fxHide]='hide' fxLayout="row" FxLayoutAlign="space-between center">
+          <mat-card class="search-bar-minimized" ngClass.xs="search-bar-minimized-smaller-screen" [fxHide]='hide'
+            fxLayout="row" FxLayoutAlign="space-between center">
 
             <mat-card-subtitle style="width:70%; margin-top:-2em">
               <mat-form-field (click)='hide = !hide;hideContentCard = false;' appearance="fill legacy">
@@ -240,16 +240,26 @@
 
             <!-- CheckLists of Note -->
             <mat-card-subtitle [fxHide]='!hideContentCard'>
-              <mat-list *ngFor="let item of checkList; let i = index">
-                <mat-list-item>
-                  <mat-checkbox fxFlex>
-                    {{item}}
-                  </mat-checkbox>
-                  <mat-icon (click)="deleteListItem(item)">
-                    clear
-                  </mat-icon>
-                </mat-list-item>
-              </mat-list>
+              <div style="color: black" *ngFor="let item of checkList" class="checkbox-icons">
+                <div fxLayout="row" fxLayoutAlign="start center" (click)="checklistChange(item)">
+                  <button mat-icon-button>
+                    <mat-icon *ngIf="item.status">
+                      check_box_outline_blank
+                    </mat-icon>
+                    <mat-icon *ngIf="!item.status">
+                      check_box
+                    </mat-icon>
+                  </button>
+                  <p [ngClass]="!item.status ? 'checked' : 'unchecked'" class="label-text">{{item.message}}
+                  </p>
+                  <span style="flex: 1 1 auto"></span>
+                  <button (click)="deleteListItem(item)" mat-icon-button>
+                    <mat-icon>
+                      clear
+                    </mat-icon>
+                  </button>
+                </div>
+              </div>
               <mat-list>
                 <mat-list-item>
                   <mat-icon mat-list-icon>
@@ -276,7 +286,7 @@
             <!-- Collaborators of Note -->
             <mat-card-content>
               <mat-chip-list *ngFor="let user of user.collaborators">
-                <mat-chip>
+                <mat-chip color="primary">
                   {{user.firstName}}
                 </mat-chip>
               </mat-chip-list>
@@ -287,6 +297,7 @@
               {{reminder | date: 'medium' | myDatePipe}}
             </mat-card-content>
 
+            <!-- Extra Actions for note -->
             <mat-card-actions>
 
               <div style="color: grey" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
@@ -297,67 +308,35 @@
                     notifications_none
                   </mat-icon>
                   <mat-menu #reminderMenu="matMenu">
-                    <div mat-menu-item (click)="$event.stopPropagation()">
-                      <mat-form-field>
-                        <input matInput [formControl]="myDatePicker" [min]="minDate" [matDatepicker]="picker"
-                          placeholder="Choose a date">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                      </mat-form-field>
-                    </div>
-                    <div mat-menu-item (click)="$event.stopPropagation()">
-                      <mat-form-field>
-                        <input [formControl]="myTimePicker" matInput placeholder="Enter a time">
-                        <mat-icon>
-                          access_time
-                        </mat-icon>
-                      </mat-form-field>
-                    </div>
-                    <div mat-menu-item (click)="addReminder()">
-                      <button [disabled]="myTimePicker.invalid" mat-button>Save</button>
-                    </div>
+                    <app-add-reminder (events)="setReminder($event)"></app-add-reminder>
                   </mat-menu>
                 </div>
 
+                <!-- Collaborator -->
                 <div [fxHide]="!advancedUser">
                   <mat-icon (click)="addCollaborator(user)" matTooltip="Collaborator">
                     person_add
                   </mat-icon>
                 </div>
 
+                <!-- Color Picker -->
                 <div [fxHide]="!advancedUser">
                   <mat-icon [matMenuTriggerFor]="colorMenu">
                     color_lens
                   </mat-icon>
                   <mat-menu #colorMenu="matMenu">
-
-                    <div class="color-picker">
-
-                      <div class="opened">
-                        <div class="colors">
-                          <div *ngFor="let paint of defaultColors1" (click)="changeColor(paint)" class="circle"
-                            [ngStyle]="{'background': paint}"></div>
-                        </div>
-                        <div class="colors">
-                          <div *ngFor="let paint of defaultColors2" (click)="changeColor(paint)" class="circle"
-                            [ngStyle]="{'background': paint}"></div>
-                        </div>
-                        <div class="colors">
-                          <div *ngFor="let paint of defaultColors3" (click)="changeColor(paint)" class="circle"
-                            [ngStyle]="{'background': paint}"></div>
-                        </div>
-                      </div>
-
-                    </div>
+                    <app-color-picker (events)="changeColor($event)"></app-color-picker>
                   </mat-menu>
                 </div>
 
+                <!-- Image Adder -->
                 <div [fxHide]="!advancedUser">
                   <mat-icon matTooltip="Add Image">
                     image
                   </mat-icon>
                 </div>
 
+                <!-- Archive -->
                 <div [fxHide]="!advancedUser">
                   <mat-icon *ngIf="!isArchived" (click)="archiveUnarchiveNote()" matTooltip="Archive">
                     archive
@@ -367,6 +346,7 @@
                   </mat-icon>
                 </div>
 
+                <!-- More Options -->
                 <div [fxHide]="!advancedUser">
                   <mat-icon [matMenuTriggerFor]="newNoteMenu" matTooltip="Add Label">
                     more_vert
@@ -389,18 +369,21 @@
                   </mat-menu>
                 </div>
 
+                <!-- Undo Icon -->
                 <div [fxHide]="!advancedUser">
                   <mat-icon matTooltip="Undo">
                     undo
                   </mat-icon>
                 </div>
 
+                <!-- Redo Icon -->
                 <div [fxHide]="!advancedUser">
                   <mat-icon matTooltip="Redo">
                     redo
                   </mat-icon>
                 </div>
 
+                <!-- Save Note Bigger Screen -->
                 <div style="color: black" fxHide.xs="true">
                   <button mat-button (click)="hide = !hide;saveNote()">
                     Close
@@ -408,6 +391,7 @@
                 </div>
               </div>
 
+              <!-- Save Note- Smaller Screen -->
               <div [fxHide]="!advancedUser" align="right" style="color: black" fxHide.gt-xs="true">
                 <button mat-button (click)="hide = !hide;saveNote()">
                   Close
