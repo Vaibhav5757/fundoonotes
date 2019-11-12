@@ -37,7 +37,6 @@ import { AddReminderComponent } from './components/add-reminder/add-reminder.com
 import { AddCollaboratorInNewNoteComponent } from './components/add-collaborator-in-new-note/add-collaborator-in-new-note.component';
 import { SearchPipe } from './pipe/search.pipe';
 import { AllRemindersComponent } from './components/all-reminders/all-reminders.component';
-import { DateConverterPipe } from './pipe/date-converter.pipe';
 import { MyDatePipePipe } from './pipe/my-date-pipe.pipe';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
@@ -67,7 +66,6 @@ import { NoteComponent } from './components/note/note.component';
     AddCollaboratorInNewNoteComponent,
     SearchPipe,
     AllRemindersComponent,
-    DateConverterPipe,
     MyDatePipePipe,
     ImageCropperComponent,
     QuestionAnswerOfNoteComponent,

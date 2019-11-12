@@ -42,7 +42,7 @@
                         </i>
 
                         <p [ngClass]="checkReminder(note) ? 'checked':'unchecked'">
-                            {{ note.reminder | dateConverter | date: 'medium' | myDatePipe }}
+                            {{ note.reminder | date:'dd/L/yyyy hh:mm a':'+0000' | myDatePipe }}
                         </p>
 
                         <mat-icon (click)="removeReminder(note)" matChipRemove>
@@ -155,7 +155,8 @@
                 Questions asked
                 <mat-list>
                     <mat-list-item>
-                        {{ removeHtmlTag(note.questionAndAnswerNotes[0].message) }}
+                        <p [innerHTML]="note.questionAndAnswerNotes[0].message">
+                        </p>
                     </mat-list-item>
                 </mat-list>
             </div>

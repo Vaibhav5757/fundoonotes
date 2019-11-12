@@ -42,7 +42,7 @@
                         </i>
 
                         <p [ngClass]="checkReminder(note) ? 'checked':'unchecked'">
-                            {{ note.reminder | dateConverter | date: 'medium' | myDatePipe }}
+                            {{ note.reminder | date:'dd/L/yyyy hh:mm a':'+0000' | myDatePipe }}
                         </p>
 
 

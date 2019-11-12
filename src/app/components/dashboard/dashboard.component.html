@@ -294,7 +294,7 @@
 
             <!-- Reminders -->
             <mat-card-content style="color:rgb(64, 64, 182)" *ngIf="reminder != null">
-              {{reminder | date: 'medium' | myDatePipe}}
+              {{ reminder | date:'dd/L/yyyy hh:mm a':'+0000' | myDatePipe }}
             </mat-card-content>
 
             <!-- Extra Actions for note -->

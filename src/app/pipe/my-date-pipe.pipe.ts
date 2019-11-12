@@ -6,13 +6,19 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class MyDatePipePipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
-    let givenDate = new Date(value);
-    let today = new Date();
+    if (value != null) {
+      let day = value.split("/")[0]
+      let month = value.split("/")[1];
+      let year = value.split("/")[2];
 
-    if (isSameDay(givenDate, today)) return "today" + formatTime(givenDate);
-    else if (isTomorrow(givenDate, today)) return "tomorrow" + formatTime(givenDate);
+      let givenDate = new Date(month + "/" + day + "/" + year);
+      let today = new Date();
 
-    return value;
+      if (isSameDay(givenDate, today)) return "today" + formatTime(givenDate);
+      else if (isTomorrow(givenDate, today)) return "tomorrow" + formatTime(givenDate);
+
+      return value;
+    }
   }
 
 }
