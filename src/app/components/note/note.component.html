@@ -2,7 +2,7 @@
   fxLayoutAlign="{{ notesLayout ? 'start start' : 'center start' }}" gdGridAlign>
 
   <div *ngFor="let note of notesList | search:searchWord">
-    <mat-card style="margin-top: 10px; border-radius: 15px;" [style.background-color]="getBackgroundColor(note.color)"
+    <mat-card @fade style="margin-top: 10px; border-radius: 15px;" [style.background-color]="getBackgroundColor(note.color)"
       *ngIf="!note.isDeleted && !note.isArchived" ngClass.lt-md="note-smaller-screen"
       ngClass.md="{{ notesLayout ? 'note-medium-screen':'note-medium-screen-column' }}"
       ngClass.gt-md="{{ notesLayout ? 'note-bigger-screen':'note-bigger-screen-column' }}" class="extra-actions">

@@ -6,11 +6,24 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 import { Router } from '@angular/router';
 import { EditNoteComponent } from '../edit-note/edit-note.component';
 import { AddCollaboratorComponent } from '../add-collaborator/add-collaborator.component';
+import { trigger, animate, style, transition, state } from '@angular/animations';
 
 @Component({
   selector: 'app-note',
   templateUrl: './note.component.html',
-  styleUrls: ['./note.component.scss']
+  styleUrls: ['./note.component.scss'],
+  animations: [
+    trigger('fade', [
+
+      state('void', style({
+        opacity: 0
+      })),
+
+      transition('void <=> *', [
+        animate(1000)
+      ])
+    ])
+  ]
 })
 export class NoteComponent implements OnChanges {
 
