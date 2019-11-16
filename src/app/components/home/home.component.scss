@@ -36,6 +36,51 @@
   }
 }
 
+@keyframes rainbow {
+  100%,
+  0% {
+    color: rgb(255, 0, 0);
+  }
+  8% {
+    color: rgb(255, 127, 0);
+  }
+  16% {
+    color: rgb(212, 212, 127);
+  }
+  25% {
+    color: rgb(127, 255, 0);
+  }
+  33% {
+    color: rgb(0, 255, 0);
+  }
+  41% {
+    color: rgb(0, 255, 127);
+  }
+  50% {
+    color: rgb(0, 255, 255);
+  }
+  58% {
+    color: rgb(0, 127, 255);
+  }
+  66% {
+    color: rgb(0, 0, 255);
+  }
+  75% {
+    color: rgb(127, 0, 255);
+  }
+  83% {
+    color: rgb(255, 0, 255);
+  }
+  91% {
+    color: rgb(255, 0, 127);
+  }
+}
+
+.heading {
+  animation: rainbow 2.5s linear;
+  animation-iteration-count: infinite;
+}
+
 .payment-cards {
   margin-top: 5em;
   mat-card {
@@ -46,15 +91,19 @@
       cursor: pointer;
       .second-card-advance {
         // transform: scale(1);
-        // background: yellowgreen;
-        background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
-        color: transparent;
+        background: yellowgreen;
+        // background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
+        // animation: rainbow 2.5s linear;
+        // animation-iteration-count: infinite;
+        // color: transparent;
       }
       .second-card-basic {
         // transform: scale(1);
-        // background: yellowgreen;
-        color: transparent;
-        background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
+        background: yellowgreen;
+        // color: transparent;
+        // animation: rainbow 2.5s linear;
+        // animation-iteration-count: infinite;
+        // background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
       }
     }
   }

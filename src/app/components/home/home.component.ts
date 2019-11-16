@@ -3,7 +3,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 import { ProductsCartService } from 'src/app/services/products-cart.service';
 import { Router } from '@angular/router';
 import { trigger, style, transition, state, useAnimation } from '@angular/animations';
-import { shakeAlongXAxis, fade, cardAnimation } from "src/app/scss/animations";
+import {  fade, cardAnimation } from "src/app/scss/animations";
 
 @Component({
   selector: 'app-home',
