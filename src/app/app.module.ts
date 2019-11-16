@@ -10,7 +10,7 @@ import {
   MatCardModule, MatFormFieldModule, MatMenuModule, MatSelectModule, MatDialogModule,
   MatOptionModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatToolbarModule, MatTooltipModule,
   MatCheckboxModule, MatExpansionModule, MatStepperModule, MatChipsModule,
-  MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule,
+  MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule,
 } from '@angular/material';
 import { FlexLayoutModule, GridModule } from '@angular/flex-layout';
 import { RegisterComponent } from './components/register/register.component';
@@ -105,6 +105,7 @@ import { NoteComponent } from './components/note/note.component';
     MatMenuModule,
     MatChipsModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
     MatSidenavModule,
     MatToolbarModule,
     MatTooltipModule,

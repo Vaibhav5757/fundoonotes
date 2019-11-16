@@ -86,6 +86,24 @@ body {
   overflow-wrap: break-word;
 }
 
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .extra-actions {
   mat-card-actions {
     visibility: hidden;
@@ -106,8 +124,9 @@ body {
   }
   &:hover {
     mat-card-actions {
-      visibility: visible;
       cursor: pointer;
+      animation-name: fade;
+      animation-duration: 0.5s;
     }
     mat-icon {
       visibility: visible;

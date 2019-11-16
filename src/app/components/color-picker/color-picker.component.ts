@@ -14,7 +14,7 @@ export class ColorPickerComponent {
   public defaultColors1: string[] = [
     '#ffffff',
     '#BDD561',
-    '#3e6158'
+    '#DAF7A6'
   ];
 
   public defaultColors2: string[] = [

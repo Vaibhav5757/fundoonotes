@@ -34,11 +34,14 @@ export class PinnedUnPinnedComponent implements OnChanges {
   notesLayout: Boolean = true;//true for row layout, false for column Layout
   reminderMenu = false;
   searchWord: any;
+  hideProgressBar: Boolean = false;
 
   constructor(private titleService: Title, private noteSvc: NoteService, private dash: DashboardComponent,
     private snackBar: MatSnackBar, private dialog: MatDialog, private router: Router) {
 
     this.setTitle("Notes");
+
+    this.hideProgressBar = false;
 
     this.dash.events.addListener('user-is-basic', () => {
       this.basicUser = true;
@@ -124,6 +127,7 @@ export class PinnedUnPinnedComponent implements OnChanges {
   ngOnChanges() {
     this.getPinnedUnPinnedNotes();
     this.fetchAllLabels();
+    setInterval(() => this.hideProgressBar = true, 3000);
   }
 
   // get Pinned and UnPinned Notes

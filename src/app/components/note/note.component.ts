@@ -6,7 +6,7 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 import { Router } from '@angular/router';
 import { EditNoteComponent } from '../edit-note/edit-note.component';
 import { AddCollaboratorComponent } from '../add-collaborator/add-collaborator.component';
-import { trigger, animate, style, transition, state } from '@angular/animations';
+import { trigger, animate, style, transition, state, query, stagger } from '@angular/animations';
 
 @Component({
   selector: 'app-note',
@@ -19,8 +19,30 @@ import { trigger, animate, style, transition, state } from '@angular/animations'
         opacity: 0
       })),
 
-      transition('void <=> *', [
-        animate(1000)
+      transition('void => *', [
+        animate(1200)
+      ])
+    ]),
+    trigger('shake-along-x-axis', [
+      transition('void => *', [
+        animate('0.2s', style({
+          transform: 'translateX(-50%)'
+        })),
+        animate('0.2s', style({
+          transform: 'translateX(+50%)'
+        })),
+        animate('0.2s', style({
+          transform: 'translateX(-50%)'
+        })),
+        animate('0.2s', style({
+          transform: 'translateX(+50%)'
+        })),
+        animate('0.2s', style({
+          transform: 'translateX(-50%)'
+        })),
+        animate('0.2s', style({
+          transform: 'translateX(+50%)'
+        })),
       ])
     ])
   ]
