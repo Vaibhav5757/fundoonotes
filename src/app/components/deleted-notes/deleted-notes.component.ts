@@ -37,12 +37,15 @@ export class DeletedNotesComponent implements OnInit {
   notesList: Array<any> = [];
   notesLayout: boolean = true;
   searchWord: any;
+  hideProgressBar: Boolean = false;
 
   constructor(private noteSvc: NoteService, private dash: DashboardComponent,
     private titleService: Title,
     private snackBar: MatSnackBar) {
 
     this.setTitle("Recycle Bin");
+
+    this.hideProgressBar = false;
 
     this.dash.events.addListener('note-saved-in-database', () => {
       //Fetch all notes from database
@@ -67,6 +70,7 @@ export class DeletedNotesComponent implements OnInit {
   ngOnInit() {
     this.fetchAllNotes();
     this.notesLayout = this.dash.getLayout() ? false : true;
+    setInterval(() => this.hideProgressBar = true, 3000);
   }
 
   setTitle(newTitle: string) {
@@ -75,9 +79,9 @@ export class DeletedNotesComponent implements OnInit {
 
   //Fetch all notes
   fetchAllNotes() {
-    let obs = this.noteSvc.fetchAllNotes();
+    let obs = this.noteSvc.getDeletedNotes();
 
-    obs.subscribe((response) => {
+    obs.subscribe((response: any) => {
       this.notesList = response.data.data;
     }, (error) => {
       console.log(error);

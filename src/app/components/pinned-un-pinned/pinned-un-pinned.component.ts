@@ -3,7 +3,6 @@ import { NoteService } from 'src/app/services/note.service';
 import { FormControl } from '@angular/forms';
 import { DashboardComponent } from 'src/app/components/dashboard/dashboard.component';
 import { MatSnackBar, MatDialog, MatMenuTrigger } from '@angular/material';
-import { EditNoteComponent } from '../edit-note/edit-note.component';
 import { Title } from '@angular/platform-browser';
 import { AddCollaboratorComponent } from '../add-collaborator/add-collaborator.component';
 import { Router } from '@angular/router';
@@ -125,6 +124,7 @@ export class PinnedUnPinnedComponent implements OnChanges {
 
   //Fetch all the existing notes from database
   ngOnChanges() {
+    this.notesList = this.notesList.filter((note) => { return !note.isDeleted })
     this.getPinnedUnPinnedNotes();
     this.fetchAllLabels();
     setInterval(() => this.hideProgressBar = true, 3000);

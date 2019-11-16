@@ -2,11 +2,38 @@ import { Component, OnInit } from '@angular/core';
 import { UserServiceService } from 'src/app/services/user-service.service';
 import { ProductsCartService } from 'src/app/services/products-cart.service';
 import { Router } from '@angular/router';
+import { trigger, style, transition, state, useAnimation } from '@angular/animations';
+import { shakeAlongXAxis, fade, cardAnimation } from "src/app/scss/animations";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  animations: [
+    trigger('fade', [
+
+      state('void', style({
+        opacity: 0
+      })),
+      state('*', style({
+        opacity: 1
+      })),
+
+      transition('void => *', [
+        useAnimation(fade, {
+          params: {
+            time: '1s'
+          }
+        })
+      ])
+    ]),
+
+    trigger('cardAnimation', [
+      transition('void => *', [
+        useAnimation(cardAnimation)
+      ])
+    ])
+  ]
 })
 export class HomeComponent implements OnInit {
 
@@ -69,7 +96,7 @@ export class HomeComponent implements OnInit {
   changeService(data) {
     this.prodSvc.setServiceType(data);
   }
-  
+
   logIn() {
     this.router.navigateByUrl("/login");
   }

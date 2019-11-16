@@ -113,7 +113,15 @@ export class NoteService {
     return this.http.post("questionAndAnswerNotes/rate/" + data.parentId, data);
   }
 
-  likeUnlikeQuestion(data){
+  likeUnlikeQuestion(data) {
     return this.http.post("questionAndAnswerNotes/like/" + data.parentId, data);
+  }
+
+  getArchivedNotes() {
+    return this.http.get("notes/getArchiveNotesList");
+  }
+
+  getDeletedNotes() {
+    return this.http.get("notes/getTrashNotesList");
   }
 }

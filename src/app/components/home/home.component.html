@@ -1,4 +1,4 @@
-<mat-toolbar>
+<mat-toolbar @fade>
   <span>
     <div class="blue-color">F</div>
     <div class="red-color">u</div>
@@ -18,13 +18,14 @@
   </button>
 </mat-toolbar>
 
-<h3 align="center">
+<h3 @fade align="center">
   FundooNotes offered. Choose below Service to register
 </h3>
 
-<div fxLayout="row" fxLayoutAlign="space-evenly center" class="payment-cards" ngClass.xs="payment-cards-smaller">
+<div fxLayout="row" fxLayoutAlign="space-evenly center" class="payment-cards"
+  ngClass.xs="payment-cards-smaller">
 
-  <mat-card (click)="addToCartAdvance()">
+  <mat-card @cardAnimation (click)="addToCartAdvance()">
 
     <mat-card-title>
       price: $99 per month
@@ -45,7 +46,7 @@
       </ul>
     </mat-card-content>
 
-    <mat-card class="second-card-advance">
+    <mat-card @cardAnimation class="second-card-advance">
       <mat-card-actions fxLayoutAlign="center end">
         <div class="content">
           ADD TO CART
@@ -54,7 +55,7 @@
     </mat-card>
   </mat-card>
 
-  <mat-card (click)="addToCartBasic()">
+  <mat-card @cardAnimation (click)="addToCartBasic()">
     <mat-card-title>
       price: $49 per month
     </mat-card-title>
@@ -74,7 +75,7 @@
       </ul>
     </mat-card-content>
 
-    <mat-card class="second-card-basic">
+    <mat-card @cardAnimation class="second-card-basic">
       <mat-card-actions fxLayoutAlign="center end">
         <div class="content">
           ADD TO CART

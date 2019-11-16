@@ -6,11 +6,20 @@ import { MatSnackBar, MatDialog, MatMenuTrigger } from '@angular/material';
 import { EditNoteComponent } from '../edit-note/edit-note.component';
 import { Title } from '@angular/platform-browser';
 import { AddCollaboratorComponent } from '../add-collaborator/add-collaborator.component';
+import { cardFallEffect } from "src/app/scss/animations";
+import { trigger, transition, useAnimation } from '@angular/animations';
 
 @Component({
   selector: 'app-archived-notes',
   templateUrl: './archived-notes.component.html',
-  styleUrls: ['./archived-notes.component.scss']
+  styleUrls: ['./archived-notes.component.scss'],
+  animations: [
+    trigger('card-fall-effect', [
+      transition('* => *', [
+        useAnimation(cardFallEffect)
+      ])
+    ])
+  ]
 })
 export class ArchivedNotesComponent implements OnInit {
   @ViewChild('menuTrigger') trigger: MatMenuTrigger;
@@ -78,9 +87,9 @@ export class ArchivedNotesComponent implements OnInit {
 
   //Fetch all notes
   fetchAllNotes() {
-    let obs = this.noteSvc.fetchAllNotes();
+    let obs = this.noteSvc.getArchivedNotes();
 
-    obs.subscribe((response) => {
+    obs.subscribe((response:any) => {
       this.notesList = response.data.data;
     }, (error) => {
       console.log(error);

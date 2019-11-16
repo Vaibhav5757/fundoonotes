@@ -3,46 +3,19 @@ import { MatMenuTrigger, MatSnackBar, MatDialog } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { NoteService } from 'src/app/services/note.service';
 import { DashboardComponent } from '../dashboard/dashboard.component';
-import { Router } from '@angular/router';
 import { EditNoteComponent } from '../edit-note/edit-note.component';
 import { AddCollaboratorComponent } from '../add-collaborator/add-collaborator.component';
-import { trigger, animate, style, transition, state, query, stagger } from '@angular/animations';
+import { trigger, transition, useAnimation } from '@angular/animations';
+import { cardFallEffect } from "src/app/scss/animations";
 
 @Component({
   selector: 'app-note',
   templateUrl: './note.component.html',
   styleUrls: ['./note.component.scss'],
   animations: [
-    trigger('fade', [
-
-      state('void', style({
-        opacity: 0
-      })),
-
-      transition('void => *', [
-        animate(1200)
-      ])
-    ]),
-    trigger('shake-along-x-axis', [
-      transition('void => *', [
-        animate('0.2s', style({
-          transform: 'translateX(-50%)'
-        })),
-        animate('0.2s', style({
-          transform: 'translateX(+50%)'
-        })),
-        animate('0.2s', style({
-          transform: 'translateX(-50%)'
-        })),
-        animate('0.2s', style({
-          transform: 'translateX(+50%)'
-        })),
-        animate('0.2s', style({
-          transform: 'translateX(-50%)'
-        })),
-        animate('0.2s', style({
-          transform: 'translateX(+50%)'
-        })),
+    trigger('card-fall-effect', [
+      transition('* => *', [
+        useAnimation(cardFallEffect)
       ])
     ])
   ]
@@ -68,7 +41,7 @@ export class NoteComponent implements OnChanges {
   searchWord: any;
 
   constructor(private noteSvc: NoteService, private dash: DashboardComponent,
-    private snackBar: MatSnackBar, private dialog: MatDialog, private router: Router) {
+    private snackBar: MatSnackBar, private dialog: MatDialog) {
     this.dash.events.addListener('change-layout', () => {
       //Change Layout of Notes
       this.notesLayout = !this.notesLayout;
@@ -270,7 +243,7 @@ export class NoteComponent implements OnChanges {
     if (list.status === "open") list.status = "close"
     else list.status = "open"
     let obs = this.noteSvc.updateCheckList(list);
-    obs.subscribe((response) => {
+    obs.subscribe(() => {
       this.fetchNotes.emit()
     })
   }
@@ -291,7 +264,7 @@ export class NoteComponent implements OnChanges {
     let obs = this.noteSvc.removeReminder({
       noteIdList: [note.id]
     })
-    obs.subscribe((response) => {
+    obs.subscribe(() => {
       note.reminder = [];
     })
   }
@@ -301,7 +274,7 @@ export class NoteComponent implements OnChanges {
       noteIdList: [note.id],
       reminder: reminder
     })
-    obs.subscribe((response) => {
+    obs.subscribe(() => {
       this.fetchNotes.emit()
     })
   }
