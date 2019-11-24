@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NoteService } from 'src/app/services/note.service';
-import { FormControl } from '@angular/forms';
 import { DashboardComponent } from 'src/app/components/dashboard/dashboard.component';
-import { MatSnackBar, MatMenuTrigger } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { Title } from '@angular/platform-browser';
 
 
@@ -12,28 +11,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./deleted-notes.component.scss']
 })
 export class DeletedNotesComponent implements OnInit {
-  @ViewChild('menuTrigger') trigger: MatMenuTrigger;
-
-  public defaultColors1: string[] = [
-    '#ffffff',
-    '#BDD561',
-    '#3e6158'
-  ];
-
-  public defaultColors2: string[] = [
-    '#3f7a89',
-    '#96c582',
-    '#b7d5c4'
-  ];
-
-  public defaultColors3: string[] = [
-    '#bcd6e7',
-    '#7c90c1',
-    '#9d8594'
-  ];
-
-
-  noteColor = new FormControl('#FFFFFF');
+ 
   notesList: Array<any> = [];
   notesLayout: boolean = true;
   searchWord: any;
@@ -95,7 +73,7 @@ export class DeletedNotesComponent implements OnInit {
       isDeleted: false
     }
     let obs = this.noteSvc.deleteNote(data);
-    obs.subscribe(response => {
+    obs.subscribe(() => {
       this.fetchAllNotes();
       this.snackBar.open("Note Restored", '', {
         duration: 1500
@@ -109,7 +87,7 @@ export class DeletedNotesComponent implements OnInit {
       noteIdList: [note.id],
     }
     let obs = this.noteSvc.deleteForever(data);
-    obs.subscribe(response => {
+    obs.subscribe(() => {
       this.fetchAllNotes();
       this.snackBar.open("Note Deleted Permanently", '', {
         duration: 1500
@@ -117,54 +95,11 @@ export class DeletedNotesComponent implements OnInit {
     })
   }
 
-  //archive a note
-  archiveNote(note) {
-    let data = {
-      noteIdList: [note.id],
-      isArchived: true
-    }
-    let obs = this.noteSvc.archiveNote(data);
-    obs.subscribe(response => {
-      this.fetchAllNotes();
-      this.snackBar.open("Note Archived", '', {
-        duration: 1500
-      })
-    })
-  }
-
-  //Change Color of Card
-  changeColor(paint, card) {
-    let data = {
-      noteIdList: [card.id],
-      color: paint
-    };
-    let obs = this.noteSvc.changeNoteColor(data);
-    obs.subscribe(response => {
-      this.fetchAllNotes();
-    })
-  }
-
   getBackgroundColor(arg) {
     return !arg ? '	#FFFFFF' : arg;
   }
 
-  getMargin() {
-    return this.notesLayout ? 0 : "25%";
-  }
-
-  filterNotes(str) {
-
-    // filter notes
-    let tempList = [];
-    for (let noteIndex in this.notesList) {
-      if (this.notesList[noteIndex].description.includes(str)) {
-        tempList.push(this.notesList[noteIndex]);
-      }
-    }
-    this.notesList = tempList;
-  }
-
-  checkListChange(list) {
+  checkListChange() {
     this.snackBar.open("Editing Notes not possible in Bin", '', {
       duration: 1500
     })
@@ -174,7 +109,7 @@ export class DeletedNotesComponent implements OnInit {
     return list.status === "close" ? true : false;
   }
 
-  removeReminder(note) {
+  removeReminder() {
     this.snackBar.open("Removing Reminder not supported in Bin");
   }
 
