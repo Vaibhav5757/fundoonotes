@@ -24,25 +24,6 @@ import { trigger, transition, useAnimation } from '@angular/animations';
 export class ArchivedNotesComponent implements OnInit {
   @ViewChild('menuTrigger') trigger: MatMenuTrigger;
 
-  public defaultColors1: string[] = [
-    '#ffffff',
-    '#BDD561',
-    '#3e6158'
-  ];
-
-  public defaultColors2: string[] = [
-    '#3f7a89',
-    '#96c582',
-    '#b7d5c4'
-  ];
-
-  public defaultColors3: string[] = [
-    '#bcd6e7',
-    '#7c90c1',
-    '#9d8594'
-  ];
-
-  noteColor = new FormControl('#FFFFFF');
   notesList: Array<any> = [];
   notesLayout: boolean = true;
   label = new FormControl('');
@@ -126,6 +107,10 @@ export class ArchivedNotesComponent implements OnInit {
     })
   }
 
+  getBackgroundColor(arg) {
+    return !arg ? '	#FFFFFF' : arg;
+  }
+
   //Change Color of Card
   changeColor(paint, card) {
     let data = {
@@ -139,13 +124,6 @@ export class ArchivedNotesComponent implements OnInit {
     })
   }
 
-  getBackgroundColor(arg) {
-    return !arg ? '	#FFFFFF' : arg;
-  }
-
-  getMargin() {
-    return this.notesLayout ? "0" : "25%";
-  }
 
   openEditor(note) {
     let obs = this.dialog.open(EditNoteComponent, {
@@ -171,18 +149,6 @@ export class ArchivedNotesComponent implements OnInit {
         })
       }
     })
-  }
-
-  filterNotes(str) {
-
-    // filter notes
-    let tempList = [];
-    for (let noteIndex in this.notesList) {
-      if (this.notesList[noteIndex].description.includes(str)) {
-        tempList.push(this.notesList[noteIndex]);
-      }
-    }
-    this.notesList = tempList;
   }
 
   checkListStatus(list) {
@@ -277,11 +243,6 @@ export class ArchivedNotesComponent implements OnInit {
     obs.subscribe((response) => {
       note.reminder = [];
     })
-  }
-
-  removeHtmlTag(string) {
-    string = string.replace('&#39;', "'");
-    return string.replace(/<[^>]*>?/gm, '');
   }
 
   redirectToQuestionAnswer(noteId) {
